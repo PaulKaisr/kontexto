@@ -1,17 +1,31 @@
-import {Component} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {ButtonModule} from 'primeng/button';
-import {SpeedDial} from 'primeng/speeddial';
+import {GuessInput} from './guess-input/guess-input.component';
+import {Menu} from 'primeng/menu';
 
 @Component({
   selector: 'game',
   standalone: true,
   templateUrl: './game.component.html',
-  imports: [ButtonModule, SpeedDial]
+  imports: [ButtonModule, GuessInput, Menu]
 })
 export class Game {
+  guess = input.required<string>();
+  answer = input.required<string>();
+
   menuItems = [
-    {label: 'New Game', icon: 'pi pi-plus', command: () => alert('New Game')},
-    {label: 'Settings', icon: 'pi pi-cog', command: () => alert('Settings')},
-    {label: 'Help', icon: 'pi pi-question', command: () => alert('Help')}
+    {
+      label: 'Options',
+      items: [
+        {
+          label: 'Refresh',
+          icon: 'pi pi-refresh'
+        },
+        {
+          label: 'Export',
+          icon: 'pi pi-upload'
+        }
+      ]
+    }
   ];
 }
