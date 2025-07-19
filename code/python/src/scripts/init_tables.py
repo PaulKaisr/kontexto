@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 
 from src.database.database import Database
 from src.database.entities.base import TableBase
+from src.database.entities.word import Word  # noqa: F401
 
 
 def init_db(db: Database = None):

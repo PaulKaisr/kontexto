@@ -3,14 +3,17 @@ name = "kontexto"
 version = "0.1.0"
 description = "Context-based word game in german."
 authors = [
-    {name = "paul",email = "paulkaisr@gmail.com"}
+    { name = "paul", email = "paulkaisr@gmail.com" }
 ]
-requires-python = ">=3.11,<4.0"
+requires-python = ">=3.11,<3.14"
 dependencies = [
     "pydantic (>=2.11.7,<3.0.0)",
     "python-dotenv (>=1.1.1,<2.0.0)",
     "psycopg2-binary (>=2.9.10,<3.0.0)",
-    "sqlalchemy (>=2.0.41,<3.0.0)"
+    "sqlalchemy (>=2.0.41,<3.0.0)",
+    "fasttext (>=0.9.3,<0.10.0)",
+    "spacy (>=3.8.7,<4.0.0)",
+    "progressbar2 (>=4.5.0,<5.0.0)",
 ]
 
 
