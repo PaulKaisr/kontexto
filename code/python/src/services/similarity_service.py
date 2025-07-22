@@ -4,7 +4,7 @@ from src.database.repositories.similarity_repository import SimilarityRepository
 
 
 class SimilarityService:
-    def __init__(self, reference: str = None, model="de_core_news_sm"):
+    def __init__(self, reference: str = None, model="de_core_news_lg"):
         """
         Service class to handle operations related to word similarities.
         :param reference:
