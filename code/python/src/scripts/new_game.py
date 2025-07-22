@@ -8,7 +8,7 @@ from src.services.game_service import GameService
 from src.services.similarity_service import SimilarityService
 from src.services.word_service import WordService
 
-MIN_FREQ = 100000
+MIN_FREQ = 20000
 
 
 def get_solution_word_from_file(file_path: str) -> str:
