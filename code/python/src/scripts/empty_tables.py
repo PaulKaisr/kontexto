@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 
-from src.database.word_repository import WordRepository
+from src.database.repositories.word_repository import WordRepository
 
 
 def empty_word_table():

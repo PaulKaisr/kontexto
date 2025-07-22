@@ -3,7 +3,7 @@ from sqlalchemy import Boolean, Column, Integer, String
 from src.database.entities.base import TableBase
 
 
-class Word(TableBase.BASE):
+class WordEntity(TableBase.BASE):
     __tablename__ = "words"
     word_id = Column("word_id", Integer, primary_key=True, autoincrement=True)
     word = Column("word", String, unique=True)

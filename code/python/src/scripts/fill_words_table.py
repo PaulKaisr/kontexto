@@ -4,10 +4,10 @@ Script to fill words table initially.
 import progressbar
 from dotenv import load_dotenv
 
-from src.database.entities.word import Word
-from src.database.word_repository import WordRepository
+from src.database.entities.word import WordEntity
+from src.database.repositories.word_repository import WordRepository
 from src.services.language import LanguageService
-from src.services.word import WordsService
+from src.services.word_service import WordService
 
 MIN_FREQ = 10000
 
@@ -18,12 +18,12 @@ def main():
     """
     print("Filling words table with words from word service...")
     load_dotenv()
-    word_service = WordsService()
+    word_service = WordService()
     words, freqs = word_service.get_all_words(include_freq=True)
 
-    word_orms: list[Word] = []
+    word_orms: list[WordEntity] = []
     for word, freq in zip(words, freqs):
-        word_orms.append(Word(word=word, occurrences=freq))
+        word_orms.append(WordEntity(word=word, occurrences=freq))
 
     # Filter words by minimum frequency
     min_freq = MIN_FREQ
@@ -50,9 +50,12 @@ def main():
     ]
     print(f"{len(word_orms)} passed validity test.")
 
+    # Filter out profane or unfitting words
+    word_orms = filter_profane_or_unfitting(word_orms)
+
     # Filter words by lemma duplicates
     language_service = LanguageService()
-    unique_words_orms: list[Word] = []
+    unique_words_orms: list[WordEntity] = []
     p_bar = progressbar.ProgressBar(max_value=len(word_orms))
     for i, word_orm in enumerate(word_orms):
         word = word_orm.word
@@ -64,7 +67,7 @@ def main():
             nlp_object = language_service.get_nlp_object(word)
             if word == nlp_object.lemma_:
                 unique_words_orms.append(
-                    Word(
+                    WordEntity(
                         word=word,
                         lemma=nlp_object.lemma_,
                         occurrences=int(word_orm.occurrences),
@@ -88,6 +91,26 @@ def main():
     # Save to database
     word_repo = WordRepository()
     word_repo.insert_all(unique_words_orms)
+
+
+def filter_profane_or_unfitting(words: list[WordEntity]) -> list[WordEntity]:
+    """
+    Filter out profane words from the list.
+    :param words: List of WordEntity objects.
+    :return: Filtered list of WordEntity objects.
+    """
+    with open(
+            "../..data/unfittingwords_de.txt",
+            "r",
+    ) as f:
+        profane_words = f.read().splitlines()
+
+    profane_words = set(profane_words)
+    filtered_words = [
+        word for word in words if word.word not in profane_words and word.lemma not in profane_words
+    ]
+    print(f"Filtered {len(words) - len(filtered_words)} profane or unfitting words.")
+    return filtered_words
 
 
 if __name__ == "__main__":
