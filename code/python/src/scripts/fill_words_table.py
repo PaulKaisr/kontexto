@@ -9,7 +9,7 @@ from src.database.repositories.word_repository import WordRepository
 from src.services.language import LanguageService
 from src.services.word_service import WordService
 
-MIN_FREQ = 10000
+MIN_FREQ = 20000
 
 
 def main():
@@ -52,6 +52,7 @@ def main():
 
     # Filter out profane or unfitting words
     word_orms = filter_profane_or_unfitting(word_orms)
+    print(f"{len(word_orms)} passed unfitting filter.")
 
     # Filter words by lemma duplicates
     language_service = LanguageService()
@@ -84,9 +85,17 @@ def main():
                         is_punct=nlp_object.is_punct,
                     )
                 )
-        p_bar.update(i + 1)
+        if i % 1000 == 0:  # Update progress bar every 1000 iterations
+            p_bar.update(i + 1)
     p_bar.finish()
-    print(f"{len(unique_words_orms)} unique lemmas before deduplication.")
+    print(f"{len(unique_words_orms)} unique lemmas.")
+
+    # Filter out based on attributes
+    # word_type = X is usually english words or other non-german words
+    unique_words_orms = [
+        word_orm for word_orm in unique_words_orms if word_orm.word_type != "X" and word_orm.word_type is not None
+    ]
+    print(f"{len(unique_words_orms)} passed additional filter based on attributes test.")
 
     # Save to database
     word_repo = WordRepository()
@@ -100,14 +109,14 @@ def filter_profane_or_unfitting(words: list[WordEntity]) -> list[WordEntity]:
     :return: Filtered list of WordEntity objects.
     """
     with open(
-            "../..data/unfittingwords_de.txt",
+            "../../data/unfittingwords_de.txt",
             "r",
     ) as f:
         profane_words = f.read().splitlines()
 
     profane_words = set(profane_words)
     filtered_words = [
-        word for word in words if word.word not in profane_words and word.lemma not in profane_words
+        word for word in words if word.word not in profane_words
     ]
     print(f"Filtered {len(words) - len(filtered_words)} profane or unfitting words.")
     return filtered_words

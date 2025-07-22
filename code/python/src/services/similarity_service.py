@@ -49,3 +49,23 @@ class SimilarityService:
         :param similarity_orms: List of SimilarityEntity objects to insert.
         """
         self.similarity_repository.insert_all(similarity_orms)
+
+    def get_similarities(self, words: list[str]) -> dict[str, float]:
+        """
+        Calculate similarities for a list of words using batch processing.
+        :param words: List of words to compare to reference
+        :return: Dictionary mapping word to similarity score
+        """
+        if self._reference is None:
+            raise ValueError("Reference word not set.")
+        docs = list(self._nlp.pipe(words))
+        ref_vector = self._reference.vector
+        similarities = {}
+        for word, doc in zip(words, docs):
+            # Use cosine similarity between vectors
+            if doc.vector_norm and ref_vector.any():
+                sim = doc.similarity(self._reference)
+            else:
+                sim = 0.0
+            similarities[word] = sim
+        return similarities

@@ -1,13 +1,14 @@
 import random
 from collections import OrderedDict
 
-import progressbar
 from dotenv import load_dotenv
 
 from src.database.entities.similarity import SimilarityEntity
 from src.services.game_service import GameService
 from src.services.similarity_service import SimilarityService
 from src.services.word_service import WordService
+
+MIN_FREQ = 100000
 
 
 def get_solution_word_from_file(file_path: str) -> str:
@@ -39,13 +40,11 @@ def main():
     print(f"New game created with ID: {game.game_id} and solution word: {solution}")
 
     similarity_service.set_reference(solution)
-    words = word_service.get_all_words_from_db()
-    scores: dict[str, float] = {}
-    p_bar = progressbar.ProgressBar(max_value=len(words))
-    for i, word in enumerate(words):
-        scores[word] = similarity_service.get_similarity(word)
-        p_bar.update(i + 1)
-    p_bar.finish()
+    words = word_service.get_all_words_from_db(min_freq=MIN_FREQ)
+    # Batch similarity calculation for speed
+    scores = similarity_service.get_similarities(words)
+    # Optionally show progress bar for batch (not needed, but can show after batch)
+    print(f"Calculated similarities for {len(words)} words.")
 
     # Sort similarities by similarity value
     sorted_scores: OrderedDict = OrderedDict(

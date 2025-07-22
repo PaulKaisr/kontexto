@@ -35,14 +35,14 @@ class WordRepository:
         finally:
             session.close()
 
-    def get_all_words(self) -> list[WordEntity]:
+    def get_all_words(self, min_freq: int | None = None) -> list[WordEntity]:
         """
         Get all words from the database.
         :return: List of WordEntity objects.
         """
         session = self.db.get_session()
         try:
-            words = session.query(WordEntity).all()
+            words = session.query(WordEntity).filter(WordEntity.occurrences >= min_freq).all()
             return words
         except Exception as e:
             session.rollback()
