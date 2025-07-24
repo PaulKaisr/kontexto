@@ -9,6 +9,7 @@ export const useGameStore = defineStore('game', {
     recentGame: null as Game | null,
     pastGuesses: [] as { guess: string, similarity: Similarity | null }[]
   }),
+  persist: true,
   actions: {
     async fetchAndSetRecentGame() {
       const game = await getMostRecentGame()
