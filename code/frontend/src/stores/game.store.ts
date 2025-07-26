@@ -7,7 +7,8 @@ export const useGameStore = defineStore('game', {
   state: () => ({
     currentGuess: '',
     recentGame: null as Game | null,
-    pastGuesses: [] as { guess: string, similarity: Similarity | null }[]
+    pastGuesses: [] as { guess: string, similarity: Similarity | null }[],
+    numHints: 0 // Added number of hints
   }),
   persist: true,
   actions: {
@@ -33,6 +34,7 @@ export const useGameStore = defineStore('game', {
       this.currentGuess = ''
       this.recentGame = null
       this.pastGuesses = []
+      this.numHints = 0
     },
   }
 })

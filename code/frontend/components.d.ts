@@ -9,5 +9,10 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Game: typeof import('./src/components/Game.vue')['default']
+    Gues: typeof import('./src/components/GuessHistory/Gues.vue')['default']
+    GuessHistory: typeof import('./src/components/GuessHistory/GuessHistory.vue')['default']
+    GuessItem: typeof import('./src/components/GuessHistory/GuessItem.vue')['default']
+    Settings: typeof import('./src/components/Settings.vue')['default']
+    StatsBar: typeof import('./src/components/StatsBar.vue')['default']
   }
 }
