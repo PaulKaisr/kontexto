@@ -1,18 +1,29 @@
 <script setup lang="ts">
 import type {Similarity} from '@/types/similarity'
+import {calculateBarFill} from '@/common/maths'
 
 defineProps<{ guess: string, similarity: Similarity | null }>()
+
+const getBarFill = (similarity: Similarity | null) => {
+  if (!similarity || similarity.similarity == null) return '0%'
+  const width = calculateBarFill(similarity.similarity)
+  return `${width}%`
+}
 </script>
 
 <template>
-  <v-card variant="outlined" class="mb-2">
-    <div class="flex items-center justify-between px-4 py-2">
+  <v-card variant="outlined" class="relative w-full overflow-visible">
+    <div class="flex justify-between items-center w-full px-4 py-2">
       <span>{{ guess }}</span>
-      <span v-if="similarity">{{ similarity.similarity }}</span>
+      <span v-if="similarity">{{ similarity.similarity! + 1 }}</span>
     </div>
+    <div
+      v-if="similarity"
+      class="bg-amber absolute left-0 bottom-0 h-full rounded transition-all duration-500 -z-10"
+      :style="{ width: getBarFill(similarity) }"
+    ></div>
   </v-card>
 </template>
 
 <style scoped>
-
 </style>
