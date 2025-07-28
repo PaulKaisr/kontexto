@@ -5,16 +5,19 @@ defineProps<{
   guesses: { guess: string, similarity: number }[],
   lastGuess?: { guess: string, similarity: number } | null
 }>()
+
 </script>
 
 <template>
   <div class="flex flex-col gap-3 w-full">
     <GuessItem
-      v-for="(entry, idx) in guesses.sort()"
+      v-for="(entry, idx) in guesses.sort(
+        (a, b) => a.similarity - b.similarity
+      )"
       :key="idx"
       :guess="entry.guess"
       :similarity="entry.similarity"
-      :highlight="entry.guess === lastGuess.guess"
+      :highlight="entry.guess === lastGuess?.guess"
     />
   </div>
 </template>
