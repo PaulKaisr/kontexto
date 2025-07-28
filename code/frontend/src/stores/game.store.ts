@@ -1,13 +1,12 @@
 import {defineStore} from 'pinia'
 import {getMostRecentGame, getSimilarityByGameIdAndWord} from '@/services/supabase'
 import type {Game} from '@/types/game'
-import type {Similarity} from '@/types/similarity'
 
 export const useGameStore = defineStore('game', {
   state: () => ({
     currentGuess: '',
     recentGame: null as Game | null,
-    pastGuesses: [] as { guess: string, similarity: Similarity | null }[],
+    pastGuesses: [] as { guess: string, similarity: number }[],
     numHints: 0 // Added number of hints
   }),
   persist: true,
@@ -26,12 +25,10 @@ export const useGameStore = defineStore('game', {
           this.recentGame.game_id,
           this.currentGuess
         )
-        this.pastGuesses.push({guess: this.currentGuess, similarity})
+        this.pastGuesses.push({guess: this.currentGuess, similarity: similarity?.similarity!})
         // Always sort by similarity rank ascending (lowest rank = best)
         this.pastGuesses.sort((a, b) => {
-          if (!a.similarity || a.similarity.similarity == null) return 1;
-          if (!b.similarity || b.similarity.similarity == null) return -1;
-          return a.similarity.similarity - b.similarity.similarity;
+          return a.similarity - b.similarity;
         })
         this.currentGuess = ''
       }

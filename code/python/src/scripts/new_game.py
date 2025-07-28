@@ -57,7 +57,7 @@ def main():
 
     similarity_orms: list[SimilarityEntity] = []
     for rank, word in enumerate(sorted_scores):
-        similarity = SimilarityEntity(game_id=game.game_id, word=word, similarity_rank=rank)
+        similarity = SimilarityEntity(game_id=game.game_id, word=word, similarity_rank=rank + 1)
         similarity_orms.append(similarity)
 
     similarity_service.add_similarities(similarity_orms)

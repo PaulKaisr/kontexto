@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import GuessItem from './GuessItem.vue'
-import type {Similarity} from '@/types/similarity'
 
-defineProps<{ guesses: { guess: string, similarity: Similarity | null }[] }>()
+defineProps<{ guesses: { guess: string, similarity: number }[] }>()
 </script>
 
 <template>

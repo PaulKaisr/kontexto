@@ -37,26 +37,45 @@ import {getHintForGame} from '@/services/supabase'
 const gameStore = useGameStore()
 
 onMounted(async () => {
-  if (!gameStore.recentGame) {
-    await gameStore.fetchAndSetRecentGame()
-  }
+  await gameStore.fetchAndSetRecentGame()
 })
 
 async function getHint() {
   if (!gameStore.recentGame) return;
+  // Collect guessed ranks and best rank
+  const guessedRanks = gameStore.pastGuesses
+    .map(g => g.similarity);
+  // Find best rank
+  const bestRank = guessedRanks.length > 0 ? Math.min(...guessedRanks) : Infinity;
+  console.log(bestRank)
+
+  let nextHintRank: number;
+  if (bestRank <= 1) {
+    // Already have rank 1, find next lowest not guessed
+    let candidate = 2;
+    while (guessedRanks.includes(candidate)) candidate++;
+    nextHintRank = candidate;
+  } else if (bestRank <= 300) {
+    // Halve best rank, find next not guessed
+    let candidate = Math.max(2, Math.floor(bestRank / 2));
+    while (guessedRanks.includes(candidate)) candidate++;
+    nextHintRank = candidate;
+  } else {
+    // No guess <= 300, use 300 or next not guessed
+    let candidate = 300;
+    while (guessedRanks.includes(candidate)) candidate++;
+    nextHintRank = candidate;
+  }
+
   const hint = await getHintForGame(
     gameStore.recentGame.game_id,
-    gameStore.pastGuesses
+    nextHintRank
   );
   if (hint && hint.word) {
-    gameStore.pastGuesses.push({guess: hint.word, similarity: hint});
+    gameStore.pastGuesses.push({guess: hint.word, similarity: hint.similarity!});
     gameStore.numHints++;
     // Resort guesses after hint
-    gameStore.pastGuesses.sort((a, b) => {
-      if (!a.similarity || a.similarity.similarity == null) return 1;
-      if (!b.similarity || b.similarity.similarity == null) return -1;
-      return a.similarity.similarity - b.similarity.similarity;
-    });
+    gameStore.pastGuesses.sort((a, b) => a.similarity - b.similarity);
   }
 }
 </script>

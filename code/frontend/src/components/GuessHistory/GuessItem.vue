@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import type {Similarity} from '@/types/similarity'
 import {calculateBarFill} from '@/common/maths'
 
-defineProps<{ guess: string, similarity: Similarity | null }>()
+defineProps<{ guess: string, similarity: number }>()
 
-const getBarClass = (similarity: Similarity | null) => {
-  if (!similarity || similarity.similarity == null) return 'bg-violet-800';
-  const rank = similarity.similarity;
+const getBarClass = (rank: number) => {
   if (rank <= 300) return 'bg-success';
   if (rank <= 1500) return 'bg-orange-400';
   return 'bg-red-500';
 }
 
-const getBarFill = (similarity: Similarity | null) => {
-  if (!similarity || similarity.similarity == null) return '0%';
-  const width = calculateBarFill(similarity.similarity);
+const getBarFill = (similarity: number) => {
+  const width = calculateBarFill(similarity);
   return `${width}%`;
 }
 </script>
@@ -23,7 +19,7 @@ const getBarFill = (similarity: Similarity | null) => {
   <v-card variant="outlined" class="relative w-full overflow-visible">
     <div class="flex justify-between items-center w-full px-4 py-2">
       <span>{{ guess }}</span>
-      <span v-if="similarity">{{ similarity.similarity! + 1 }}</span>
+      <span v-if="similarity">{{ similarity! }}</span>
     </div>
     <div
       v-if="similarity"
