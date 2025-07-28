@@ -6,6 +6,11 @@
         :num-guesses="gameStore.pastGuesses.length"
         :num-hints="gameStore.numHints"
       />
+      <v-switch
+        v-model="settingsStore.darkMode"
+        :label="settingsStore.darkMode ? 'Dark Mode' : 'Light Mode'"
+        class="mb-4"
+      />
       <v-btn
         color="secondary"
         class="w-full mb-4"
@@ -31,12 +36,24 @@
 
 <script setup lang="ts">
 import {useGameStore} from '@/stores/game.store'
-import {onMounted} from 'vue'
+import {useSettingsStore} from '@/stores/settings.store'
+import {onMounted, watch} from 'vue'
 import GuessHistory from "@/components/GuessHistory/GuessHistory.vue";
 import StatsBar from "@/components/StatsBar.vue";
 import GuessItem from "@/components/GuessHistory/GuessItem.vue";
+import {useTheme} from 'vuetify'
 
 const gameStore = useGameStore()
+const settingsStore = useSettingsStore()
+const theme = useTheme()
+
+watch(
+  () => settingsStore.darkMode,
+  (isDark) => {
+    theme.global.name.value = isDark ? 'dark' : 'light'
+  },
+  {immediate: true}
+)
 
 onMounted(async () => {
   await gameStore.fetchAndSetRecentGame()

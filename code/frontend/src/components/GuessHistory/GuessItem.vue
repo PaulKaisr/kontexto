@@ -19,7 +19,7 @@ const getBarFill = (similarity: number) => {
   <v-card
     variant="tonal"
     class="relative w-full overflow-visible"
-    :style="highlight ? { border: '2px solid black', borderRadius: '0.4rem' } : { border: 'none' }"
+    :style="highlight ? { border: '2px solid', borderRadius: '0.4rem' } : { border: 'none' }"
   >
     <div class="flex justify-between items-center w-full px-4 py-2" :class="highlight ? 'font-bold' : ''">
       <span>{{ guess }}</span>
