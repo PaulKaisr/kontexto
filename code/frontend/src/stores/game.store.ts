@@ -26,10 +26,6 @@ export const useGameStore = defineStore('game', {
           this.currentGuess
         )
         this.pastGuesses.push({guess: this.currentGuess, similarity: similarity?.similarity!})
-        // Always sort by similarity rank ascending (lowest rank = best)
-        this.pastGuesses.sort((a, b) => {
-          return a.similarity - b.similarity;
-        })
         this.currentGuess = ''
       }
     },
@@ -39,5 +35,11 @@ export const useGameStore = defineStore('game', {
       this.pastGuesses = []
       this.numHints = 0
     },
+  },
+  getters: {
+    mostRecentGuess(state) {
+      if (state.pastGuesses.length === 0) return null;
+      return state.pastGuesses[state.pastGuesses.length - 1];
+    }
   }
 })

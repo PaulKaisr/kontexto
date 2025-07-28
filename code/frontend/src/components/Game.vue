@@ -22,7 +22,9 @@
         v-model="gameStore.currentGuess"
         @keyup.enter="gameStore.submitGuess"
       ></v-text-field>
-      <GuessHistory :guesses="gameStore.pastGuesses"/>
+      <GuessItem v-if="gameStore.mostRecentGuess" class="mb-4" :guess="gameStore.mostRecentGuess.guess"
+                 :similarity="gameStore.mostRecentGuess.similarity" :highlight="true"/>
+      <GuessHistory :guesses="gameStore.pastGuesses" :lastGuess="gameStore.mostRecentGuess"/>
     </div>
   </div>
 </template>
@@ -33,6 +35,7 @@ import {onMounted} from 'vue'
 import GuessHistory from "@/components/GuessHistory/GuessHistory.vue";
 import StatsBar from "@/components/StatsBar.vue";
 import {getHintForGame} from '@/services/supabase'
+import GuessItem from "@/components/GuessHistory/GuessItem.vue";
 
 const gameStore = useGameStore()
 
@@ -47,7 +50,6 @@ async function getHint() {
     .map(g => g.similarity);
   // Find best rank
   const bestRank = guessedRanks.length > 0 ? Math.min(...guessedRanks) : Infinity;
-  console.log(bestRank)
 
   let nextHintRank: number;
   if (bestRank <= 1) {

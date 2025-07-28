@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {calculateBarFill} from '@/common/maths'
 
-defineProps<{ guess: string, similarity: number }>()
+defineProps<{ guess: string, similarity: number, highlight?: boolean | null }>()
 
 const getBarClass = (rank: number) => {
   if (rank <= 300) return 'bg-success';
@@ -16,14 +16,18 @@ const getBarFill = (similarity: number) => {
 </script>
 
 <template>
-  <v-card variant="outlined" class="relative w-full overflow-visible">
-    <div class="flex justify-between items-center w-full px-4 py-2">
+  <v-card
+    variant="tonal"
+    class="relative w-full overflow-visible"
+    :style="highlight ? { border: '2px solid black', borderRadius: '0.4rem' } : { border: 'none' }"
+  >
+    <div class="flex justify-between items-center w-full px-4 py-2" :class="highlight ? 'font-bold' : ''">
       <span>{{ guess }}</span>
       <span v-if="similarity">{{ similarity! }}</span>
     </div>
     <div
       v-if="similarity"
-      class="absolute left-0 bottom-0 h-full rounded transition-all duration-500 -z-10"
+      class="absolute left-0 bottom-0 h-full rounded transition-all duration-100 -z-100"
       :class="getBarClass(similarity)"
       :style="{ width: getBarFill(similarity) }"
     ></div>
