@@ -1,5 +1,5 @@
 <template>
-  <v-dialog max-width="500">
+  <v-dialog class="w-lg">
     <template v-slot:activator="{ props: activatorProps }">
       <v-icon-btn icon="mdi-cog-outline" variant="text" v-bind="activatorProps"></v-icon-btn>
     </template>

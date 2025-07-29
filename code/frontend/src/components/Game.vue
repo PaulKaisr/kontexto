@@ -19,7 +19,7 @@
         Hinweis erhalten
       </v-btn>
       <v-text-field
-        color="primary"
+        color="secondary"
         class="w-full"
         clearable
         label="Schreibe ein Wort"
