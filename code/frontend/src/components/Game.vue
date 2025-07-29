@@ -22,14 +22,15 @@
       </v-btn>
       <v-text-field
         color="secondary"
-        class="w-full"
+        class="w-full mb-2"
         clearable
         label="Schreibe ein Wort"
         variant="outlined"
         v-model="gameStore.currentGuess"
         @keyup.enter="handleSubmitGuess"
         :loading="loading"
-        :disabled="loading"
+        :error="!!errorMessage"
+        :error-messages="errorMessage"
       ></v-text-field>
       <GuessItem v-if="gameStore.mostRecentGuess" class="mb-4" :guess="gameStore.mostRecentGuess.guess"
                  :similarity="gameStore.mostRecentGuess.similarity" :highlight="true"/>
@@ -48,11 +49,16 @@ import Settings from "@/components/Settings.vue";
 
 const gameStore = useGameStore()
 const loading = ref(false)
+const errorMessage = ref('')
 
 async function handleSubmitGuess() {
   loading.value = true
-  await gameStore.submitGuess()
+  errorMessage.value = ''
+  const result = await gameStore.submitGuess()
   loading.value = false
+  if (!result) {
+    errorMessage.value = 'Das Wort konnte nicht gefunden werden oder ist ungültig.'
+  }
 }
 
 async function handleGetHint() {

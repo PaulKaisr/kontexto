@@ -25,9 +25,17 @@ export const useGameStore = defineStore('game', {
           this.recentGame.game_id,
           this.currentGuess
         )
-        this.pastGuesses.push({guess: this.currentGuess, similarity: similarity?.similarity!})
-        this.currentGuess = ''
+        console.log("Got: ", similarity)
+        console.log(similarity)
+        if (similarity && similarity.similarity !== undefined && similarity.similarity !== null) {
+          this.pastGuesses.push({guess: this.currentGuess, similarity: similarity.similarity})
+          this.currentGuess = ''
+          return true
+        } else {
+          return false
+        }
       }
+      return false
     },
     resetStore() {
       this.currentGuess = ''
