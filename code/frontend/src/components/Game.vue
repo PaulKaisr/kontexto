@@ -14,7 +14,9 @@
       <v-btn
         color="secondary"
         class="w-full mb-4"
-        @click="gameStore.getHint"
+        @click="handleGetHint"
+        :loading="loading"
+        :disabled="loading"
       >
         Hinweis erhalten
       </v-btn>
@@ -25,7 +27,9 @@
         label="Schreibe ein Wort"
         variant="outlined"
         v-model="gameStore.currentGuess"
-        @keyup.enter="gameStore.submitGuess"
+        @keyup.enter="handleSubmitGuess"
+        :loading="loading"
+        :disabled="loading"
       ></v-text-field>
       <GuessItem v-if="gameStore.mostRecentGuess" class="mb-4" :guess="gameStore.mostRecentGuess.guess"
                  :similarity="gameStore.mostRecentGuess.similarity" :highlight="true"/>
@@ -36,13 +40,26 @@
 
 <script setup lang="ts">
 import {useGameStore} from '@/stores/game.store'
-import {onMounted} from 'vue'
+import {onMounted, ref} from 'vue'
 import GuessHistory from "@/components/GuessHistory/GuessHistory.vue";
 import StatsBar from "@/components/StatsBar.vue";
 import GuessItem from "@/components/GuessHistory/GuessItem.vue";
 import Settings from "@/components/Settings.vue";
 
 const gameStore = useGameStore()
+const loading = ref(false)
+
+async function handleSubmitGuess() {
+  loading.value = true
+  await gameStore.submitGuess()
+  loading.value = false
+}
+
+async function handleGetHint() {
+  loading.value = true
+  await gameStore.getHint()
+  loading.value = false
+}
 
 onMounted(async () => {
   await gameStore.fetchAndSetRecentGame()
