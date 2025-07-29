@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center my-2">
-    <div class="w-lg">
+    <div class="max-w-full px-4 w-lg">
       <div class="flex flex-row w-full justify-between items-center my-2">
         <div class="w-6"></div>
         <span class="text-3xl font-bold">Kontexto</span>
@@ -26,6 +26,7 @@
         clearable
         label="Schreibe ein Wort"
         variant="outlined"
+        autofocus
         v-model="gameStore.currentGuess"
         @keyup.enter="handleSubmitGuess"
         :loading="loading"
