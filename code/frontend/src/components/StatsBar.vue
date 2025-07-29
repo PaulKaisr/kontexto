@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-row justify-center items-center gap-6 w-full py-2">
+  <div class="flex flex-row justify-evenly items-center gap-6 w-full py-2">
     <div class="flex flex-col items-center">
       <span class="text-xs text-gray-500">Spiel</span>
       <span class="font-bold text-lg">{{ gameId ?? '-' }}</span>

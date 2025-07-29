@@ -7,12 +7,13 @@
     <template v-slot:default="{ isActive }">
       <v-card title="Einstellungen">
         <v-card-text>
-          <v-radio-group v-model="settingsStore.themePreference" inline>
-            <v-radio color="secondary" label="Light" value="light"/>
-            <v-radio color="secondary" label="Dark" value="dark"/>
-          </v-radio-group>
+          <div class="flex flex-col items-center justify-center">
+            <v-radio-group v-model="settingsStore.themePreference">
+              <v-radio color="secondary" label="Light Mode" value="light"/>
+              <v-radio color="secondary" label="Dark Mode" value="dark"/>
+            </v-radio-group>
+          </div>
         </v-card-text>
-
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
