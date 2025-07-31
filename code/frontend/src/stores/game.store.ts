@@ -19,23 +19,34 @@ export const useGameStore = defineStore('game', {
         this.recentGame = game
       }
     },
-    async submitGuess() {
-      if (this.recentGame && this.currentGuess) {
+    /**
+     * Returns an object describing the result of the guess attempt.
+     * { success: boolean, error?: 'duplicate' | 'not_found' | 'empty' }
+     */
+    async submitGuess(): Promise<{ success: boolean, error?: 'duplicate' | 'not_found' | 'empty' }> {
+      if (!this.currentGuess || !this.currentGuess.trim()) {
+        return {success: false, error: 'empty'};
+      }
+      if (this.recentGame) {
+        // Check for duplicate guess (case-insensitive)
+        const guessLower = this.currentGuess.trim().toLowerCase();
+        const alreadyGuessed = this.pastGuesses.some(g => g.guess.trim().toLowerCase() === guessLower);
+        if (alreadyGuessed) {
+          return {success: false, error: 'duplicate'};
+        }
         const similarity = await getSimilarityByGameIdAndWord(
           this.recentGame.game_id,
           this.currentGuess
         )
-        console.log("Got: ", similarity)
-        console.log(similarity)
         if (similarity && similarity.similarity !== undefined && similarity.similarity !== null) {
           this.pastGuesses.push({guess: this.currentGuess, similarity: similarity.similarity})
           this.currentGuess = ''
-          return true
+          return {success: true};
         } else {
-          return false
+          return {success: false, error: 'not_found'};
         }
       }
-      return false
+      return {success: false, error: 'not_found'};
     },
     resetStore() {
       this.currentGuess = ''

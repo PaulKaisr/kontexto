@@ -57,8 +57,20 @@ async function handleSubmitGuess() {
   errorMessage.value = ''
   const result = await gameStore.submitGuess()
   loading.value = false
-  if (!result) {
-    errorMessage.value = 'Das Wort konnte nicht gefunden werden oder ist ungültig.'
+  if (!result.success) {
+    switch (result.error) {
+      case 'duplicate':
+        errorMessage.value = 'Dieses Wort wurde bereits geraten.'
+        break
+      case 'not_found':
+        errorMessage.value = 'Das Wort konnte nicht gefunden werden oder ist ungültig.'
+        break
+      case 'empty':
+        errorMessage.value = 'Bitte gib ein Wort ein.'
+        break
+      default:
+        errorMessage.value = 'Unbekannter Fehler.'
+    }
   }
 }
 
