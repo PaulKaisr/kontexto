@@ -12,6 +12,8 @@ declare module 'vue' {
     Gues: typeof import('./src/components/GuessHistory/Gues.vue')['default']
     GuessHistory: typeof import('./src/components/GuessHistory/GuessHistory.vue')['default']
     GuessItem: typeof import('./src/components/GuessHistory/GuessItem.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     Settings: typeof import('./src/components/Settings.vue')['default']
     StatsBar: typeof import('./src/components/StatsBar.vue')['default']
   }
