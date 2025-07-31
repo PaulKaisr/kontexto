@@ -1,6 +1,6 @@
 <template>
+  <Analytics/>
   <v-app>
-    <Analytics/>
     <v-main>
       <Game/>
     </v-main>
