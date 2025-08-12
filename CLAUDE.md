@@ -24,9 +24,33 @@ Navigate to `code/frontend/` directory for all frontend commands:
 Navigate to `code/python/` directory:
 
 - `poetry install` - Install dependencies
-- `python src/scripts/new_game.py` - Create new game with similarity calculations
-- `python src/scripts/init_tables.py` - Initialize database tables
-- `python src/scripts/empty_tables.py` - Clear all database datai in
+
+**Database Scripts:**
+All scripts support explicit environment selection via command-line flags:
+
+- `python src/scripts/new_game.py [--local|--production]` - Create new game with similarity calculations
+- `python src/scripts/init_tables.py [--local|--production]` - Initialize database tables  
+- `python src/scripts/empty_tables.py [--local|--production]` - Clear all database data
+- `python src/scripts/fill_words_table.py [--local|--production]` - Fill words table with German corpus
+
+**Environment Selection:**
+- `--local`: Use local Supabase database (.env.local)
+- `--production`: Use production database (.env)
+- No flag: Auto-detect (prefers .env.local if present, otherwise .env)
+
+**Common Usage Examples:**
+```bash
+# Local development (recommended for testing)
+python src/scripts/init_tables.py --local
+python src/scripts/fill_words_table.py --local  
+python src/scripts/new_game.py --local
+
+# Production deployment
+python src/scripts/new_game.py --production
+
+# Auto-detect environment
+python src/scripts/new_game.py
+```
 
 ### Database (Supabase)
 
@@ -44,9 +68,35 @@ Navigate to `code/python/` directory:
 
 **Environment Configuration:**
 
-- Local development uses `.env.local` with local Supabase URLs
-- Production/Vercel uses environment variables with hosted Supabase URLs
-- Data persists across local restarts via Docker volumes
+The system supports two database environments with automatic detection:
+
+- **Local development**: `.env.local` → Local Supabase (127.0.0.1:54322)
+- **Production**: `.env` → Hosted Supabase
+
+**Centralized Environment Management:**
+- Uses `DatabaseConfig` class for global environment selection
+- All services/repositories automatically use the configured environment
+- No need to pass database parameters through service constructors
+
+**Environment File Priority:**
+1. Explicit flags (`--local` or `--production`) take highest priority
+2. Auto-detect mode prefers `.env.local` if it exists
+3. Falls back to `.env` if `.env.local` not found
+
+**Local Development Workflow:**
+```bash
+# Start local Supabase
+supabase start
+
+# Initialize local database  
+python src/scripts/init_tables.py --local
+python src/scripts/fill_words_table.py --local
+python src/scripts/new_game.py --local
+
+# Develop with local data...
+```
+
+Data persists across local restarts via Docker volumes.
 
 ## Architecture
 

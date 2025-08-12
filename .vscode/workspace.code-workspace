@@ -8,12 +8,102 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "[python]": {
-      "editor.defaultFormatter": "charliermarsh.ruff",
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
       "editor.formatOnSave": true,
       "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit",
         "source.unusedImports": "explicit"
       }
     }
+  },
+  "launch": {
+    "configurations": [
+      {
+        "name": "Frontend: Vite Dev",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}/code/frontend",
+        "runtimeExecutable": "pnpm",
+        "runtimeArgs": ["dev"],
+        "console": "integratedTerminal",
+        "autoAttachChildProcesses": true
+      },
+      {
+        "name": "Supabase: Start Local",
+        "type": "node-terminal",
+        "request": "launch",
+        "command": "supabase start",
+        "cwd": "${workspaceFolder}/code/frontend"
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "supabase:start",
+        "type": "shell",
+        "command": "supabase start",
+        "options": {
+          "cwd": "${workspaceFolder}/code/frontend"
+        },
+        "isBackground": true,
+        "problemMatcher": []
+      },
+      {
+        "label": "python:init_tables:local",
+        "type": "shell",
+        "command": "${workspaceFolder}/code/python/.venv/bin/python",
+        "args": ["src/scripts/init_tables.py", "--local"],
+        "options": {
+          "cwd": "${workspaceFolder}/code/python"
+        }
+      },
+      {
+        "label": "python:fill_words_table:local",
+        "type": "shell",
+        "command": "${workspaceFolder}/code/python/.venv/bin/python",
+        "args": ["src/scripts/fill_words_table.py", "--local"],
+        "options": {
+          "cwd": "${workspaceFolder}/code/python"
+        }
+      },
+      {
+        "label": "python:new_game:local",
+        "type": "shell",
+        "command": "${workspaceFolder}/code/python/.venv/bin/python",
+        "args": ["src/scripts/new_game.py", "--local"],
+        "options": {
+          "cwd": "${workspaceFolder}/code/python"
+        }
+      },
+      {
+        "label": "python:empty_tables:local",
+        "type": "shell",
+        "command": "${workspaceFolder}/code/python/.venv/bin/python",
+        "args": ["src/scripts/empty_tables.py", "--local"],
+        "options": {
+          "cwd": "${workspaceFolder}/code/python"
+        }
+      },
+      {
+        "label": "dev:stack",
+        "type": "shell",
+        "command": "echo Dev stack started",
+        "dependsOn": ["supabase:start", "vite:dev"],
+        "problemMatcher": []
+      },
+      {
+        "label": "vite:dev",
+        "type": "shell",
+        "command": "pnpm",
+        "args": ["dev"],
+        "options": {
+          "cwd": "${workspaceFolder}/code/frontend"
+        },
+        "isBackground": true,
+        "problemMatcher": []
+      }
+    ]
   }
 }
