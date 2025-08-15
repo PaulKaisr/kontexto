@@ -103,9 +103,21 @@ Data persists across local restarts via Docker volumes.
 ### Frontend Structure
 
 - **Vue SPA** using Vuetify for UI components and Tailwind for styling
-- **Pinia stores**: `game.store.ts` (game state, guesses, hints), `settings.store.ts` (user preferences)
+- **Pinia stores**: 
+  - `game.store.ts` (game state, guesses, hints, win detection)
+  - `settings.store.ts` (user preferences, theme settings)
 - **Supabase client** for database operations in `services/supabase.ts`
 - **Type safety** with generated types from Supabase in `generated-sources/database.types.ts`
+
+### Components Structure
+
+- **Game.vue**: Main game interface with input field and game state
+- **StatsCard.vue**: Victory celebration card with game statistics and sharing options
+- **ClosestWords.vue**: Post-game popup showing top 500 closest words using reusable GuessItem components
+- **HowToPlay.vue**: Game instructions modal with comprehensive styling
+- **ContextMenu.vue**: Three-dot menu containing hints, instructions, and settings
+- **GuessHistory/**: Reusable components for displaying word guesses with similarity rankings
+- **Settings**: Theme preferences (light/dark mode)
 
 ### Backend Structure
 
@@ -116,29 +128,64 @@ Data persists across local restarts via Docker volumes.
 
 ### Database Schema
 
-- **game**: Stores individual game instances with date
-- **similarity**: Pre-calculated similarity scores for all words against solution word, ranked by similarity
-- **word**: German word corpus with frequency data
+- **game**: Stores individual game instances with date and game_id
+- **similarity**: Pre-calculated similarity scores for all words against solution word, ranked by similarity (1 = exact match)
+- **word**: German word corpus (~55k words) with frequency data and linguistic attributes
 
 ### Game Flow
 
-1. Python script creates new game and calculates word similarities using FastText
-2. Frontend fetches most recent game and allows guessing
+1. Python script creates new game and calculates word similarities using FastText (~55k similarity calculations)
+2. Frontend fetches most recent game and allows unlimited guessing
 3. Similarity scores are pre-calculated and ranked, not computed real-time
 4. Game state persisted in browser using Pinia persistence plugin
+5. Victory triggers StatsCard with sharing functionality and closest words viewer
 
-## Key Patterns
+## Key Features
 
 ### Word Similarity System
 
-The core mechanic pre-calculates similarity scores for ~20k German words against each game's solution word using
-FastText embeddings. Scores are ranked and stored in the similarity table for fast lookup during gameplay.
+The core mechanic pre-calculates similarity scores for ~55k German words against each game's solution word using
+FastText embeddings. Words are ranked 1-55000 by similarity and stored for fast lookup during gameplay.
+
+### Color-Coded Feedback System
+
+Words are color-coded based on their similarity ranking:
+- **Green**: Rank ≤ 300 (very close)
+- **Yellow**: Rank 300-1500 (close)  
+- **Orange**: Rank 1500-3000 (getting warmer)
+- **Red**: Rank > 3000 (far away)
+
+### Win Condition & Post-Game Features
+
+- **Win Detection**: Game is won when a word with rank 1 (exact match) is guessed
+- **Statistics Card**: Shows celebration message, attempt count, hint usage, and color-coded statistics
+- **Social Sharing**: Copy-to-clipboard functionality with formatted social media message
+- **Closest Words Viewer**: Shows top 500 closest words after winning, reusing existing GuessItem components
+
+### Hint System
+
+- **Smart Hints**: Provides words with good similarity rankings based on current progress
+- **Hint Tracking**: Counts hint usage separately from regular guesses
+- **Context Menu Integration**: Hint button moved to context menu for cleaner UI
+
+### User Interface
+
+- **Responsive Design**: Works on desktop and mobile devices
+- **Theme Support**: Light/dark mode toggle in settings
+- **German Localization**: All UI text in German
+- **Accessibility**: Proper ARIA labels and keyboard navigation
+- **Consistent Styling**: Exclusive use of Tailwind CSS and Vuetify components
 
 ### State Management
 
-Game state (current guess, past guesses, hints) is managed through Pinia with persistence, allowing users to resume
-games across browser sessions.
+Game state (current guess, past guesses, hints, win status) is managed through Pinia with persistence, allowing users to resume games across browser sessions. Win state automatically shows victory card and enables post-game features.
 
 ### Type Safety
 
-Frontend uses generated TypeScript types from Supabase schema, ensuring type safety between database and UI components.
+Frontend uses generated TypeScript types from Supabase schema, ensuring type safety between database and UI components. All components use proper TypeScript definitions with strict typing.
+
+## Deployment
+
+- **Frontend**: Deployed to Vercel at `https://kontexto.vercel.app/`
+- **Database**: Supabase (hosted PostgreSQL)
+- **Game Data**: New games created manually via Python scripts
