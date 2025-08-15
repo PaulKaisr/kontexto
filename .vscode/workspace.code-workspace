@@ -14,7 +14,9 @@
         "source.organizeImports": "explicit",
         "source.unusedImports": "explicit"
       }
-    }
+    },
+    "python.defaultInterpreterPath": "${workspaceFolder}/code/python/.venv/bin/python",
+    "python.terminal.activateEnvironment": true
   },
   "launch": {
     "configurations": [
@@ -27,13 +29,6 @@
         "runtimeArgs": ["dev"],
         "console": "integratedTerminal",
         "autoAttachChildProcesses": true
-      },
-      {
-        "name": "Supabase: Start Local",
-        "type": "node-terminal",
-        "request": "launch",
-        "command": "supabase start",
-        "cwd": "${workspaceFolder}/code/frontend"
       }
     ]
   },
@@ -51,39 +46,48 @@
         "problemMatcher": []
       },
       {
+        "label": "supabase:stop",
+        "type": "shell",
+        "command": "supabase stop",
+        "options": {
+          "cwd": "${workspaceFolder}/code/frontend"
+        },
+        "problemMatcher": []
+      },
+      {
         "label": "python:init_tables:local",
         "type": "shell",
         "command": "${workspaceFolder}/code/python/.venv/bin/python",
-        "args": ["src/scripts/init_tables.py", "--local"],
+        "args": ["init_tables.py", "--local"],
         "options": {
-          "cwd": "${workspaceFolder}/code/python"
+          "cwd": "${workspaceFolder}/code/python/src/scripts"
         }
       },
       {
         "label": "python:fill_words_table:local",
         "type": "shell",
         "command": "${workspaceFolder}/code/python/.venv/bin/python",
-        "args": ["src/scripts/fill_words_table.py", "--local"],
+        "args": ["fill_words_table.py", "--local"],
         "options": {
-          "cwd": "${workspaceFolder}/code/python"
+          "cwd": "${workspaceFolder}/code/python/src/scripts"
         }
       },
       {
         "label": "python:new_game:local",
         "type": "shell",
         "command": "${workspaceFolder}/code/python/.venv/bin/python",
-        "args": ["src/scripts/new_game.py", "--local"],
+        "args": ["new_game.py", "--local"],
         "options": {
-          "cwd": "${workspaceFolder}/code/python"
+          "cwd": "${workspaceFolder}/code/python/src/scripts"
         }
       },
       {
         "label": "python:empty_tables:local",
         "type": "shell",
         "command": "${workspaceFolder}/code/python/.venv/bin/python",
-        "args": ["src/scripts/empty_tables.py", "--local"],
+        "args": ["empty_tables.py", "--local"],
         "options": {
-          "cwd": "${workspaceFolder}/code/python"
+          "cwd": "${workspaceFolder}/code/python/src/scripts"
         }
       },
       {
