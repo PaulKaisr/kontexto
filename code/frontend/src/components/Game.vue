@@ -6,7 +6,7 @@
         <span class="text-3xl font-bold">Kontexto</span>
         <ContextMenu/>
       </div>
-      <StatsCard/>
+      <StatsCard v-if="gameStore.solution"/>
       <StatsBar
         :game-id="gameStore.recentGame?.game_id ?? null"
         :num-guesses="gameStore.pastGuesses.length"
