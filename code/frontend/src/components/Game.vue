@@ -4,8 +4,9 @@
       <div class="flex flex-row w-full justify-between items-center my-2">
         <div class="w-6"></div>
         <span class="text-3xl font-bold">Kontexto</span>
-        <Settings/>
+        <ContextMenu/>
       </div>
+      <StatsCard/>
       <StatsBar
         :game-id="gameStore.recentGame?.game_id ?? null"
         :num-guesses="gameStore.pastGuesses.length"
@@ -27,7 +28,7 @@
         label="Schreibe ein Wort"
         variant="outlined"
         autofocus
-        v-model="gameStore.currentGuess"
+        v-model.trim="gameStore.currentGuess"
         @keyup.enter="handleSubmitGuess"
         :loading="loading"
         :error="!!errorMessage"
@@ -46,7 +47,8 @@ import {onMounted, ref} from 'vue'
 import GuessHistory from "@/components/GuessHistory/GuessHistory.vue";
 import StatsBar from "@/components/StatsBar.vue";
 import GuessItem from "@/components/GuessHistory/GuessItem.vue";
-import Settings from "@/components/Settings.vue";
+import ContextMenu from "@/components/ContextMenu.vue";
+import StatsCard from "@/components/StatsCard.vue";
 
 const gameStore = useGameStore()
 const loading = ref(false)

@@ -61,7 +61,7 @@ const chart = computed(() => {
       @click="copyStatsToClipboard"
       color="primary"
     >
-      {{ copyButtonText }}
+      Teilen
     </v-btn>
   </v-card>
 </template>

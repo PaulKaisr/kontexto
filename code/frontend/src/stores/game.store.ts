@@ -85,6 +85,14 @@ export const useGameStore = defineStore('game', {
     mostRecentGuess(state) {
       if (state.pastGuesses.length === 0) return null;
       return state.pastGuesses[state.pastGuesses.length - 1];
+    },
+    solution(state): string | null {
+      // if the pastGuesses include the word that has similarity 1, return it
+      const solutionGuess = state.pastGuesses.find(g => g.similarity === 1);
+      if (solutionGuess) {
+        return solutionGuess.guess;
+      }
+      return null;
     }
   }
 })

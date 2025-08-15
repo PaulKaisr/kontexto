@@ -8,13 +8,13 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ContextMenu: typeof import('./src/components/ContextMenu.vue')['default']
     Game: typeof import('./src/components/Game.vue')['default']
-    Gues: typeof import('./src/components/GuessHistory/Gues.vue')['default']
     GuessHistory: typeof import('./src/components/GuessHistory/GuessHistory.vue')['default']
     GuessItem: typeof import('./src/components/GuessHistory/GuessItem.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
+    HowToPlay: typeof import('./src/components/HowToPlay.vue')['default']
     Settings: typeof import('./src/components/Settings.vue')['default']
     StatsBar: typeof import('./src/components/StatsBar.vue')['default']
+    StatsCard: typeof import('./src/components/StatsCard.vue')['default']
   }
 }
