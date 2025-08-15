@@ -4,7 +4,7 @@
       <div class="flex flex-row w-full justify-between items-center my-2">
         <div class="w-6"></div>
         <span class="text-3xl font-bold">Kontexto</span>
-        <ContextMenu/>
+        <ContextMenu :loading="loading" @get-hint="handleGetHint"/>
       </div>
       <StatsCard v-if="gameStore.solution"/>
       <StatsBar
@@ -12,15 +12,6 @@
         :num-guesses="gameStore.pastGuesses.length"
         :num-hints="gameStore.numHints"
       />
-      <v-btn
-        color="secondary"
-        class="w-full mb-4"
-        @click="handleGetHint"
-        :loading="loading"
-        :disabled="loading"
-      >
-        Hinweis erhalten
-      </v-btn>
       <v-text-field
         color="secondary"
         class="w-full mb-2"

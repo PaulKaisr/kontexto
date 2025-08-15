@@ -7,19 +7,20 @@ const buttonText = ref("Teilen");
 const isCopied = ref(false);
 
 async function copyStatsToClipboard() {
-  const stats = `Ich habe das Kontexto-Rätsel von Tag ${gameStore.recentGame?.game_id} gelöst! 🎉\n\n` +
+  const stats =
+    `Ich habe das Kontexto-Rätsel von Tag ${gameStore.recentGame?.game_id} gelöst! 🎉\n\n` +
     `Lösungswort: "${gameStore.solution}"\n` +
     `Versuche: ${gameStore.pastGuesses.length - gameStore.numHints}\n` +
     `Hinweise: ${gameStore.numHints}\n\n` +
     `${chart.value}\n\n` +
     `Spiele auch mit: https://kontexto.vercel.app/`;
-  
+
   await navigator.clipboard.writeText(stats);
-  
+
   // Change button state
   buttonText.value = "Kopiert";
   isCopied.value = true;
-  
+
   // Reset button after 2 seconds
   setTimeout(() => {
     buttonText.value = "Teilen";
