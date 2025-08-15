@@ -4,9 +4,9 @@
       <div class="flex flex-row w-full justify-between items-center my-2">
         <div class="w-6"></div>
         <span class="text-3xl font-bold">Kontexto</span>
-        <ContextMenu :loading="loading" @get-hint="handleGetHint"/>
+        <ContextMenu :loading="loading" :game-over="gameStore.isGameOver" @get-hint="handleGetHint" @give-up="handleGiveUp"/>
       </div>
-      <StatsCard v-if="gameStore.solution"/>
+      <StatsCard v-if="gameStore.isGameOver"/>
       <StatsBar
         :game-id="gameStore.recentGame?.game_id ?? null"
         :num-guesses="gameStore.pastGuesses.length"
@@ -70,6 +70,12 @@ async function handleSubmitGuess() {
 async function handleGetHint() {
   loading.value = true
   await gameStore.getHint()
+  loading.value = false
+}
+
+async function handleGiveUp() {
+  loading.value = true
+  await gameStore.giveUp()
   loading.value = false
 }
 

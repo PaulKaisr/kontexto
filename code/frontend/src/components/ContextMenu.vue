@@ -9,11 +9,18 @@
     </template>
 
     <v-list>
-      <v-list-item @click="$emit('getHint')" :disabled="loading">
+      <v-list-item @click="$emit('getHint')" :disabled="loading || gameOver">
         <template v-slot:prepend>
           <v-icon icon="mdi-lightbulb-outline"></v-icon>
         </template>
         <v-list-item-title>Hinweis erhalten</v-list-item-title>
+      </v-list-item>
+      
+      <v-list-item @click="$emit('giveUp')" :disabled="loading || gameOver">
+        <template v-slot:prepend>
+          <v-icon icon="mdi-flag-outline"></v-icon>
+        </template>
+        <v-list-item-title>Aufgeben</v-list-item-title>
       </v-list-item>
 
       <v-divider></v-divider>
@@ -66,10 +73,12 @@ import HowToPlay from "./HowToPlay.vue";
 
 defineProps<{
   loading?: boolean;
+  gameOver?: boolean;
 }>();
 
 defineEmits<{
   getHint: [];
+  giveUp: [];
 }>();
 
 const showHowToPlay = ref(false);

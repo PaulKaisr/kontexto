@@ -9,13 +9,23 @@ const isCopied = ref(false);
 const showClosestWords = ref(false);
 
 async function copyStatsToClipboard() {
-  const stats =
-    `Ich habe das Kontexto-Rätsel von Tag ${gameStore.recentGame?.game_id} gelöst! 🎉\n\n` +
-    `Lösungswort: "${gameStore.solution}"\n` +
-    `Versuche: ${gameStore.pastGuesses.length - gameStore.numHints}\n` +
-    `Hinweise: ${gameStore.numHints}\n\n` +
-    `${chart.value}\n\n` +
-    `Spiele auch mit: https://kontexto.vercel.app/`;
+  const attempts = gameStore.hasGivenUp 
+    ? gameStore.pastGuesses.length - gameStore.numHints - 1 
+    : gameStore.pastGuesses.length - gameStore.numHints;
+    
+  const stats = gameStore.hasGivenUp
+    ? `Ich habe das Kontexto-Rätsel von Tag ${gameStore.recentGame?.game_id} aufgegeben. 😔\n\n` +
+      `Lösungswort: "${gameStore.solution}"\n` +
+      `Versuche: ${attempts}\n` +
+      `Hinweise: ${gameStore.numHints}\n\n` +
+      `${chart.value}\n\n` +
+      `Spiele auch mit: https://kontexto.vercel.app/`
+    : `Ich habe das Kontexto-Rätsel von Tag ${gameStore.recentGame?.game_id} gelöst! 🎉\n\n` +
+      `Lösungswort: "${gameStore.solution}"\n` +
+      `Versuche: ${attempts}\n` +
+      `Hinweise: ${gameStore.numHints}\n\n` +
+      `${chart.value}\n\n` +
+      `Spiele auch mit: https://kontexto.vercel.app/`;
 
   await navigator.clipboard.writeText(stats);
 
@@ -59,16 +69,22 @@ const chart = computed(() => {
 <template>
   <v-card class="mx-auto mb-6 max-w-md">
     <v-card-title class="text-center py-4">
-      <span class="text-h5 font-bold">Glückwunsch!</span>
+      <span class="text-h5 font-bold">{{ gameStore.hasGivenUp ? 'Aufgegeben!' : 'Glückwunsch!' }}</span>
     </v-card-title>
 
     <v-card-text class="text-center px-6 pb-6">
       <div class="mb-6">
-        <p class="text-body-1 mb-4">
+        <p class="text-body-1 mb-4" v-if="!gameStore.hasGivenUp">
           Du hast das Lösungswort von Tag {{ gameStore.recentGame?.game_id }}
           <strong>"{{ gameStore.solution }}"</strong> mit
           {{ gameStore.pastGuesses.length - gameStore.numHints }} Versuchen und
           {{ gameStore.numHints }} Hinweisen erraten!
+        </p>
+        <p class="text-body-1 mb-4" v-else>
+          Du hast das Spiel von Tag {{ gameStore.recentGame?.game_id }} aufgegeben.
+          Das Lösungswort war <strong>"{{ gameStore.solution }}"</strong>.
+          Du hattest {{ gameStore.pastGuesses.length - gameStore.numHints - 1 }} Versuche und
+          {{ gameStore.numHints }} Hinweise verwendet.
         </p>
       </div>
 

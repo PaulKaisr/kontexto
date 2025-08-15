@@ -7,7 +7,8 @@ export const useGameStore = defineStore('game', {
     currentGuess: '',
     recentGame: null as Game | null,
     pastGuesses: [] as { guess: string, similarity: number }[],
-    numHints: 0 // Added number of hints
+    numHints: 0, // Added number of hints
+    hasGivenUp: false // Track if user gave up the game
   }),
   persist: true,
   actions: {
@@ -53,6 +54,7 @@ export const useGameStore = defineStore('game', {
       this.recentGame = null
       this.pastGuesses = []
       this.numHints = 0
+      this.hasGivenUp = false
     },
     async getHint() {
       if (!this.recentGame) return;
@@ -80,6 +82,16 @@ export const useGameStore = defineStore('game', {
         this.numHints++;
       }
     },
+    async giveUp() {
+      if (!this.recentGame || this.hasGivenUp || this.solution) return;
+      
+      // Get the solution word (rank 1)
+      const solution = await import('@/services/supabase').then(m => m.getHintForGame(this.recentGame!.game_id, 1));
+      if (solution && solution.word) {
+        this.pastGuesses.push({guess: solution.word, similarity: 1});
+        this.hasGivenUp = true;
+      }
+    },
   },
   getters: {
     mostRecentGuess(state) {
@@ -93,6 +105,9 @@ export const useGameStore = defineStore('game', {
         return solutionGuess.guess;
       }
       return null;
+    },
+    isGameOver(state): boolean {
+      return this.solution !== null || state.hasGivenUp;
     }
   }
 })
