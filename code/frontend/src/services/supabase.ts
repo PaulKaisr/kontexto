@@ -63,3 +63,30 @@ export async function getHintForGame(gameId: number, rank: number) {
   }
   return data;
 }
+
+/**
+ * Fetches the top N closest words for a given game.
+ * @param gameId The current game id
+ * @param limit The number of top words to fetch (default: 500)
+ * @returns Array of similarity rows with word and rank
+ */
+export async function getTopWordsByGame(gameId: number, limit: number = 500) {
+  const {data, error} = await supabase
+    .from('similarity')
+    .select('word, similarity')
+    .eq('game_id', gameId)
+    .order('similarity', {ascending: true})
+    .limit(limit);
+
+  if (error) {
+    console.error('Error fetching top words:', error);
+    return null;
+  }
+  
+  // Add rank numbers (1-based)
+  return data?.map((item, index) => ({
+    word: item.word,
+    similarity: item.similarity,
+    rank: index + 1
+  })) || [];
+}

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useGameStore } from "@/stores/game.store";
+import ClosestWords from "./ClosestWords.vue";
 
 const gameStore = useGameStore();
 const buttonText = ref("Teilen");
 const isCopied = ref(false);
+const showClosestWords = ref(false);
 
 async function copyStatsToClipboard() {
   const stats =
@@ -76,19 +78,41 @@ const chart = computed(() => {
         </v-card>
       </div>
 
-      <v-btn
-        rounded="pill"
-        :prepend-icon="isCopied ? 'mdi-check' : 'mdi-content-copy'"
-        @click="copyStatsToClipboard"
-        :color="isCopied ? 'success' : 'primary'"
-        size="large"
-        class="px-8"
-        :disabled="isCopied"
-      >
-        {{ buttonText }}
-      </v-btn>
+      <div class="flex flex-col gap-4">
+        <v-btn
+          rounded="pill"
+          :prepend-icon="isCopied ? 'mdi-check' : 'mdi-content-copy'"
+          @click="copyStatsToClipboard"
+          :color="isCopied ? 'success' : 'primary'"
+          size="large"
+          class="px-8"
+          :disabled="isCopied"
+        >
+          {{ buttonText }}
+        </v-btn>
+
+        <v-btn
+          rounded="pill"
+          prepend-icon="mdi-eye"
+          @click="showClosestWords = true"
+          color="secondary"
+          variant="outlined"
+          size="large"
+          class="px-8"
+        >
+          Ähnlichste Wörter
+        </v-btn>
+      </div>
     </v-card-text>
   </v-card>
+
+  <v-dialog v-model="showClosestWords" class="w-full max-w-4xl" max-width="900">
+    <ClosestWords
+      :game-id="gameStore.recentGame?.game_id || 0"
+      :solution-word="gameStore.solution || ''"
+      @close="showClosestWords = false"
+    />
+  </v-dialog>
 </template>
 
 <style scoped></style>
