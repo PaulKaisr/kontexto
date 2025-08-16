@@ -60,9 +60,12 @@ def main(args):
     similarity_service = SimilarityService()
     word_service = WordService()
 
-    # Reset tables relevant for new game
-    similarity_service.delete_all_entries()
-    game_service.delete_all_games()
+    # Reset tables relevant for new game (only if --reset flag is provided)
+    if args.reset:
+        print("Resetting previous games and similarities...")
+        similarity_service.delete_all_entries()
+        game_service.delete_all_games()
+        print("Reset completed.")
 
     # Create a new game & choose solution
     game = game_service.new_game()
@@ -96,5 +99,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Create a new game with similarity calculations')
     parser.add_argument('--local', action='store_true', help='Use .env.local from frontend')
     parser.add_argument('--production', action='store_true', help='Use .env from frontend')
+    parser.add_argument('--reset', action='store_true', help='Reset all previous games and similarities before creating new game')
     args = parser.parse_args()
     main(args)

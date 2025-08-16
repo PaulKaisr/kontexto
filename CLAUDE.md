@@ -28,7 +28,7 @@ Navigate to `code/python/` directory:
 **Database Scripts:**
 All scripts support explicit environment selection via command-line flags:
 
-- `python src/scripts/new_game.py [--local|--production]` - Create new game with similarity calculations
+- `python src/scripts/new_game.py [--local|--production] [--reset]` - Create new game with similarity calculations
 - `python src/scripts/init_tables.py [--local|--production]` - Initialize database tables  
 - `python src/scripts/empty_tables.py [--local|--production]` - Clear all database data
 - `python src/scripts/fill_words_table.py [--local|--production]` - Fill words table with German corpus
@@ -37,6 +37,9 @@ All scripts support explicit environment selection via command-line flags:
 - `--local`: Use local Supabase database (.env.local)
 - `--production`: Use production database (.env)
 - No flag: Auto-detect (prefers .env.local if present, otherwise .env)
+
+**New Game Options:**
+- `--reset`: Clear all previous games and similarities before creating new game (use with caution in production)
 
 **Common Usage Examples:**
 ```bash
@@ -50,6 +53,9 @@ python src/scripts/new_game.py --production
 
 # Auto-detect environment
 python src/scripts/new_game.py
+
+# Reset and create new game (local development)
+python src/scripts/new_game.py --local --reset
 ```
 
 ### Database (Supabase)
