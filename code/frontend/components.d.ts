@@ -14,6 +14,7 @@ declare module 'vue' {
     GuessHistory: typeof import('./src/components/GuessHistory/GuessHistory.vue')['default']
     GuessItem: typeof import('./src/components/GuessHistory/GuessItem.vue')['default']
     HowToPlay: typeof import('./src/components/HowToPlay.vue')['default']
+    PreviousGames: typeof import('./src/components/PreviousGames.vue')['default']
     Settings: typeof import('./src/components/Settings.vue')['default']
     StatsBar: typeof import('./src/components/StatsBar.vue')['default']
     StatsCard: typeof import('./src/components/StatsCard.vue')['default']

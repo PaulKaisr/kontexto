@@ -90,3 +90,41 @@ export async function getTopWordsByGame(gameId: number, limit: number = 500) {
     rank: index + 1
   })) || [];
 }
+
+/**
+ * Fetches all games from the database ordered by date (newest first).
+ * @returns Array of all games with their IDs and dates
+ */
+export async function getAllGames() {
+  const {data, error} = await supabase
+    .from('game')
+    .select('game_id, date')
+    .order('date', {ascending: false});
+
+  if (error) {
+    console.error('Error fetching all games:', error);
+    return null;
+  }
+  
+  return data || [];
+}
+
+/**
+ * Fetches a specific game by ID.
+ * @param gameId The game ID to fetch
+ * @returns The game object or null if not found
+ */
+export async function getGameById(gameId: number) {
+  const {data, error} = await supabase
+    .from('game')
+    .select('game_id, date')
+    .eq('game_id', gameId)
+    .single();
+
+  if (error) {
+    console.error('Error fetching game by ID:', error);
+    return null;
+  }
+  
+  return data;
+}

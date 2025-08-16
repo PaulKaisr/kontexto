@@ -24,6 +24,13 @@
       </v-list-item>
 
       <v-divider></v-divider>
+      
+      <v-list-item @click="showPreviousGames = true">
+        <template v-slot:prepend>
+          <v-icon icon="mdi-calendar"></v-icon>
+        </template>
+        <v-list-item-title>Frühere Spiele</v-list-item-title>
+      </v-list-item>
 
       <v-list-item @click="showHowToPlay = true">
         <template v-slot:prepend>
@@ -40,6 +47,11 @@
       </v-list-item>
     </v-list>
   </v-menu>
+
+  <!-- Previous Games Dialog -->
+  <v-dialog v-model="showPreviousGames" class="w-lg max-w-full" max-width="800">
+    <PreviousGames @close="showPreviousGames = false" />
+  </v-dialog>
 
   <!-- How to Play Dialog -->
   <v-dialog v-model="showHowToPlay" class="w-lg max-w-full" max-width="600">
@@ -70,6 +82,7 @@ import { ref, watch } from "vue";
 import { useSettingsStore } from "@/stores/settings.store.ts";
 import { useTheme } from "vuetify/framework";
 import HowToPlay from "./HowToPlay.vue";
+import PreviousGames from "./PreviousGames.vue";
 
 defineProps<{
   loading?: boolean;
@@ -83,6 +96,7 @@ defineEmits<{
 
 const showHowToPlay = ref(false);
 const showSettings = ref(false);
+const showPreviousGames = ref(false);
 const settingsStore = useSettingsStore();
 const theme = useTheme();
 

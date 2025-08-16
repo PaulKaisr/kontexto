@@ -2,17 +2,19 @@
 import { computed, ref } from "vue";
 import { useGameStore } from "@/stores/game.store";
 import ClosestWords from "./ClosestWords.vue";
+import PreviousGames from "./PreviousGames.vue";
 
 const gameStore = useGameStore();
 const buttonText = ref("Teilen");
 const isCopied = ref(false);
 const showClosestWords = ref(false);
+const showPreviousGames = ref(false);
 
 async function copyStatsToClipboard() {
-  const attempts = gameStore.hasGivenUp 
-    ? gameStore.pastGuesses.length - gameStore.numHints - 1 
+  const attempts = gameStore.hasGivenUp
+    ? gameStore.pastGuesses.length - gameStore.numHints - 1
     : gameStore.pastGuesses.length - gameStore.numHints;
-    
+
   const stats = gameStore.hasGivenUp
     ? `Ich habe das Kontexto-Rätsel von Tag ${gameStore.recentGame?.game_id} aufgegeben. 😔\n\n` +
       `Lösungswort: "${gameStore.solution}"\n` +
@@ -69,7 +71,9 @@ const chart = computed(() => {
 <template>
   <v-card class="mx-auto mb-6 max-w-md">
     <v-card-title class="text-center py-4">
-      <span class="text-h5 font-bold">{{ gameStore.hasGivenUp ? 'Aufgegeben!' : 'Glückwunsch!' }}</span>
+      <span class="text-h5 font-bold">{{
+        gameStore.hasGivenUp ? "Aufgegeben!" : "Glückwunsch!"
+      }}</span>
     </v-card-title>
 
     <v-card-text class="text-center px-6 pb-6">
@@ -81,10 +85,11 @@ const chart = computed(() => {
           {{ gameStore.numHints }} Hinweisen erraten!
         </p>
         <p class="text-body-1 mb-4" v-else>
-          Du hast das Spiel von Tag {{ gameStore.recentGame?.game_id }} aufgegeben.
-          Das Lösungswort war <strong>"{{ gameStore.solution }}"</strong>.
-          Du hattest {{ gameStore.pastGuesses.length - gameStore.numHints - 1 }} Versuche und
-          {{ gameStore.numHints }} Hinweise verwendet.
+          Du hast das Spiel von Tag
+          {{ gameStore.recentGame?.game_id }} aufgegeben. Das Lösungswort war
+          <strong>"{{ gameStore.solution }}"</strong>. Du hattest
+          {{ gameStore.pastGuesses.length - gameStore.numHints - 1 }} Versuche
+          und {{ gameStore.numHints }} Hinweise verwendet.
         </p>
       </div>
 
@@ -118,6 +123,20 @@ const chart = computed(() => {
         >
           Ähnlichste Wörter
         </v-btn>
+
+        <span class="text-gray-500 text-center"> Weiter spielen? </span>
+
+        <v-btn
+          rounded="pill"
+          prepend-icon="mdi-calendar"
+          @click="showPreviousGames = true"
+          color="secondary"
+          variant="outlined"
+          size="large"
+          class="px-8"
+        >
+          Frühere Spiele
+        </v-btn>
       </div>
     </v-card-text>
   </v-card>
@@ -128,6 +147,14 @@ const chart = computed(() => {
       :solution-word="gameStore.solution || ''"
       @close="showClosestWords = false"
     />
+  </v-dialog>
+
+  <v-dialog
+    v-model="showPreviousGames"
+    class="w-full max-w-3xl"
+    max-width="800"
+  >
+    <PreviousGames @close="showPreviousGames = false" />
   </v-dialog>
 </template>
 
