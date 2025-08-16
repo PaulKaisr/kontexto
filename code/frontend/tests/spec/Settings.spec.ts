@@ -4,7 +4,7 @@ import { createPinia, setActivePinia } from "pinia";
 import Settings from "../../src/components/Settings.vue";
 import { useSettingsStore } from "@/stores/settings.store";
 
-describe("Settings.vue - Simple Tests", () => {
+describe("Settings.vue", () => {
   let pinia: any;
   let settingsStore: any;
 
@@ -38,7 +38,7 @@ describe("Settings.vue - Simple Tests", () => {
     mountComponent();
     settingsStore.themePreference = "dark";
     expect(settingsStore.themePreference).toBe("dark");
-    
+
     settingsStore.themePreference = "light";
     expect(settingsStore.themePreference).toBe("light");
   });
