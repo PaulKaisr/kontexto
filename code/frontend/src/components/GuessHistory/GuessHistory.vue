@@ -14,7 +14,7 @@ const sortedGuesses = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3 w-full">
+  <div class="flex flex-col gap-3 w-full" data-testid="guess-history">
     <GuessItem
       v-for="(entry, idx) in sortedGuesses"
       :key="idx"

@@ -1,22 +1,23 @@
 <template>
-  <v-menu location="bottom start">
+  <v-menu location="bottom start" data-testid="context-menu">
     <template v-slot:activator="{ props: activatorProps }">
       <v-btn
         icon="mdi-dots-vertical"
         variant="text"
         v-bind="activatorProps"
+        data-testid="context-menu-trigger"
       ></v-btn>
     </template>
 
     <v-list>
-      <v-list-item @click="$emit('getHint')" :disabled="loading || gameOver">
+      <v-list-item @click="$emit('getHint')" :disabled="loading || gameOver" data-testid="hint-button">
         <template v-slot:prepend>
           <v-icon icon="mdi-lightbulb-outline"></v-icon>
         </template>
         <v-list-item-title>Hinweis erhalten</v-list-item-title>
       </v-list-item>
       
-      <v-list-item @click="$emit('giveUp')" :disabled="loading || gameOver">
+      <v-list-item @click="$emit('giveUp')" :disabled="loading || gameOver" data-testid="give-up-button">
         <template v-slot:prepend>
           <v-icon icon="mdi-flag-outline"></v-icon>
         </template>
@@ -25,21 +26,21 @@
 
       <v-divider></v-divider>
       
-      <v-list-item @click="showPreviousGames = true">
+      <v-list-item @click="showPreviousGames = true" data-testid="previous-games-button">
         <template v-slot:prepend>
           <v-icon icon="mdi-calendar"></v-icon>
         </template>
         <v-list-item-title>Frühere Spiele</v-list-item-title>
       </v-list-item>
 
-      <v-list-item @click="showHowToPlay = true">
+      <v-list-item @click="showHowToPlay = true" data-testid="how-to-play-button">
         <template v-slot:prepend>
           <v-icon icon="mdi-help-circle-outline"></v-icon>
         </template>
         <v-list-item-title>Wie spielt man?</v-list-item-title>
       </v-list-item>
 
-      <v-list-item @click="showSettings = true">
+      <v-list-item @click="showSettings = true" data-testid="settings-button">
         <template v-slot:prepend>
           <v-icon icon="mdi-cog-outline"></v-icon>
         </template>

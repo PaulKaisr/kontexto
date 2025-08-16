@@ -20,6 +20,7 @@ const getBarFill = (similarity: number) => {
     variant="tonal"
     class="relative w-full overflow-visible"
     :style="highlight ? { border: '2px solid', borderRadius: '0.4rem' } : { border: 'none' }"
+    data-testid="guess-item"
   >
     <div class="flex justify-between items-center w-full px-4 py-2" :class="highlight ? 'font-bold' : ''">
       <span>{{ guess }}</span>

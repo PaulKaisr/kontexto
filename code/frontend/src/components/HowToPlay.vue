@@ -1,5 +1,5 @@
 <template>
-  <v-card class="max-w-2xl mx-auto">
+  <v-card class="max-w-2xl mx-auto" data-testid="how-to-play">
     <v-card-title class="text-center py-6 bg-primary text-white">
       <div>
         <v-icon icon="mdi-help-circle" class="mr-2" size="large"></v-icon>
@@ -145,6 +145,7 @@
         @click="$emit('close')"
         size="large"
         class="px-8"
+        data-testid="close-button"
       >
         Schließen
       </v-btn>
