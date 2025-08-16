@@ -5,19 +5,27 @@
  */
 
 // Plugins
-import {registerPlugins} from '@/plugins'
+import { registerPlugins } from "@/plugins";
 
 // Components
-import App from './App.vue'
+import App from "./App.vue";
 
 // Composables
-import {createApp} from 'vue'
+import { createApp } from "vue";
+
+// Analytics
+import { inject } from "@vercel/analytics";
 
 // Styles
-import 'unfonts.css'
+import "unfonts.css";
 
-const app = createApp(App)
+const app = createApp(App);
 
-registerPlugins(app)
+registerPlugins(app);
 
-app.mount('#app')
+// Initialize Vercel Analytics (only in production)
+if (import.meta.env.PROD) {
+  inject();
+}
+
+app.mount("#app");
