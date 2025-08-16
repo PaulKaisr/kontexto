@@ -69,7 +69,7 @@ const chart = computed(() => {
 </script>
 
 <template>
-  <v-card class="mx-auto mb-6 max-w-md">
+  <v-card class="mx-auto mb-6 max-w-md" data-testid="stats-card">
     <v-card-title class="text-center py-4">
       <span class="text-h5 font-bold">{{
         gameStore.hasGivenUp ? "Aufgegeben!" : "Glückwunsch!"

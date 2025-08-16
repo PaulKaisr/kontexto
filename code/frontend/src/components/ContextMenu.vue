@@ -1,11 +1,11 @@
 <template>
   <v-menu location="bottom start">
     <template v-slot:activator="{ props: activatorProps }">
-      <v-icon-btn
+      <v-btn
         icon="mdi-dots-vertical"
         variant="text"
         v-bind="activatorProps"
-      ></v-icon-btn>
+      ></v-btn>
     </template>
 
     <v-list>

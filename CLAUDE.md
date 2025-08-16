@@ -122,18 +122,19 @@ Data persists across local restarts via Docker volumes.
 
 **Frontend Tests:**
 - **Framework**: Vitest + Vue Test Utils + jsdom for DOM environment
-- **Test files**: Located in `src/components/__tests__/` directory
+- **Test files**: Located in `tests/spec/` directory
 - **Configuration**: 
-  - `vitest.config.ts` - Main Vitest configuration with Vue plugin
+  - `vitest.config.ts` - Main Vitest configuration with Vue plugin and path aliases
   - `tsconfig.vitest.json` - TypeScript config for tests with path aliases
-  - `src/test-setup.ts` - Global test setup (mocks, utilities)
+  - `tests/test-setup.ts` - Global test setup with Vuetify plugin registration and mocks
 - **Run tests**: `pnpm test` (watch mode) or `pnpm test --run` (single run)
 - **Test UI**: `pnpm test:ui` for browser-based test interface
 
 **Test Patterns:**
-- Mock child components to isolate component under test
+- Use real components without mocking for full integration testing
+- Global Vuetify plugin registration in test setup eliminates component resolution warnings
 - Use Pinia for state management testing with `createPinia()` and `setActivePinia()`
-- Stub Vuetify components to avoid CSS/styling issues in tests
+- Shared `mountComponent()` helper function in `beforeEach()` for consistent test setup
 - Test user interactions, component rendering, and store integration
 
 ### Components Structure

@@ -13,8 +13,8 @@ Kontexto is a German context-based word guessing game.
 - `code/frontend/vitest.config.ts`: Vitest config for testing with Vue plugin support.
 - `code/frontend/tsconfig.vitest.json`: TypeScript config for tests with path aliases and vitest globals.
 - `code/frontend/src/components/`: Vue components (Game, GuessHistory, Stats, Settings, etc.).
-- `code/frontend/src/components/__tests__/`: Component tests using Vitest + Vue Test Utils.
-- `code/frontend/src/test-setup.ts`: Global test setup file (mocks, utilities).
+- `code/frontend/tests/spec/`: Component tests using Vitest + Vue Test Utils.
+- `code/frontend/tests/test-setup.ts`: Global test setup file with Vuetify plugin registration and mocks.
 - `code/frontend/src/stores/`: Pinia stores for game logic & settings (naming convention: `*.store.ts`).
 - `code/frontend/src/services/`: Supabase client/service abstractions.
 - `code/frontend/src/generated-sources/`: Generated TS types from Supabase schema; DO NOT hand-edit.
@@ -62,7 +62,7 @@ Use `--production` for production DB or omit flag for auto-detect logic (see CLA
 
 ## 8. Extending the Project
 - New frontend feature: create component in `src/components`, add any persistent state to a Pinia store, leverage auto-import.
-- New component test: create test file in `src/components/__tests__/` following existing patterns (mock child components, use Pinia stores, stub Vuetify components).
+- New component test: create test file in `tests/spec/` following existing patterns (use real components without mocking, use Pinia stores, leverage global Vuetify setup).
 - New DB interaction: update Supabase schema (via SQL migration outside this repo) then regenerate TS types and update Python scripts if needed.
 - New data prep logic: create Python service/repository modules; expose via script under `src/scripts` maintaining flag pattern.
 
