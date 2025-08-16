@@ -18,6 +18,8 @@ Navigate to `code/frontend/` directory for all frontend commands:
 - `pnpm build` - Build for production (runs type-check and build-only)
 - `pnpm type-check` - Run Vue TypeScript compiler
 - `pnpm preview` - Preview production build locally
+- `pnpm test` - Run frontend tests with Vitest
+- `pnpm test:ui` - Run tests with web UI interface
 
 ### Python Backend
 
@@ -114,6 +116,25 @@ Data persists across local restarts via Docker volumes.
   - `settings.store.ts` (user preferences, theme settings)
 - **Supabase client** for database operations in `services/supabase.ts`
 - **Type safety** with generated types from Supabase in `generated-sources/database.types.ts`
+- **Testing framework**: Vitest with Vue Test Utils for component testing
+
+### Testing Setup
+
+**Frontend Tests:**
+- **Framework**: Vitest + Vue Test Utils + jsdom for DOM environment
+- **Test files**: Located in `src/components/__tests__/` directory
+- **Configuration**: 
+  - `vitest.config.ts` - Main Vitest configuration with Vue plugin
+  - `tsconfig.vitest.json` - TypeScript config for tests with path aliases
+  - `src/test-setup.ts` - Global test setup (mocks, utilities)
+- **Run tests**: `pnpm test` (watch mode) or `pnpm test --run` (single run)
+- **Test UI**: `pnpm test:ui` for browser-based test interface
+
+**Test Patterns:**
+- Mock child components to isolate component under test
+- Use Pinia for state management testing with `createPinia()` and `setActivePinia()`
+- Stub Vuetify components to avoid CSS/styling issues in tests
+- Test user interactions, component rendering, and store integration
 
 ### Components Structure
 

@@ -10,7 +10,11 @@ Kontexto is a German context-based word guessing game.
 
 ## 2. Key Directories & Files
 - `code/frontend/vite.config.mts`: Vite config (plugins: tailwindcss, Vue, Vuetify, unplugin-vue-components, unplugin-fonts). Dev server runs on port 3000.
+- `code/frontend/vitest.config.ts`: Vitest config for testing with Vue plugin support.
+- `code/frontend/tsconfig.vitest.json`: TypeScript config for tests with path aliases and vitest globals.
 - `code/frontend/src/components/`: Vue components (Game, GuessHistory, Stats, Settings, etc.).
+- `code/frontend/src/components/__tests__/`: Component tests using Vitest + Vue Test Utils.
+- `code/frontend/src/test-setup.ts`: Global test setup file (mocks, utilities).
 - `code/frontend/src/stores/`: Pinia stores for game logic & settings (naming convention: `*.store.ts`).
 - `code/frontend/src/services/`: Supabase client/service abstractions.
 - `code/frontend/src/generated-sources/`: Generated TS types from Supabase schema; DO NOT hand-edit.
@@ -29,6 +33,8 @@ Frontend:
 - Dev: `pnpm dev` (http://localhost:3000)
 - Type check: `pnpm type-check`
 - Build: `pnpm build` then `pnpm preview` to serve production bundle.
+- Test: `pnpm test` (watch mode) or `pnpm test --run` (single run)
+- Test UI: `pnpm test:ui` (web interface)
 Python data prep:
 - Initialize tables: `python src/scripts/init_tables.py --local`
 - Fill words: `python src/scripts/fill_words_table.py --local`
@@ -56,6 +62,7 @@ Use `--production` for production DB or omit flag for auto-detect logic (see CLA
 
 ## 8. Extending the Project
 - New frontend feature: create component in `src/components`, add any persistent state to a Pinia store, leverage auto-import.
+- New component test: create test file in `src/components/__tests__/` following existing patterns (mock child components, use Pinia stores, stub Vuetify components).
 - New DB interaction: update Supabase schema (via SQL migration outside this repo) then regenerate TS types and update Python scripts if needed.
 - New data prep logic: create Python service/repository modules; expose via script under `src/scripts` maintaining flag pattern.
 
