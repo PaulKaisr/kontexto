@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <Game/>
+      <Game />
     </v-main>
   </v-app>
 </template>
