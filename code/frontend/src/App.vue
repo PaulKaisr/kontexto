@@ -1,10 +1,10 @@
 <template>
-  <v-app>
-    <v-main>
+  <v-app class="d-flex flex-column">
+    <v-main class="flex-grow-1">
       <RouterView />
     </v-main>
 
-    <AppFooter />
+    <AppFooter class="flex-shrink-0" />
   </v-app>
 </template>
 

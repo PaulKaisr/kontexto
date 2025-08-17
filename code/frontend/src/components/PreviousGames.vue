@@ -1,60 +1,67 @@
 <template>
-  <v-card class="max-w-2xl mx-auto">
-    <v-card-title class="text-center py-6 bg-primary text-white">
-      <div class="flex items-center justify-center">
-        <v-icon icon="mdi-calendar" class="mr-2" size="large"></v-icon>
-        <span class="text-h4 font-bold">Frühere Spiele</span>
+  <v-card class="d-flex flex-column">
+    <v-card-title class="text-center py-3 sm:py-4 flex-shrink-0">
+      <div class="d-flex align-center justify-center">
+        <v-icon
+          icon="mdi-calendar"
+          class="mr-2"
+          :size="$vuetify.display.smAndUp ? 'large' : 'default'"
+        ></v-icon>
+        <span class="text-h6 sm:text-h4 font-bold">Frühere Spiele</span>
       </div>
     </v-card-title>
 
-    <v-card-text class="pa-0">
-      <div v-if="loading" class="text-center py-8">
+    <v-card-text class="pa-0 flex-grow-1" style="overflow-y: auto">
+      <div v-if="loading" class="text-center py-6 sm:py-8">
         <v-progress-circular
           indeterminate
           color="primary"
-          size="64"
+          :size="$vuetify.display.smAndUp ? '64' : '48'"
         ></v-progress-circular>
-        <p class="mt-4 text-body-1">Lade Spiele...</p>
+        <p class="mt-3 sm:mt-4 text-body-2 sm:text-body-1">Lade Spiele...</p>
       </div>
 
-      <div v-else-if="error" class="text-center py-8">
+      <div v-else-if="error" class="text-center py-6 sm:py-8 px-3">
         <v-icon
           icon="mdi-alert-circle"
           color="error"
-          size="64"
-          class="mb-4"
+          :size="$vuetify.display.smAndUp ? '64' : '48'"
+          class="mb-3 sm:mb-4"
         ></v-icon>
-        <p class="text-body-1 text-error">
+        <p class="text-body-2 sm:text-body-1 text-error">
           Fehler beim Laden der Spiele. Bitte versuche es erneut.
         </p>
       </div>
 
-      <div v-else-if="games.length === 0" class="text-center py-8">
+      <div v-else-if="games.length === 0" class="text-center py-6 sm:py-8 px-3">
         <v-icon
           icon="mdi-calendar-blank"
           color="grey"
-          size="64"
-          class="mb-4"
+          :size="$vuetify.display.smAndUp ? '64' : '48'"
+          class="mb-3 sm:mb-4"
         ></v-icon>
-        <p class="text-body-1">Keine früheren Spiele gefunden.</p>
+        <p class="text-body-2 sm:text-body-1">
+          Keine früheren Spiele gefunden.
+        </p>
       </div>
 
       <div v-else>
-        <div class="pa-6">
-          <p class="text-body-1 text-center mb-4">
+        <div class="pa-3 sm:pa-4">
+          <p class="text-body-2 sm:text-body-1 text-center mb-2 sm:mb-3">
             Wähle ein Spiel aus, um es zu spielen:
           </p>
         </div>
 
-        <v-list class="pa-0">
+        <v-list class="pa-0" density="comfortable">
           <template v-for="(game, index) in games" :key="game.game_id">
             <v-list-item
-              class="px-6 py-4"
+              class="px-3 sm:px-4 py-2 sm:py-3"
               :class="{
                 'bg-primary-lighten-5': game.game_id === currentGameId,
               }"
               @click="selectGame(game)"
               :disabled="switchingGame"
+              min-height="auto"
             >
               <template v-slot:prepend>
                 <v-avatar
@@ -63,32 +70,39 @@
                       ? 'primary'
                       : 'grey-lighten-1'
                   "
-                  size="40"
+                  :size="$vuetify.display.smAndUp ? '40' : '32'"
+                  class="mr-2 sm:mr-3"
                 >
-                  <span class="text-body-1 font-bold text-white">
+                  <span
+                    class="text-caption sm:text-body-1 font-bold text-white"
+                  >
                     {{ game.game_id }}
                   </span>
                 </v-avatar>
               </template>
 
-              <v-list-item-title class="font-weight-medium">
-                Spiel #{{ game.game_id }}
-              </v-list-item-title>
+              <div class="d-flex flex-column align-start">
+                <v-list-item-title
+                  class="font-weight-medium text-body-2 sm:text-body-1"
+                >
+                  Spiel #{{ game.game_id }}
+                </v-list-item-title>
 
-              <v-list-item-subtitle>
-                {{ formatDate(game.date) }}
-              </v-list-item-subtitle>
+                <v-list-item-subtitle class="text-caption sm:text-body-2">
+                  {{ formatDate(game.date) }}
+                </v-list-item-subtitle>
+              </div>
 
               <template v-slot:append>
-                <div class="flex items-center">
+                <div class="d-flex align-center">
                   <v-chip
                     v-if="game.game_id === currentGameId"
                     color="primary"
                     variant="flat"
-                    size="small"
-                    class="mr-2"
+                    :size="$vuetify.display.smAndUp ? 'small' : 'x-small'"
+                    class="mr-1 sm:mr-2"
                   >
-                    Aktuell
+                    <span class="text-caption">Aktuell</span>
                   </v-chip>
                   <v-icon
                     :icon="
@@ -97,25 +111,29 @@
                         : 'mdi-play'
                     "
                     :color="game.game_id === currentGameId ? 'primary' : 'grey'"
+                    :size="$vuetify.display.smAndUp ? 'default' : 'small'"
                   ></v-icon>
                 </div>
               </template>
             </v-list-item>
 
-            <v-divider v-if="index < games.length - 1"></v-divider>
+            <v-divider
+              v-if="index < games.length - 1"
+              class="mx-3 sm:mx-4"
+            ></v-divider>
           </template>
         </v-list>
       </div>
     </v-card-text>
 
-    <v-card-actions class="pa-6 pt-4">
+    <v-card-actions class="pa-2 sm:pa-4 pt-0 flex-shrink-0">
       <v-spacer></v-spacer>
       <v-btn
         variant="outlined"
         prepend-icon="mdi-close"
         @click="$emit('close')"
-        size="large"
-        class="px-8"
+        :size="$vuetify.display.smAndUp ? 'large' : 'default'"
+        class="px-3 sm:px-6"
         :disabled="switchingGame"
       >
         Schließen

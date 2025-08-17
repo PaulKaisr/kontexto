@@ -10,14 +10,22 @@
     </template>
 
     <v-list>
-      <v-list-item @click="$emit('getHint')" :disabled="loading || gameOver" data-testid="hint-button">
+      <v-list-item
+        @click="$emit('getHint')"
+        :disabled="loading || gameOver"
+        data-testid="hint-button"
+      >
         <template v-slot:prepend>
           <v-icon icon="mdi-lightbulb-outline"></v-icon>
         </template>
         <v-list-item-title>Hinweis erhalten</v-list-item-title>
       </v-list-item>
-      
-      <v-list-item @click="$emit('giveUp')" :disabled="loading || gameOver" data-testid="give-up-button">
+
+      <v-list-item
+        @click="$emit('giveUp')"
+        :disabled="loading || gameOver"
+        data-testid="give-up-button"
+      >
         <template v-slot:prepend>
           <v-icon icon="mdi-flag-outline"></v-icon>
         </template>
@@ -25,15 +33,21 @@
       </v-list-item>
 
       <v-divider></v-divider>
-      
-      <v-list-item @click="showPreviousGames = true" data-testid="previous-games-button">
+
+      <v-list-item
+        @click="showPreviousGames = true"
+        data-testid="previous-games-button"
+      >
         <template v-slot:prepend>
           <v-icon icon="mdi-calendar"></v-icon>
         </template>
         <v-list-item-title>Frühere Spiele</v-list-item-title>
       </v-list-item>
 
-      <v-list-item @click="showHowToPlay = true" data-testid="how-to-play-button">
+      <v-list-item
+        @click="showHowToPlay = true"
+        data-testid="how-to-play-button"
+      >
         <template v-slot:prepend>
           <v-icon icon="mdi-help-circle-outline"></v-icon>
         </template>
@@ -50,12 +64,26 @@
   </v-menu>
 
   <!-- Previous Games Dialog -->
-  <v-dialog v-model="showPreviousGames" class="w-lg max-w-full" max-width="800">
+  <v-dialog
+    v-model="showPreviousGames"
+    :max-width="$vuetify.display.smAndUp ? '800' : '100%'"
+    :fullscreen="$vuetify.display.xs"
+    scrollable
+    max-height="90vh"
+    class="ma-1 sm:ma-2"
+  >
     <PreviousGames @close="showPreviousGames = false" />
   </v-dialog>
 
   <!-- How to Play Dialog -->
-  <v-dialog v-model="showHowToPlay" class="w-lg max-w-full" max-width="600">
+  <v-dialog
+    v-model="showHowToPlay"
+    :max-width="$vuetify.display.smAndUp ? '800' : '100%'"
+    :fullscreen="$vuetify.display.xs"
+    scrollable
+    max-height="90vh"
+    class="ma-1 sm:ma-2"
+  >
     <HowToPlay @close="showHowToPlay = false" />
   </v-dialog>
 

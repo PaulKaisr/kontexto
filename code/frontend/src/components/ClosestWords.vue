@@ -1,58 +1,65 @@
 <template>
-  <v-card class="max-w-4xl mx-auto">
-    <v-card-text class="pa-0">
-      <div v-if="loading" class="text-center py-8">
+  <v-card class="d-flex flex-column">
+    <v-card-text class="pa-0 flex-grow-1">
+      <div v-if="loading" class="text-center py-6 sm:py-8">
         <v-progress-circular
           indeterminate
           color="primary"
-          size="64"
+          :size="$vuetify.display.smAndUp ? '64' : '48'"
         ></v-progress-circular>
-        <p class="mt-4 text-body-1">Lade ähnlichste Wörter...</p>
+        <p class="mt-3 sm:mt-4 text-body-2 sm:text-body-1">
+          Lade ähnlichste Wörter...
+        </p>
       </div>
 
-      <div v-else-if="error" class="text-center py-8">
+      <div v-else-if="error" class="text-center py-6 sm:py-8 px-3">
         <v-icon
           icon="mdi-alert-circle"
           color="error"
-          size="64"
-          class="mb-4"
+          :size="$vuetify.display.smAndUp ? '64' : '48'"
+          class="mb-3 sm:mb-4"
         ></v-icon>
-        <p class="text-body-1 text-error">
+        <p class="text-body-2 sm:text-body-1 text-error">
           Fehler beim Laden der Wörter. Bitte versuche es erneut.
         </p>
       </div>
 
-      <div v-else-if="guessData.length === 0" class="text-center py-8">
-        <p class="text-body-1">Keine Wörter gefunden.</p>
+      <div
+        v-else-if="guessData.length === 0"
+        class="text-center py-6 sm:py-8 px-3"
+      >
+        <p class="text-body-2 sm:text-body-1">Keine Wörter gefunden.</p>
       </div>
 
-      <div v-else>
-        <v-sheet class="pa-6">
+      <div v-else class="d-flex flex-column h-100">
+        <v-sheet class="pa-3 sm:pa-4 flex-shrink-0">
           <p class="text-center mb-2">
-            <strong>Das heutige Wort (#{{ props.gameId }}) war:</strong>
+            <strong class="text-body-2 sm:text-body-1"
+              >Das heutige Wort (#{{ props.gameId }}) war:</strong
+            >
           </p>
-          <p class="text-h5 text-center font-bold text-primary">
+          <p class="text-h6 sm:text-h5 text-center font-bold text-primary">
             {{ props.solutionWord }}
           </p>
-          <p class="text-body-2 text-center mt-2">
+          <p class="text-caption sm:text-body-2 text-center mt-2">
             Das waren die {{ guessData.length }} ähnlichsten Wörter:
           </p>
         </v-sheet>
 
-        <v-container class="pa-6 max-h-[500px] overflow-y-auto">
+        <v-container class="pa-2 sm:pa-4 flex-grow-1">
           <GuessHistory :guesses="guessData" />
         </v-container>
       </div>
     </v-card-text>
 
-    <v-card-actions class="pa-6 pt-4">
+    <v-card-actions class="pa-2 sm:pa-4 pt-0 flex-shrink-0">
       <v-spacer></v-spacer>
       <v-btn
         variant="outlined"
         prepend-icon="mdi-close"
         @click="$emit('close')"
-        size="large"
-        class="px-8"
+        :size="$vuetify.display.smAndUp ? 'large' : 'default'"
+        class="px-3 sm:px-6"
       >
         Schließen
       </v-btn>

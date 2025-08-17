@@ -141,7 +141,14 @@ const chart = computed(() => {
     </v-card-text>
   </v-card>
 
-  <v-dialog v-model="showClosestWords" class="w-full max-w-4xl" max-width="900">
+  <v-dialog
+    v-model="showClosestWords"
+    :max-width="$vuetify.display.smAndUp ? '800' : '100%'"
+    :fullscreen="$vuetify.display.xs"
+    scrollable
+    max-height="90vh"
+    class="ma-1 sm:ma-2"
+  >
     <ClosestWords
       :game-id="gameStore.recentGame?.game_id || 0"
       :solution-word="gameStore.solution || ''"
