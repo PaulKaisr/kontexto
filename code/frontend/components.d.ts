@@ -10,6 +10,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./src/components/AppFooter.vue')['default']
     ClosestWords: typeof import('./src/components/ClosestWords.vue')['default']
+    ConfirmDialog: typeof import('./src/components/ConfirmDialog.vue')['default']
     ContextMenu: typeof import('./src/components/ContextMenu.vue')['default']
     Game: typeof import('./src/components/Game.vue')['default']
     GuessHistory: typeof import('./src/components/GuessHistory/GuessHistory.vue')['default']

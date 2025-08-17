@@ -34,6 +34,7 @@
     "@vue/tsconfig": "^0.7.0",
     "jsdom": "^26.1.0",
     "npm-run-all2": "^7.0.2",
+    "resize-observer-polyfill": "^1.5.1",
     "sass-embedded": "^1.89.2",
     "supabase": "^2.33.7",
     "typescript": "~5.8.3",
