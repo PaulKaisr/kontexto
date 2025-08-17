@@ -14,11 +14,12 @@ embeddings.
 
 Navigate to `code/frontend/` directory for all frontend commands:
 
-- `pnpm dev` - Start development server (http://localhost:3000)
+- `pnpm dev` - Start development server (http://localhost:3000, auto-increments if port taken)
 - `pnpm build` - Build for production (runs type-check and build-only)
 - `pnpm type-check` - Run Vue TypeScript compiler
 - `pnpm preview` - Preview production build locally
-- `pnpm test` - Run frontend tests with Vitest
+- `pnpm test` - Run frontend tests with Vitest (watch mode)
+- `pnpm test --run` - Run tests once (CI mode)
 - `pnpm test:ui` - Run tests with web UI interface
 
 ### Python Backend
@@ -31,23 +32,26 @@ Navigate to `code/python/` directory:
 All scripts support explicit environment selection via command-line flags:
 
 - `python src/scripts/new_game.py [--local|--production] [--reset]` - Create new game with similarity calculations
-- `python src/scripts/init_tables.py [--local|--production]` - Initialize database tables  
+- `python src/scripts/init_tables.py [--local|--production]` - Initialize database tables
 - `python src/scripts/empty_tables.py [--local|--production]` - Clear all database data
 - `python src/scripts/fill_words_table.py [--local|--production]` - Fill words table with German corpus
 
 **Environment Selection:**
+
 - `--local`: Use local Supabase database (.env.local)
 - `--production`: Use production database (.env)
 - No flag: Auto-detect (prefers .env.local if present, otherwise .env)
 
 **New Game Options:**
+
 - `--reset`: Clear all previous games and similarities before creating new game (use with caution in production)
 
 **Common Usage Examples:**
+
 ```bash
 # Local development (recommended for testing)
 python src/scripts/init_tables.py --local
-python src/scripts/fill_words_table.py --local  
+python src/scripts/fill_words_table.py --local
 python src/scripts/new_game.py --local
 
 # Production deployment
@@ -66,13 +70,13 @@ python src/scripts/new_game.py --local --reset
 
 1. Ensure Docker Desktop is installed and running
 2. From `code/frontend/` directory:
-    - `supabase start` - Start local Supabase development environment
-    - `supabase stop` - Stop local Supabase services
-    - `supabase reset` - Reset local database to clean state
+   - `supabase start` - Start local Supabase development environment
+   - `supabase stop` - Stop local Supabase services
+   - `supabase reset` - Reset local database to clean state
 3. Local services run on:
-    - Database: port 54322
-    - API: port 54321
-    - Studio: port 54323
+   - Database: port 54322
+   - API: port 54321
+   - Studio: port 54323
 
 **Environment Configuration:**
 
@@ -82,21 +86,24 @@ The system supports two database environments with automatic detection:
 - **Production**: `.env` → Hosted Supabase
 
 **Centralized Environment Management:**
+
 - Uses `DatabaseConfig` class for global environment selection
 - All services/repositories automatically use the configured environment
 - No need to pass database parameters through service constructors
 
 **Environment File Priority:**
+
 1. Explicit flags (`--local` or `--production`) take highest priority
 2. Auto-detect mode prefers `.env.local` if it exists
 3. Falls back to `.env` if `.env.local` not found
 
 **Local Development Workflow:**
+
 ```bash
 # Start local Supabase
 supabase start
 
-# Initialize local database  
+# Initialize local database
 python src/scripts/init_tables.py --local
 python src/scripts/fill_words_table.py --local
 python src/scripts/new_game.py --local
@@ -111,9 +118,11 @@ Data persists across local restarts via Docker volumes.
 ### Frontend Structure
 
 - **Vue SPA** using Vuetify for UI components and Tailwind for styling
-- **Pinia stores**: 
+- **Vue Router** for client-side routing with legal pages (Data Protection, Contact/Impressum)
+- **Vercel Analytics** integrated for production usage tracking
+- **Pinia stores**:
   - `game.store.ts` (game state, guesses, hints, win detection)
-  - `settings.store.ts` (user preferences, theme settings)
+  - `settings.store.ts` (user preferences, theme settings with light/dark mode)
 - **Supabase client** for database operations in `services/supabase.ts`
 - **Type safety** with generated types from Supabase in `generated-sources/database.types.ts`
 - **Testing framework**: Vitest with Vue Test Utils for component testing
@@ -121,9 +130,10 @@ Data persists across local restarts via Docker volumes.
 ### Testing Setup
 
 **Frontend Tests:**
+
 - **Framework**: Vitest + Vue Test Utils + jsdom for DOM environment
 - **Test files**: Located in `tests/spec/` directory
-- **Configuration**: 
+- **Configuration**:
   - `vitest.config.ts` - Main Vitest configuration with Vue plugin and path aliases
   - `tsconfig.vitest.json` - TypeScript config for tests with path aliases
   - `tests/test-setup.ts` - Global test setup with Vuetify plugin registration and mocks
@@ -131,21 +141,34 @@ Data persists across local restarts via Docker volumes.
 - **Test UI**: `pnpm test:ui` for browser-based test interface
 
 **Test Patterns:**
+
 - Use real components without mocking for full integration testing
 - Global Vuetify plugin registration in test setup eliminates component resolution warnings
 - Use Pinia for state management testing with `createPinia()` and `setActivePinia()`
 - Shared `mountComponent()` helper function in `beforeEach()` for consistent test setup
 - Test user interactions, component rendering, and store integration
+- Dialog testing requires special handling (use `teleport: true` stubs, `attachTo: document.body`)
 
 ### Components Structure
 
 - **Game.vue**: Main game interface with input field and game state
 - **StatsCard.vue**: Victory celebration card with game statistics and sharing options
 - **ClosestWords.vue**: Post-game popup showing top 500 closest words using reusable GuessItem components
-- **HowToPlay.vue**: Game instructions modal with comprehensive styling
-- **ContextMenu.vue**: Three-dot menu containing hints, instructions, and settings
+- **HowToPlay.vue**: Game instructions modal with comprehensive styling and mobile responsiveness
+- **ContextMenu.vue**: Three-dot menu containing hints, instructions, settings, and give up functionality
+- **Settings.vue**: Reusable settings card component with theme preferences (light/dark mode) and German localization
+- **ConfirmDialog.vue**: Reusable confirmation dialog component for destructive actions (e.g., give up game)
 - **GuessHistory/**: Reusable components for displaying word guesses with similarity rankings
-- **Settings**: Theme preferences (light/dark mode)
+- **PreviousGames.vue**: Dialog showing historical games with mobile-responsive design
+- **AppFooter.vue**: Sticky footer with legal links (Data Protection, Contact/Impressum)
+
+**Component Architecture Patterns:**
+
+- **Mobile-first responsive design**: All dialogs and components adapt to screen sizes using Vuetify breakpoints
+- **Reusable dialog components**: Separated from container components for better modularity
+- **Consistent styling**: Follows established patterns with primary color headers, outlined card sections, and proper spacing
+- **German localization**: All user-facing text in German with proper terminology
+- **Event-driven communication**: Components emit events rather than directly manipulating parent state
 
 ### Backend Structure
 
@@ -178,8 +201,9 @@ FastText embeddings. Words are ranked 1-55000 by similarity and stored for fast 
 ### Color-Coded Feedback System
 
 Words are color-coded based on their similarity ranking:
+
 - **Green**: Rank ≤ 300 (very close)
-- **Yellow**: Rank 300-1500 (close)  
+- **Yellow**: Rank 300-1500 (close)
 - **Orange**: Rank 1500-3000 (getting warmer)
 - **Red**: Rank > 3000 (far away)
 
@@ -198,11 +222,13 @@ Words are color-coded based on their similarity ranking:
 
 ### User Interface
 
-- **Responsive Design**: Works on desktop and mobile devices
-- **Theme Support**: Light/dark mode toggle in settings
-- **German Localization**: All UI text in German
+- **Responsive Design**: Works on desktop and mobile devices with mobile-first approach
+- **Theme Support**: Light/dark mode toggle in settings with automatic persistence
+- **German Localization**: All UI text in German with proper terminology
 - **Accessibility**: Proper ARIA labels and keyboard navigation
-- **Consistent Styling**: Exclusive use of Tailwind CSS and Vuetify components
+- **Consistent Styling**: Exclusive use of Tailwind CSS and Vuetify components with established design patterns
+- **Dialog System**: Comprehensive modal system with mobile optimization (fullscreen on xs, responsive sizing)
+- **Legal Compliance**: Integrated data protection and contact pages via Vue Router
 
 ### State Management
 
@@ -214,6 +240,8 @@ Frontend uses generated TypeScript types from Supabase schema, ensuring type saf
 
 ## Deployment
 
-- **Frontend**: Deployed to Vercel at `https://kontexto.vercel.app/`
+- **Frontend**: Deployed to Vercel at `https://kontexto.vercel.app/` with integrated Vercel Analytics
 - **Database**: Supabase (hosted PostgreSQL)
 - **Game Data**: New games created manually via Python scripts
+- **Analytics**: Vercel Analytics tracks production usage (privacy-compliant)
+- **Legal Pages**: Data Protection and Contact pages accessible via `/legal` and `/impressum` routes
