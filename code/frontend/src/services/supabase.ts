@@ -7,19 +7,20 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
 
 /**
- * Retrieves the most recent game object from the 'game' table.
- * Returns an object with 'id' and 'date' fields, or null if not found.
+ * Retrieves the game for today's date from the 'game' table.
+ * Returns an object with 'game_id' and 'date' fields, or null if not found.
  */
 export async function getMostRecentGame() {
+  const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+  
   const {data, error} = await supabase
     .from('game')
     .select('game_id, date')
-    .order('date', {ascending: false})
-    .limit(1)
+    .eq('date', today)
     .single()
 
   if (error) {
-    console.error('Error fetching most recent game:', error);
+    console.error('Error fetching today\'s game:', error);
     return null;
   }
   return data;
@@ -92,13 +93,16 @@ export async function getTopWordsByGame(gameId: number, limit: number = 500) {
 }
 
 /**
- * Fetches all games from the database ordered by date (newest first).
- * @returns Array of all games with their IDs and dates
+ * Fetches all games from the database up to today's date, ordered by date (newest first).
+ * @returns Array of games with their IDs and dates, excluding future games
  */
 export async function getAllGames() {
+  const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+  
   const {data, error} = await supabase
     .from('game')
     .select('game_id, date')
+    .lte('date', today)
     .order('date', {ascending: false});
 
   if (error) {
