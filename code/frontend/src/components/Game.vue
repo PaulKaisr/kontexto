@@ -67,7 +67,10 @@
 
       <!-- SEO-friendly description when game is not started -->
       <section
-        v-if="!gameStore.recentGame && !loading"
+        v-if="
+          (!gameStore.recentGame || gameStore.pastGuesses.length === 0) &&
+          !loading
+        "
         class="mb-4 text-center"
       >
         <h2 class="text-lg font-semibold mb-2">
