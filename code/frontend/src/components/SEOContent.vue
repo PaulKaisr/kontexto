@@ -9,22 +9,24 @@
             class="mr-2"
             :size="$vuetify.display.smAndUp ? 'large' : 'default'"
           ></v-icon>
-          <span class="text-h6 sm:text-h4 font-bold">Wie funktioniert Kontexto?</span>
+          <span class="text-h6 sm:text-h4 font-bold"
+            >Wie funktioniert Kontexto?</span
+          >
         </div>
       </v-card-title>
-      
+
       <v-card-text class="pa-4 sm:pa-6">
         <div class="space-y-4">
           <p class="text-body-1">
-            <strong>Kontexto</strong> ist ein kostenloses deutsches Wortspiel, das
-            täglich neue Rätsel bietet. Das Ziel ist einfach: Rate das versteckte
-            Zielwort durch clevere Hinweise und Wortähnlichkeit!
+            <strong>Kontexto</strong> ist ein kostenloses deutsches Wortspiel,
+            das täglich neue Rätsel bietet. Das Ziel ist einfach: Rate das
+            versteckte Zielwort durch clevere Hinweise und Wortähnlichkeit!
           </p>
 
           <p class="text-body-1">
-            Anders als bei traditionellen Wortspielen zeigt dir Kontexto bei jedem
-            Versuch, wie ähnlich dein eingegebenes Wort dem gesuchten Begriff ist.
-            Diese <em>KI-basierte Ähnlichkeitsbewertung</em>
+            Anders als bei traditionellen Wortspielen zeigt dir Kontexto bei
+            jedem Versuch, wie ähnlich dein eingegebenes Wort dem gesuchten
+            Begriff ist. Diese <em>KI-basierte Ähnlichkeitsbewertung</em>
             hilft dir dabei, dich dem Zielwort Schritt für Schritt zu nähern.
           </p>
         </div>
@@ -40,7 +42,9 @@
             class="mr-2"
             :size="$vuetify.display.smAndUp ? 'large' : 'default'"
           ></v-icon>
-          <span class="text-h6 sm:text-h4 font-bold">Warum Kontexto spielen?</span>
+          <span class="text-h6 sm:text-h4 font-bold"
+            >Warum Kontexto spielen?</span
+          >
         </div>
       </v-card-title>
 
@@ -130,7 +134,9 @@
             class="mr-2"
             :size="$vuetify.display.smAndUp ? 'large' : 'default'"
           ></v-icon>
-          <span class="text-h6 sm:text-h4 font-bold">Spielanleitung - So einfach geht's</span>
+          <span class="text-h6 sm:text-h4 font-bold"
+            >Spielanleitung - So einfach geht's</span
+          >
         </div>
       </v-card-title>
 
@@ -142,7 +148,9 @@
                 <span class="text-white font-bold">1</span>
               </v-avatar>
             </template>
-            <v-list-item-title class="text-body-1 font-bold mb-1">Wort eingeben</v-list-item-title>
+            <v-list-item-title class="text-body-1 font-bold mb-1"
+              >Wort eingeben</v-list-item-title
+            >
             <v-list-item-subtitle class="text-body-2">
               Tippe ein beliebiges deutsches Wort in das Eingabefeld.
             </v-list-item-subtitle>
@@ -154,9 +162,12 @@
                 <span class="text-white font-bold">2</span>
               </v-avatar>
             </template>
-            <v-list-item-title class="text-body-1 font-bold mb-1">Ähnlichkeit prüfen</v-list-item-title>
+            <v-list-item-title class="text-body-1 font-bold mb-1"
+              >Ähnlichkeit prüfen</v-list-item-title
+            >
             <v-list-item-subtitle class="text-body-2">
-              Du erhältst eine Bewertung, wie ähnlich dein Wort dem Zielwort ist.
+              Du erhältst eine Bewertung, wie ähnlich dein Wort dem Zielwort
+              ist.
             </v-list-item-subtitle>
           </v-list-item>
 
@@ -166,7 +177,9 @@
                 <span class="text-white font-bold">3</span>
               </v-avatar>
             </template>
-            <v-list-item-title class="text-body-1 font-bold mb-1">Strategisch denken</v-list-item-title>
+            <v-list-item-title class="text-body-1 font-bold mb-1"
+              >Strategisch denken</v-list-item-title
+            >
             <v-list-item-subtitle class="text-body-2">
               Nutze die Ähnlichkeitswerte, um dich dem Zielwort zu nähern.
             </v-list-item-subtitle>
@@ -178,7 +191,9 @@
                 <span class="text-white font-bold">4</span>
               </v-avatar>
             </template>
-            <v-list-item-title class="text-body-1 font-bold mb-1">Zielwort finden</v-list-item-title>
+            <v-list-item-title class="text-body-1 font-bold mb-1"
+              >Zielwort finden</v-list-item-title
+            >
             <v-list-item-subtitle class="text-body-2">
               Wiederhole den Vorgang, bis du das gesuchte Wort errätst!
             </v-list-item-subtitle>
@@ -196,7 +211,9 @@
             class="mr-2"
             :size="$vuetify.display.smAndUp ? 'large' : 'default'"
           ></v-icon>
-          <span class="text-h6 sm:text-h4 font-bold">Ähnlich wie Wordle, aber anders!</span>
+          <span class="text-h6 sm:text-h4 font-bold"
+            >Ähnlich wie Wordle, aber anders!</span
+          >
         </div>
       </v-card-title>
 
@@ -213,8 +230,8 @@
               Ähnlichkeit zwischen Wörtern.
             </p>
             <p class="mb-0">
-              Das bedeutet: Statt zu raten, welcher Buchstabe an welcher Position
-              steht, denkst du über die
+              Das bedeutet: Statt zu raten, welcher Buchstabe an welcher
+              Position steht, denkst du über die
               <em>Bedeutung</em> und den <em>Kontext</em> der Wörter nach. Ein
               völlig neues Spielerlebnis!
             </p>
@@ -241,7 +258,12 @@
           <v-expansion-panel>
             <v-expansion-panel-title>
               <div class="d-flex align-center">
-                <v-icon icon="mdi-currency-eur-off" class="mr-3" size="small" color="success"></v-icon>
+                <v-icon
+                  icon="mdi-currency-eur-off"
+                  class="mr-3"
+                  size="small"
+                  color="success"
+                ></v-icon>
                 <span class="font-bold">Ist Kontexto kostenlos?</span>
               </div>
             </v-expansion-panel-title>
@@ -254,7 +276,12 @@
           <v-expansion-panel>
             <v-expansion-panel-title>
               <div class="d-flex align-center">
-                <v-icon icon="mdi-calendar" class="mr-3" size="small" color="primary"></v-icon>
+                <v-icon
+                  icon="mdi-calendar"
+                  class="mr-3"
+                  size="small"
+                  color="primary"
+                ></v-icon>
                 <span class="font-bold">Wie oft gibt es neue Rätsel?</span>
               </div>
             </v-expansion-panel-title>
@@ -267,7 +294,12 @@
           <v-expansion-panel>
             <v-expansion-panel-title>
               <div class="d-flex align-center">
-                <v-icon icon="mdi-cellphone" class="mr-3" size="small" color="blue"></v-icon>
+                <v-icon
+                  icon="mdi-cellphone"
+                  class="mr-3"
+                  size="small"
+                  color="blue"
+                ></v-icon>
                 <span class="font-bold">Funktioniert es auf dem Handy?</span>
               </div>
             </v-expansion-panel-title>
@@ -281,8 +313,15 @@
           <v-expansion-panel>
             <v-expansion-panel-title>
               <div class="d-flex align-center">
-                <v-icon icon="mdi-book-alphabet" class="mr-3" size="small" color="purple"></v-icon>
-                <span class="font-bold">Welche deutschen Wörter sind erlaubt?</span>
+                <v-icon
+                  icon="mdi-book-alphabet"
+                  class="mr-3"
+                  size="small"
+                  color="purple"
+                ></v-icon>
+                <span class="font-bold"
+                  >Welche deutschen Wörter sind erlaubt?</span
+                >
               </div>
             </v-expansion-panel-title>
             <v-expansion-panel-text class="text-body-2">
