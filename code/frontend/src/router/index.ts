@@ -25,6 +25,14 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    // If the user used browser back/forward buttons, restore the saved position
+    if (savedPosition) {
+      return savedPosition;
+    }
+    // Otherwise, scroll to the top of the page
+    return { top: 0 };
+  },
 });
 
 export default router;
