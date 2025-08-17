@@ -101,21 +101,15 @@
   />
 
   <!-- Settings Dialog -->
-  <v-dialog v-model="showSettings" class="w-lg max-w-full">
-    <v-card title="Einstellungen">
-      <v-card-text>
-        <div class="flex flex-col items-center justify-center">
-          <v-radio-group v-model="settingsStore.themePreference">
-            <v-radio color="secondary" label="Light Mode" value="light" />
-            <v-radio color="secondary" label="Dark Mode" value="dark" />
-          </v-radio-group>
-        </div>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn text="Schließen" @click="showSettings = false"></v-btn>
-      </v-card-actions>
-    </v-card>
+  <v-dialog
+    v-model="showSettings"
+    :max-width="$vuetify.display.smAndUp ? '600' : '100%'"
+    :fullscreen="$vuetify.display.xs"
+    scrollable
+    max-height="90vh"
+    class="ma-1 sm:ma-2"
+  >
+    <Settings @close="showSettings = false" />
   </v-dialog>
 </template>
 
@@ -126,6 +120,7 @@ import { useTheme } from "vuetify/framework";
 import HowToPlay from "./HowToPlay.vue";
 import PreviousGames from "./PreviousGames.vue";
 import ConfirmDialog from "./ConfirmDialog.vue";
+import Settings from "./Settings.vue";
 
 defineProps<{
   loading?: boolean;
