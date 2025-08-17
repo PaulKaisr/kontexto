@@ -1,4 +1,6 @@
-<script lang="ts"></script>
+<script setup lang="ts">
+// Contact/Impressum page
+</script>
 
 <template>
   <v-container class="dialog min-h-screen">
