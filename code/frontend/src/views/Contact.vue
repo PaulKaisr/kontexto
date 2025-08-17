@@ -8,8 +8,8 @@
         <div class="text-h5 my-2">Angaben gem&auml;&szlig; &sect; 5 TMG</div>
         <div class="text-body-2">
           Paul Kaiser<br />
-          Melanchthonstra&szlig;e, 3<br />
-          76131 Kalrsruhe
+          Leonhardtstra&szlig;e 2<br />
+          14057 Berlin<br />
         </div>
         <div class="text-h5 my-2">Kontakt</div>
         <div class="text-body-2">
