@@ -19,6 +19,7 @@ declare module 'vue' {
     PreviousGames: typeof import('./src/components/PreviousGames.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SEOContent: typeof import('./src/components/SEOContent.vue')['default']
     Settings: typeof import('./src/components/Settings.vue')['default']
     StatsBar: typeof import('./src/components/StatsBar.vue')['default']
     StatsCard: typeof import('./src/components/StatsCard.vue')['default']

@@ -1,46 +1,105 @@
 <template>
   <div class="d-flex flex-column justify-start align-center min-h-screen">
     <div class="max-w-full px-4 w-lg">
-      <div class="flex flex-row w-full justify-between items-center my-2">
+      <header class="flex flex-row w-full justify-between items-center my-2">
         <div class="w-6"></div>
-        <span class="text-3xl font-bold">Kontexto</span>
+        <h1 class="text-3xl font-bold">Kontexto</h1>
         <ContextMenu
           :loading="loading"
           :game-over="gameStore.isGameOver"
           @get-hint="handleGetHint"
           @give-up="handleGiveUp"
         />
-      </div>
+      </header>
+
       <StatsCard v-if="gameStore.isGameOver" />
       <StatsBar
         :game-id="gameStore.recentGame?.game_id ?? null"
         :num-guesses="gameStore.pastGuesses.length"
         :num-hints="gameStore.numHints"
       />
-      <v-text-field
-        color="secondary"
-        class="w-full mb-2"
-        clearable
-        label="Schreibe ein Wort"
-        variant="outlined"
-        autofocus
-        v-model.trim="gameStore.currentGuess"
-        @keyup.enter="handleSubmitGuess"
-        :loading="loading"
-        :error="!!errorMessage"
-        :error-messages="errorMessage"
-      ></v-text-field>
-      <GuessItem
-        v-if="gameStore.mostRecentGuess"
-        class="mb-4"
-        :guess="gameStore.mostRecentGuess.guess"
-        :similarity="gameStore.mostRecentGuess.similarity"
-        :highlight="true"
-      />
-      <GuessHistory
-        :guesses="gameStore.pastGuesses"
-        :lastGuess="gameStore.mostRecentGuess"
-      />
+
+      <!-- Game input section -->
+      <main>
+        <section class="game-input" aria-label="Wort eingeben">
+          <v-text-field
+            color="secondary"
+            class="w-full mb-2"
+            clearable
+            label="Schreibe ein Wort"
+            variant="outlined"
+            autofocus
+            v-model.trim="gameStore.currentGuess"
+            @keyup.enter="handleSubmitGuess"
+            :loading="loading"
+            :error="!!errorMessage"
+            :error-messages="errorMessage"
+            aria-describedby="game-instructions"
+          ></v-text-field>
+          <div id="game-instructions" class="sr-only">
+            Gib ein deutsches Wort ein und drücke Enter, um zu sehen, wie
+            ähnlich es dem gesuchten Wort ist.
+          </div>
+        </section>
+
+        <!-- Recent guess highlight -->
+        <section
+          v-if="gameStore.mostRecentGuess"
+          class="recent-guess"
+          aria-label="Letzter Versuch"
+        >
+          <GuessItem
+            class="mb-4"
+            :guess="gameStore.mostRecentGuess.guess"
+            :similarity="gameStore.mostRecentGuess.similarity"
+            :highlight="true"
+          />
+        </section>
+
+        <!-- Guess history -->
+        <section class="guess-history" aria-label="Bisherige Versuche">
+          <GuessHistory
+            :guesses="gameStore.pastGuesses"
+            :lastGuess="gameStore.mostRecentGuess"
+          />
+        </section>
+      </main>
+
+      <!-- SEO-friendly description when game is not started -->
+      <section
+        v-if="
+          (!gameStore.recentGame || gameStore.pastGuesses.length === 0) &&
+          !loading
+        "
+        class="mb-4 text-center"
+      >
+        <h2 class="text-lg font-semibold mb-2">
+          Deutsches Wortspiel - Täglich neue Rätsel
+        </h2>
+        <p class="text-sm text-gray-600 mb-3">
+          Rate das Zielwort durch clevere Hinweise! Jeder Versuch zeigt dir, wie
+          ähnlich dein Wort dem gesuchten Begriff ist. Ähnlich wie Wordle, aber
+          auf Deutsch und mit KI-basierter Wortähnlichkeit.
+        </p>
+        <div class="text-xs text-gray-500">
+          <p>
+            <v-icon class="text-primary" icon="mdi-target"></v-icon> Täglich ein
+            neues Rätsel
+          </p>
+          <p>
+            <v-icon class="text-primary" icon="mdi-flag"></v-icon> Komplett auf
+            Deutsch
+          </p>
+          <p>
+            <v-icon class="text-primary" icon="mdi-robot"></v-icon>
+            KI-basierte Wortähnlichkeit
+          </p>
+          <p>
+            <v-icon class="text-primary" icon="mdi-cellphone-check"></v-icon>
+            Funktioniert auf allen Geräten
+          </p>
+        </div>
+      </section>
     </div>
   </div>
 </template>

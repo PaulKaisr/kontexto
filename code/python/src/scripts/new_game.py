@@ -7,7 +7,8 @@ from dotenv import load_dotenv
 from src.database.database_config import DatabaseConfig
 from src.database.entities.similarity import SimilarityEntity
 from src.services.game_service import GameService
-from src.services.similarity_service import SimilarityService
+from src.services.similarity_service_factory import SimilarityServiceFactory
+from src.services.interfaces.i_similarity_service import ISimilarityService
 from src.services.word_service import WordService
 
 MIN_FREQ = 20000
@@ -57,7 +58,7 @@ def get_solution_word_from_file(file_path: Path) -> str | None:
 def main(args):
     configure_env(args)
     game_service = GameService()
-    similarity_service = SimilarityService()
+    similarity_service: ISimilarityService = SimilarityServiceFactory.create_similarity_service(args.similarity_service)
     word_service = WordService()
 
     # Reset tables relevant for new game (only if --reset flag is provided)
@@ -110,5 +111,6 @@ if __name__ == "__main__":
     parser.add_argument('--production', action='store_true', help='Use .env from frontend')
     parser.add_argument('--reset', action='store_true', help='Reset all previous games and similarities before creating new game')
     parser.add_argument('-n', '--number', type=int, default=1, help='Number of games to create (default: 1)')
+    parser.add_argument('--similarity-service', choices=SimilarityServiceFactory.get_available_services(), default='transformer', help='Similarity service to use (default: transformer)')
     args = parser.parse_args()
     main(args)

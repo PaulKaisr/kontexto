@@ -240,7 +240,7 @@ Frontend uses generated TypeScript types from Supabase schema, ensuring type saf
 
 ## Deployment
 
-- **Frontend**: Deployed to Vercel at `https://kontexto.vercel.app/` with integrated Vercel Analytics
+- **Frontend**: Deployed to Vercel at `https://kontexto.app/` with integrated Vercel Analytics
 - **Database**: Supabase (hosted PostgreSQL)
 - **Game Data**: New games created manually via Python scripts
 - **Analytics**: Vercel Analytics tracks production usage (privacy-compliant)
