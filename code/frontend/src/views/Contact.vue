@@ -14,7 +14,7 @@
         <div class="text-h5 my-2">Kontakt</div>
         <div class="text-body-2">
           Telefon: +49 1523 3744 777<br />
-          E-Mail: paulkaisr@gmail.com
+          E-Mail: kontexto.app@gmail.com
         </div>
       </v-card-text>
     </v-card>

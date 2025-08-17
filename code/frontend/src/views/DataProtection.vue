@@ -96,8 +96,10 @@ const impressumUrl = computed(() => {
         <p>Paul Kaiser<br />Leonhardtstraße 2<br />76131 Karlsruhe</p>
         E-Mail-Adresse:
         <p>
-          <a class="underline text-blue-300" href="mailto:paulkaisr@gmail.com"
-            >paulkaisr@gmail.com</a
+          <a
+            class="underline text-blue-300"
+            href="mailto:kontexto.app@gmail.com"
+            >kontexto.app@gmail.com</a
           >
         </p>
         Impressum:
