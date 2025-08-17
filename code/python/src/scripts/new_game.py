@@ -30,15 +30,15 @@ def configure_env(args):
     if args.local:
         candidate = FRONTEND_DIR / ".env.local"
     elif args.production:
-        candidate = FRONTEND_DIR / ".env"
+        candidate = PYTHON_DIR / ".env"
     else:  # auto-detect preference
         if (FRONTEND_DIR / ".env.local").exists():
             candidate = FRONTEND_DIR / ".env.local"
-        elif (FRONTEND_DIR / ".env").exists():
-            candidate = FRONTEND_DIR / ".env"
+        elif (PYTHON_DIR / ".env").exists():
+            candidate = PYTHON_DIR / ".env"
 
     if not candidate or not candidate.exists():
-        raise SystemExit("No suitable environment file found (.env.local / .env) in frontend directory")
+        raise SystemExit("No suitable environment file found (.env.local in frontend or .env in python directory)")
 
     DatabaseConfig.set_environment(str(candidate))
     load_dotenv(str(candidate), override=True)
