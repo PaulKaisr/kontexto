@@ -76,18 +76,26 @@ def main(args):
     init_db()
     print("Tables created successfully.")
     
-    # Enable RLS on all tables (unless disabled)
-    if not args.no_rls:
+    # Determine if we should enable RLS
+    is_local_env = args.local or (not args.production and (FRONTEND_DIR / ".env.local").exists())
+    should_enable_rls = not args.no_rls and not is_local_env
+    
+    if should_enable_rls:
         enable_rls()
         print("RLS configuration completed.")
     else:
-        print("RLS enablement skipped (--no-rls flag used).")
+        if args.no_rls:
+            print("RLS enablement skipped (--no-rls flag used).")
+        elif is_local_env:
+            print("RLS enablement skipped (local environment detected).")
+        else:
+            print("RLS enablement skipped.")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Initialize database tables')
-    parser.add_argument('--local', action='store_true', help='Use .env.local from frontend')
-    parser.add_argument('--production', action='store_true', help='Use .env from python directory')
-    parser.add_argument('--no-rls', action='store_true', help='Skip enabling Row Level Security on tables')
+    parser.add_argument('--local', action='store_true', help='Use .env.local from frontend (automatically disables RLS)')
+    parser.add_argument('--production', action='store_true', help='Use .env from python directory (enables RLS)')
+    parser.add_argument('--no-rls', action='store_true', help='Force skip enabling Row Level Security on tables')
     args = parser.parse_args()
     main(args)
