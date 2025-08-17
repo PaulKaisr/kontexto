@@ -21,13 +21,13 @@ async function copyStatsToClipboard() {
       `Versuche: ${attempts}\n` +
       `Hinweise: ${gameStore.numHints}\n\n` +
       `${chart.value}\n\n` +
-      `Spiele auch mit: https://kontexto.vercel.app/`
+      `Spiele auch mit: https://kontexto.app/`
     : `Ich habe das Kontexto-Rätsel von Tag ${gameStore.recentGame?.game_id} gelöst! 🎉\n\n` +
       `Lösungswort: "${gameStore.solution}"\n` +
       `Versuche: ${attempts}\n` +
       `Hinweise: ${gameStore.numHints}\n\n` +
       `${chart.value}\n\n` +
-      `Spiele auch mit: https://kontexto.vercel.app/`;
+      `Spiele auch mit: https://kontexto.app/`;
 
   await navigator.clipboard.writeText(stats);
 

@@ -7,7 +7,7 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
 /**
- * Retrieves the game for today's date from the 'game' table.
+ * Retrieves the most recent game before or equal to today's date from the 'game' table.
  * Returns an object with 'game_id' and 'date' fields, or null if not found.
  */
 export async function getMostRecentGame() {
@@ -16,14 +16,19 @@ export async function getMostRecentGame() {
   const { data, error } = await supabase
     .from("game")
     .select("game_id, date")
-    .eq("date", today)
-    .single();
+    .lte("date", today)
+    .order("date", { ascending: false })
+    .limit(1);
+
+  console.log("Most recent game data:", data);
 
   if (error) {
-    console.error("Error fetching today's game:", error);
+    console.error("Error fetching most recent game:", error);
     return null;
   }
-  return data;
+
+  // Return the first game if found, otherwise null
+  return data && data.length > 0 ? data[0] : null;
 }
 
 /**
@@ -71,7 +76,7 @@ export async function getSimilarityByGameIdAndWord(
   // Return both the similarity data and the word that achieved the best match
   return {
     ...bestMatch,
-    matchedWord: bestMatch.word // Explicitly include the word that got the best match
+    matchedWord: bestMatch.word, // Explicitly include the word that got the best match
   };
 }
 

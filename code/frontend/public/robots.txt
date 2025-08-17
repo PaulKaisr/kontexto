@@ -3,6 +3,9 @@
 User-agent: *
 Allow: /
 
+# Sitemap
+Sitemap: https://kontexto.app/sitemap.xml
+
 # Disallow any potential admin or sensitive areas
 Disallow: /admin
 Disallow: /api

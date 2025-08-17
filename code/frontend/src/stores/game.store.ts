@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import {
   getMostRecentGame,
   getSimilarityByGameIdAndWord,
+  getHintForGame,
 } from "@/services/supabase";
 import type { Game } from "@/types/game";
 
@@ -97,9 +98,7 @@ export const useGameStore = defineStore("game", {
         nextHintRank = candidate;
       }
 
-      const hint = await import("@/services/supabase").then((m) =>
-        m.getHintForGame(this.recentGame!.game_id, nextHintRank)
-      );
+      const hint = await getHintForGame(this.recentGame!.game_id, nextHintRank);
       if (hint && hint.word) {
         this.pastGuesses.push({
           guess: hint.word,
@@ -112,9 +111,7 @@ export const useGameStore = defineStore("game", {
       if (!this.recentGame || this.hasGivenUp || this.solution) return;
 
       // Get the solution word (rank 1)
-      const solution = await import("@/services/supabase").then((m) =>
-        m.getHintForGame(this.recentGame!.game_id, 1)
-      );
+      const solution = await getHintForGame(this.recentGame!.game_id, 1);
       if (solution && solution.word) {
         this.pastGuesses.push({ guess: solution.word, similarity: 1 });
         this.hasGivenUp = true;

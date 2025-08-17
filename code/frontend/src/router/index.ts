@@ -3,22 +3,68 @@ import { createRouter, createWebHistory } from "vue-router";
 const Home = () => import("../views/Home.vue");
 const DataProtection = () => import("../views/DataProtection.vue");
 const Contact = () => import("../views/Contact.vue");
+const GameTips = () => import("../views/GameTips.vue");
+const About = () => import("../views/About.vue");
 
 const routes = [
   {
     path: "/",
     name: "home",
     component: Home,
+    meta: {
+      title: "Kontexto - Deutsches Wortspiel | Täglich neue Wort-Rätsel",
+      description:
+        "Kostenloses deutsches Wortspiel mit täglich neuen Rätseln. Rate das Zielwort durch Kontext und Wortähnlichkeit!",
+    },
   },
   {
-    path: "/legal",
-    name: "legal",
+    path: "/spieltipps",
+    name: "game-tips",
+    component: GameTips,
+    meta: {
+      title: "Kontexto Spieltipps & Strategien | Besser werden im Wortspiel",
+      description:
+        "Lerne die besten Strategien und Tipps für Kontexto. Werde zum Wortspiel-Experten mit unseren bewährten Techniken!",
+    },
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: About,
+    meta: {
+      title: "Über Kontexto | Das deutsche Wortspiel mit KI-Ähnlichkeit",
+      description:
+        "Erfahre mehr über Kontexto - das innovative deutsche Wortspiel mit KI-basierter Wortähnlichkeit. Geschichte, Technik und Team.",
+    },
+  },
+  {
+    path: "/data-protection",
+    name: "data-protection",
     component: DataProtection,
+    meta: {
+      title: "Datenschutz | Kontexto",
+      description:
+        "Datenschutzerklärung für Kontexto - Wie wir deine Daten schützen",
+    },
+  },
+  {
+    path: "/contact",
+    name: "contact",
+    component: Contact,
+    meta: {
+      title: "Kontakt | Kontexto",
+      description:
+        "Kontaktiere das Kontexto Team - Feedback, Fragen und Anregungen",
+    },
+  },
+  // Legacy routes for backwards compatibility
+  {
+    path: "/legal",
+    redirect: "/data-protection",
   },
   {
     path: "/impressum",
-    name: "impressum",
-    component: Contact,
+    redirect: "/contact",
   },
 ];
 
@@ -33,6 +79,22 @@ const router = createRouter({
     // Otherwise, scroll to the top of the page
     return { top: 0 };
   },
+});
+
+// Update document title and meta description based on route
+router.beforeEach((to, from, next) => {
+  if (to.meta?.title) {
+    document.title = to.meta.title as string;
+  }
+
+  if (to.meta?.description) {
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", to.meta.description as string);
+    }
+  }
+
+  next();
 });
 
 export default router;

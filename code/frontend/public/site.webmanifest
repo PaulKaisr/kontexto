@@ -1,22 +1,41 @@
 {
-  "name": "Kontexto - Deutsches Wortspiel",
+  "name": "Kontexto - Deutsches Wortspiel mit täglichen Rätseln",
   "short_name": "Kontexto",
-  "description": "Ein deutsches Wortspiel basierend auf Kontext und Wortähnlichkeit",
+  "description": "Kostenloses deutsches Wortspiel mit täglich neuen Rätseln. Rate das Zielwort durch Kontext und Wortähnlichkeit - wie Wordle, aber auf Deutsch!",
+  "categories": ["games", "entertainment", "education"],
+  "lang": "de",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "theme_color": "#1976d2",
-  "background_color": "#1976d2",
+  "background_color": "#ffffff",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "start_url": "/",
-  "scope": "/"
+  "scope": "/",
+  "shortcuts": [
+    {
+      "name": "Heute spielen",
+      "short_name": "Spielen",
+      "description": "Spiele das heutige Kontexto Rätsel",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/android-chrome-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }
