@@ -67,32 +67,41 @@ def main(args):
         game_service.delete_all_games()
         print("Reset completed.")
 
-    # Create a new game & choose solution
-    game = game_service.new_game()
-    solution = get_solution_word_from_file(SOLUTIONS_FILE)
-    if not solution:
-        raise SystemExit("No solution word could be selected.")
-    print(f"New game created with ID: {game.game_id} and solution word: {solution}")
+    # Create the specified number of games
+    num_games = args.number
+    print(f"Creating {num_games} game(s)...")
+    
+    for i in range(num_games):
+        print(f"\nCreating game {i + 1}/{num_games}:")
+        
+        # Create a new game & choose solution
+        game = game_service.new_game()
+        solution = get_solution_word_from_file(SOLUTIONS_FILE)
+        if not solution:
+            raise SystemExit("No solution word could be selected.")
+        print(f"New game created with ID: {game.game_id}, Date: {game.date}, Solution: {solution}")
 
-    # Prepare similarity reference & compute scores
-    similarity_service.set_reference(solution)
-    words = word_service.get_all_words_from_db(min_freq=MIN_FREQ)
-    scores = similarity_service.get_similarities(words)
-    print(f"Calculated similarities for {len(words)} words.")
+        # Prepare similarity reference & compute scores
+        similarity_service.set_reference(solution)
+        words = word_service.get_all_words_from_db(min_freq=MIN_FREQ)
+        scores = similarity_service.get_similarities(words)
+        print(f"Calculated similarities for {len(words)} words.")
 
-    # Sort by similarity descending
-    sorted_scores: OrderedDict[str, float] = OrderedDict(
-        sorted(scores.items(), key=lambda kv: kv[1], reverse=True)
-    )
-
-    similarity_orms: list[SimilarityEntity] = []
-    for rank, word in enumerate(sorted_scores, start=1):
-        similarity_orms.append(
-            SimilarityEntity(game_id=game.game_id, word=word, similarity_rank=rank)
+        # Sort by similarity descending
+        sorted_scores: OrderedDict[str, float] = OrderedDict(
+            sorted(scores.items(), key=lambda kv: kv[1], reverse=True)
         )
 
-    similarity_service.add_similarities(similarity_orms)
-    print(f"Inserted {len(similarity_orms)} similarity rows.")
+        similarity_orms: list[SimilarityEntity] = []
+        for rank, word in enumerate(sorted_scores, start=1):
+            similarity_orms.append(
+                SimilarityEntity(game_id=game.game_id, word=word, similarity_rank=rank)
+            )
+
+        similarity_service.add_similarities(similarity_orms)
+        print(f"Inserted {len(similarity_orms)} similarity rows.")
+    
+    print(f"\nCompleted creating {num_games} game(s).")
 
 
 if __name__ == "__main__":
@@ -100,5 +109,6 @@ if __name__ == "__main__":
     parser.add_argument('--local', action='store_true', help='Use .env.local from frontend')
     parser.add_argument('--production', action='store_true', help='Use .env from frontend')
     parser.add_argument('--reset', action='store_true', help='Reset all previous games and similarities before creating new game')
+    parser.add_argument('-n', '--number', type=int, default=1, help='Number of games to create (default: 1)')
     args = parser.parse_args()
     main(args)
