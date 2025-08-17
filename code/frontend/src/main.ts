@@ -23,9 +23,8 @@ const app = createApp(App);
 
 registerPlugins(app);
 
-// Initialize Vercel Analytics (only in production)
-if (import.meta.env.PROD) {
-  inject();
-}
+// Initialize Vercel Analytics
+// Will only track in production due to Vercel's domain restrictions
+inject();
 
 app.mount("#app");
