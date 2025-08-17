@@ -1,0 +1,12 @@
+# Robots.txt for Kontexto - German word guessing game
+
+User-agent: *
+Allow: /
+
+# Disallow any potential admin or sensitive areas
+Disallow: /admin
+Disallow: /api
+Disallow: /_*
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
