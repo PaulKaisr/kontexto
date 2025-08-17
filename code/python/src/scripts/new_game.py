@@ -111,6 +111,6 @@ if __name__ == "__main__":
     parser.add_argument('--production', action='store_true', help='Use .env from frontend')
     parser.add_argument('--reset', action='store_true', help='Reset all previous games and similarities before creating new game')
     parser.add_argument('-n', '--number', type=int, default=1, help='Number of games to create (default: 1)')
-    parser.add_argument('--similarity-service', choices=SimilarityServiceFactory.get_available_services(), default='spacy', help='Similarity service to use (default: spacy)')
+    parser.add_argument('--similarity-service', choices=SimilarityServiceFactory.get_available_services(), default='transformer', help='Similarity service to use (default: transformer)')
     args = parser.parse_args()
     main(args)

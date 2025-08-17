@@ -1,5 +1,7 @@
 from src.services.interfaces.i_similarity_service import ISimilarityService
 from src.services.similarity_service import SpacySimilarityService
+from src.services.sentence_transformer_similarity_service import SentenceTransformerSimilarityService
+from src.services.transformer_similarity_service import TransformerSimilarityService
 
 
 class SimilarityServiceFactory:
@@ -18,6 +20,10 @@ class SimilarityServiceFactory:
         """
         if service_type.lower() == "spacy":
             return SpacySimilarityService(**kwargs)
+        elif service_type.lower() == "sentence-transformer":
+            return SentenceTransformerSimilarityService(**kwargs)
+        elif service_type.lower() == "transformer":
+            return TransformerSimilarityService(**kwargs)
         else:
             raise ValueError(f"Unknown similarity service type: {service_type}")
     
@@ -28,4 +34,4 @@ class SimilarityServiceFactory:
         
         :return: List of available service type names
         """
-        return ["spacy"]
+        return ["spacy", "sentence-transformer", "transformer"]
