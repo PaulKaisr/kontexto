@@ -49,8 +49,17 @@ describe("Game.vue", () => {
   });
 
   it("shows stats card when game is over", () => {
-    // Add a winning guess to trigger game over state
-    gameStore.pastGuesses = [{ guess: "test", similarity: 1 }];
+    // Set up a game with a winning state
+    gameStore.recentGame = { game_id: 1, date: "2025-01-01" };
+    gameStore.gamesProgress = {
+      1: {
+        gameId: 1,
+        guesses: [{ guess: "test", similarity: 1 }],
+        numHints: 0,
+        hasGivenUp: false,
+        lastPlayed: new Date().toISOString(),
+      },
+    };
 
     // Remount component to reflect the state change
     wrapper = mountComponent();
