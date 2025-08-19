@@ -53,11 +53,14 @@
         </div>
 
         <v-list class="pa-0" density="comfortable">
-          <template v-for="(game, index) in games" :key="game.game_id">
+          <template
+            v-for="(game, index) in gamesWithProgress"
+            :key="game.gameId"
+          >
             <v-list-item
               class="px-3 sm:px-4 py-2 sm:py-3"
               :class="{
-                'bg-primary-lighten-5': game.game_id === currentGameId,
+                'bg-primary-lighten-5': game.gameId === currentGameId,
               }"
               @click="selectGame(game)"
               :disabled="switchingGame"
@@ -66,18 +69,18 @@
               <template v-slot:prepend>
                 <v-avatar
                   :color="
-                    game.game_id === currentGameId
+                    game.gameId === currentGameId
                       ? 'primary'
-                      : 'grey-lighten-1'
+                      : getGameStateColor(game.state)
                   "
                   :size="$vuetify.display.smAndUp ? '40' : '32'"
                   class="mr-2 sm:mr-3"
                 >
-                  <span
-                    class="text-caption sm:text-body-1 font-bold text-white"
-                  >
-                    {{ game.game_id }}
-                  </span>
+                  <v-icon
+                    :icon="getGameStateIcon(game.state)"
+                    :color="game.gameId === currentGameId ? 'white' : 'white'"
+                    :size="$vuetify.display.smAndUp ? 'default' : 'small'"
+                  ></v-icon>
                 </v-avatar>
               </template>
 
@@ -85,18 +88,47 @@
                 <v-list-item-title
                   class="font-weight-medium text-body-2 sm:text-body-1"
                 >
-                  Spiel #{{ game.game_id }}
+                  Spiel #{{ game.gameId }}
                 </v-list-item-title>
 
                 <v-list-item-subtitle class="text-caption sm:text-body-2">
-                  {{ formatDate(game.date) }}
+                  {{ formatDate(getGameDate(game.gameId)) }}
                 </v-list-item-subtitle>
+
+                <!-- Game progress info -->
+                <div class="d-flex align-center mt-1 gap-2">
+                  <v-chip
+                    :color="getGameStateColor(game.state)"
+                    variant="outlined"
+                    :size="$vuetify.display.smAndUp ? 'x-small' : 'x-small'"
+                  >
+                    {{ game.state }}
+                  </v-chip>
+
+                  <div
+                    v-if="game.guessCount > 0"
+                    class="text-caption text-grey-darken-1"
+                  >
+                    {{ game.guessCount }} Versuche
+                    <span v-if="game.hintsUsed > 0"
+                      >• {{ game.hintsUsed }} Hinweise</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Show solution if available -->
+                <div
+                  v-if="game.solution"
+                  class="text-caption text-success mt-1 font-weight-bold"
+                >
+                  Lösung: {{ game.solution }}
+                </div>
               </div>
 
               <template v-slot:append>
                 <div class="d-flex align-center">
                   <v-chip
-                    v-if="game.game_id === currentGameId"
+                    v-if="game.gameId === currentGameId"
                     color="primary"
                     variant="flat"
                     :size="$vuetify.display.smAndUp ? 'small' : 'x-small'"
@@ -106,11 +138,11 @@
                   </v-chip>
                   <v-icon
                     :icon="
-                      switchingGame && selectedGameId === game.game_id
+                      switchingGame && selectedGameId === game.gameId
                         ? 'mdi-loading mdi-spin'
                         : 'mdi-play'
                     "
-                    :color="game.game_id === currentGameId ? 'primary' : 'grey'"
+                    :color="game.gameId === currentGameId ? 'primary' : 'grey'"
                     :size="$vuetify.display.smAndUp ? 'default' : 'small'"
                   ></v-icon>
                 </div>
@@ -118,7 +150,7 @@
             </v-list-item>
 
             <v-divider
-              v-if="index < games.length - 1"
+              v-if="index < gamesWithProgress.length - 1"
               class="mx-3 sm:mx-4"
             ></v-divider>
           </template>
@@ -145,11 +177,20 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
 import { getAllGames, getGameById } from "@/services/supabase";
-import { useGameStore } from "@/stores/game.store";
+import { useGameStore, GameState } from "@/stores/game.store";
 
 interface GameData {
   game_id: number;
   date: string | null;
+}
+
+interface GameWithProgress {
+  gameId: number;
+  state: GameState;
+  guessCount: number;
+  hintsUsed: number;
+  lastPlayed: string | null;
+  solution: string | null;
 }
 
 const emit = defineEmits<{
@@ -165,6 +206,53 @@ const selectedGameId = ref<number | null>(null);
 
 const currentGameId = computed(() => gameStore.recentGame?.game_id);
 
+// Create a map of games with their dates for quick lookup
+const gamesDatesMap = computed(() => {
+  const map: Record<number, string | null> = {};
+  games.value.forEach((game) => {
+    map[game.game_id] = game.date;
+  });
+  return map;
+});
+
+// Combine available games with their progress data
+const gamesWithProgress = computed(() => {
+  const result: GameWithProgress[] = [];
+  const progressGames = gameStore.allGamesWithProgress;
+
+  // First, add all games from the database
+  games.value.forEach((game) => {
+    const progressGame = progressGames.find((p) => p.gameId === game.game_id);
+    if (progressGame) {
+      result.push({
+        gameId: game.game_id,
+        state: progressGame.state,
+        guessCount: progressGame.guessCount,
+        hintsUsed: progressGame.hintsUsed,
+        lastPlayed: progressGame.lastPlayed,
+        solution: progressGame.solution,
+      });
+    } else {
+      // Game exists but no progress yet
+      result.push({
+        gameId: game.game_id,
+        state: GameState.NOT_STARTED,
+        guessCount: 0,
+        hintsUsed: 0,
+        lastPlayed: null,
+        solution: null,
+      });
+    }
+  });
+
+  // Sort by game ID descending (newest first)
+  return result.sort((a, b) => b.gameId - a.gameId);
+});
+
+function getGameDate(gameId: number): string | null {
+  return gamesDatesMap.value[gameId] || null;
+}
+
 function formatDate(dateString: string | null): string {
   if (!dateString) return "Datum unbekannt";
 
@@ -176,20 +264,53 @@ function formatDate(dateString: string | null): string {
   });
 }
 
-async function selectGame(game: GameData) {
-  if (switchingGame.value || game.game_id === currentGameId.value) return;
+function getGameStateColor(state: GameState): string {
+  switch (state) {
+    case GameState.NOT_STARTED:
+      return "grey-lighten-1";
+    case GameState.IN_PROGRESS:
+      return "orange";
+    case GameState.SOLVED:
+      return "success";
+    case GameState.GIVEN_UP:
+      return "error";
+    default:
+      return "grey-lighten-1";
+  }
+}
+
+function getGameStateIcon(state: GameState): string {
+  switch (state) {
+    case GameState.NOT_STARTED:
+      return "mdi-play-circle-outline";
+    case GameState.IN_PROGRESS:
+      return "mdi-progress-clock";
+    case GameState.SOLVED:
+      return "mdi-check-circle";
+    case GameState.GIVEN_UP:
+      return "mdi-close-circle";
+    default:
+      return "mdi-play-circle-outline";
+  }
+}
+
+async function selectGame(game: GameWithProgress) {
+  if (switchingGame.value || game.gameId === currentGameId.value) return;
 
   try {
     switchingGame.value = true;
-    selectedGameId.value = game.game_id;
+    selectedGameId.value = game.gameId;
 
     // Fetch the selected game data
-    const selectedGame = await getGameById(game.game_id);
+    const selectedGame = await getGameById(game.gameId);
 
     if (selectedGame) {
-      // Reset the game store and set the new game
-      gameStore.resetStore();
+      // Set the new game without resetting the entire store
       gameStore.recentGame = selectedGame;
+      gameStore.currentGuess = "";
+
+      // Initialize progress for this game and update switch tracking
+      await gameStore.switchToGame(game.gameId);
 
       // Emit close to close the dialog
       emit("close");
