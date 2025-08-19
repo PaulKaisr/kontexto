@@ -140,6 +140,16 @@ const giveUpLoading = ref(false);
 const settingsStore = useSettingsStore();
 const theme = useTheme();
 
+// Expose method to open previous games dialog
+function openPreviousGamesDialog() {
+  showPreviousGames.value = true;
+}
+
+// Expose the function so parent components can call it
+defineExpose({
+  openPreviousGamesDialog,
+});
+
 async function handleGiveUpConfirm() {
   try {
     giveUpLoading.value = true;

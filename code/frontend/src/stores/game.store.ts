@@ -350,5 +350,36 @@ export const useGameStore = defineStore("game", {
 
       return games.sort((a, b) => b.gameId - a.gameId); // Sort by game ID descending
     },
+
+    // Progress statistics for header indicator
+    progressStats(state) {
+      // Helper function to get game state
+      const getGameState = (gameId: number): GameState => {
+        const progress = state.gamesProgress[gameId];
+        if (!progress || progress.guesses.length === 0) {
+          return GameState.NOT_STARTED;
+        }
+
+        const solution = progress.guesses.find((g: { guess: string; similarity: number }) => g.similarity === 1);
+        if (solution) {
+          return progress.hasGivenUp ? GameState.GIVEN_UP : GameState.SOLVED;
+        }
+
+        return GameState.IN_PROGRESS;
+      };
+
+      const totalGames = Object.keys(state.gamesProgress).length;
+      const completedGames = Object.keys(state.gamesProgress).filter((gameIdStr) => {
+        const gameId = parseInt(gameIdStr);
+        const gameState = getGameState(gameId);
+        return gameState === GameState.SOLVED || gameState === GameState.GIVEN_UP;
+      }).length;
+      
+      return {
+        completed: completedGames,
+        total: totalGames,
+        percentage: totalGames > 0 ? Math.round((completedGames / totalGames) * 100) : 0,
+      };
+    },
   },
 });

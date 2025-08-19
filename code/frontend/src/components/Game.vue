@@ -2,9 +2,10 @@
   <div class="d-flex flex-column justify-start align-center min-h-screen">
     <div class="max-w-full px-4 w-lg">
       <header class="flex flex-row w-full justify-between items-center my-2">
-        <div class="w-6"></div>
+        <ProgressIndicator @open-progress="openPreviousGames" />
         <h1 class="text-3xl font-bold">Kontexto</h1>
         <ContextMenu
+          ref="contextMenuRef"
           :loading="loading"
           :game-over="gameStore.isGameOver"
           @get-hint="handleGetHint"
@@ -112,10 +113,17 @@ import StatsBar from "@/components/StatsBar.vue";
 import GuessItem from "@/components/GuessHistory/GuessItem.vue";
 import ContextMenu from "@/components/ContextMenu.vue";
 import StatsCard from "@/components/StatsCard.vue";
+import ProgressIndicator from "@/components/ProgressIndicator.vue";
 
 const gameStore = useGameStore();
 const loading = ref(false);
 const errorMessage = ref("");
+const contextMenuRef = ref<InstanceType<typeof ContextMenu> | null>(null);
+
+function openPreviousGames() {
+  // Call the exposed method from ContextMenu to open the previous games dialog
+  contextMenuRef.value?.openPreviousGamesDialog();
+}
 
 async function handleSubmitGuess() {
   loading.value = true;
