@@ -12,6 +12,7 @@ declare module 'vue' {
     ClosestWords: typeof import('./src/components/ClosestWords.vue')['default']
     ConfirmDialog: typeof import('./src/components/ConfirmDialog.vue')['default']
     ContextMenu: typeof import('./src/components/ContextMenu.vue')['default']
+    CookieConsent: typeof import('./src/components/CookieConsent.vue')['default']
     Game: typeof import('./src/components/Game.vue')['default']
     GuessHistory: typeof import('./src/components/GuessHistory/GuessHistory.vue')['default']
     GuessItem: typeof import('./src/components/GuessHistory/GuessItem.vue')['default']
