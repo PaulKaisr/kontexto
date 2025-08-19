@@ -50,6 +50,96 @@
           </v-radio-group>
         </v-card>
 
+        <!-- Cookie Settings -->
+        <v-card variant="outlined" class="pa-2 sm:pa-3">
+          <div class="d-flex align-center mb-2">
+            <v-icon
+              icon="mdi-cookie"
+              color="primary"
+              class="mr-2"
+              size="small"
+            ></v-icon>
+            <h3 class="text-subtitle-1 font-bold text-primary">
+              Cookie-Einstellungen
+            </h3>
+          </div>
+          <p class="text-body-2 mb-3">
+            Verwalte deine Cookie-Präferenzen für diese Website.
+          </p>
+
+          <!-- Necessary Cookies -->
+          <div class="mb-4">
+            <div class="d-flex align-center justify-space-between mb-2">
+              <div class="d-flex align-center">
+                <v-icon color="success" class="me-2" size="small"
+                  >mdi-shield-check</v-icon
+                >
+                <span class="text-subtitle-2 font-medium"
+                  >Notwendige Cookies</span
+                >
+              </div>
+              <v-switch
+                :model-value="true"
+                disabled
+                color="success"
+                hide-details
+                density="compact"
+              />
+            </div>
+            <p class="text-caption text-medium-emphasis ml-6">
+              Immer aktiv - für das Funktionieren der Website erforderlich.
+            </p>
+          </div>
+
+          <!-- Analytics Cookies -->
+          <div class="mb-4">
+            <div class="d-flex align-center justify-space-between mb-2">
+              <div class="d-flex align-center">
+                <v-icon color="info" class="me-2" size="small"
+                  >mdi-chart-line</v-icon
+                >
+                <span class="text-subtitle-2 font-medium">Analyse-Cookies</span>
+              </div>
+              <v-switch
+                v-model="cookiePreferences.analytics"
+                @update:model-value="handleCookiePreferenceChange"
+                color="info"
+                hide-details
+                density="compact"
+              />
+            </div>
+            <p class="text-caption text-medium-emphasis ml-6">
+              Aktuell:
+              {{ cookiePreferences.analytics ? "Aktiviert" : "Deaktiviert" }}
+            </p>
+          </div>
+
+          <!-- Marketing Cookies -->
+          <div class="mb-2">
+            <div class="d-flex align-center justify-space-between mb-2">
+              <div class="d-flex align-center">
+                <v-icon color="warning" class="me-2" size="small"
+                  >mdi-bullhorn</v-icon
+                >
+                <span class="text-subtitle-2 font-medium"
+                  >Marketing-Cookies</span
+                >
+              </div>
+              <v-switch
+                v-model="cookiePreferences.marketing"
+                @update:model-value="handleCookiePreferenceChange"
+                color="warning"
+                hide-details
+                density="compact"
+              />
+            </div>
+            <p class="text-caption text-medium-emphasis ml-6">
+              Aktuell:
+              {{ cookiePreferences.marketing ? "Aktiviert" : "Deaktiviert" }}
+            </p>
+          </div>
+        </v-card>
+
         <!-- Info Section -->
         <v-alert type="info" variant="tonal" class="text-body-2">
           <template v-slot:prepend>
@@ -80,16 +170,47 @@
 </template>
 
 <script setup lang="ts">
+import { reactive, onMounted, watch } from "vue";
 import { useSettingsStore } from "@/stores/settings.store.ts";
+import {
+  useCookiesStore,
+  type CookiePreferences,
+} from "@/stores/cookies.store";
 import { useTheme } from "vuetify/framework";
-import { watch } from "vue";
 
 const settingsStore = useSettingsStore();
+const cookiesStore = useCookiesStore();
 const theme = useTheme();
 
 defineEmits<{
   close: [];
 }>();
+
+// Cookie preferences state
+const cookiePreferences = reactive<CookiePreferences>({
+  necessary: true,
+  analytics: false,
+  marketing: false,
+});
+
+// Handle cookie preference changes
+const handleCookiePreferenceChange = () => {
+  cookiesStore.saveCustomPreferences(cookiePreferences);
+};
+
+// Initialize cookie preferences from store
+onMounted(() => {
+  Object.assign(cookiePreferences, cookiesStore.preferences);
+});
+
+// Watch for changes in store preferences to update local state
+watch(
+  () => cookiesStore.preferences,
+  (newPreferences) => {
+    Object.assign(cookiePreferences, newPreferences);
+  },
+  { deep: true }
+);
 
 watch(
   () => settingsStore.themePreference,
