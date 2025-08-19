@@ -17,7 +17,6 @@ async function copyStatsToClipboard() {
 
   const stats = gameStore.hasGivenUp
     ? `Ich habe das Kontexto-Rätsel von Tag ${gameStore.recentGame?.game_id} aufgegeben. 😔\n\n` +
-      `Lösungswort: "${gameStore.solution}"\n` +
       `Versuche: ${attempts}\n` +
       `Hinweise: ${gameStore.numHints}\n\n` +
       `${chart.value}\n\n` +

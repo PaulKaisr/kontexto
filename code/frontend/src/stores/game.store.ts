@@ -5,6 +5,7 @@ import {
   getHintForGame,
 } from "@/services/supabase";
 import type { Game } from "@/types/game";
+import { useAnalytics } from "@/composables/useAnalytics";
 
 export const useGameStore = defineStore("game", {
   state: () => ({
@@ -25,6 +26,10 @@ export const useGameStore = defineStore("game", {
       ) {
         this.resetStore();
         this.recentGame = game;
+
+        // Track game start
+        const { trackGameEvent } = useAnalytics();
+        trackGameEvent("game_start", { game_id: game.game_id });
       }
     },
     /**
@@ -44,7 +49,7 @@ export const useGameStore = defineStore("game", {
           this.recentGame.game_id,
           this.currentGuess
         );
-        
+
         // Check if word was not found
         if (
           !similarity ||
@@ -54,18 +59,29 @@ export const useGameStore = defineStore("game", {
         ) {
           return { success: false, error: "not_found" };
         }
-        
+
         // Check if this matched word is already in our guesses
-        if (this.pastGuesses.some(g => g.guess === similarity.matchedWord)) {
+        if (this.pastGuesses.some((g) => g.guess === similarity.matchedWord)) {
           return { success: false, error: "duplicate" };
         }
-        
+
         // Add the correctly capitalized word to guesses
         this.pastGuesses.push({
           guess: similarity.matchedWord, // Use the correctly capitalized word that got the best match
           similarity: similarity.similarity,
         });
         this.currentGuess = "";
+
+        // Track successful guess
+        const { trackGameEvent } = useAnalytics();
+        trackGameEvent("game_complete", {
+          game_id: this.recentGame.game_id,
+          guess_count: this.pastGuesses.length,
+          hints_used: this.numHints,
+          similarity: similarity.similarity,
+          was_correct: similarity.similarity === 1,
+        });
+
         return { success: true };
       }
       return { success: false, error: "not_found" };
@@ -105,6 +121,15 @@ export const useGameStore = defineStore("game", {
           similarity: hint.similarity!,
         });
         this.numHints++;
+
+        // Track hint usage
+        const { trackGameEvent } = useAnalytics();
+        trackGameEvent("hint_used", {
+          game_id: this.recentGame.game_id,
+          hint_number: this.numHints,
+          hint_rank: nextHintRank,
+          total_guesses: this.pastGuesses.length,
+        });
       }
     },
     async giveUp() {
@@ -115,6 +140,15 @@ export const useGameStore = defineStore("game", {
       if (solution && solution.word) {
         this.pastGuesses.push({ guess: solution.word, similarity: 1 });
         this.hasGivenUp = true;
+
+        // Track give up event
+        const { trackGameEvent } = useAnalytics();
+        trackGameEvent("give_up", {
+          game_id: this.recentGame.game_id,
+          guess_count: this.pastGuesses.length - 1, // Subtract 1 because we just added the solution
+          hints_used: this.numHints,
+          solution_word: solution.word,
+        });
       }
     },
   },

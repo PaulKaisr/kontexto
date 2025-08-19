@@ -23,7 +23,7 @@ const impressumUrl = computed(() => {
           verarbeiten.
         </p>
         <p>Die verwendeten Begriffe sind nicht geschlechtsspezifisch.</p>
-        <p>Stand: 15. März 2023</p>
+        <p>Stand: 19. August 2025</p>
         <div class="text-h5 my-2">Inhaltsübersicht</div>
         <v-list class="index">
           <li>
@@ -362,6 +362,36 @@ const impressumUrl = computed(() => {
           >
         </p>
         <v-list class="m-elements">
+          <li>
+            <strong>Cookie-Einstellungen und Verwaltung: </strong>Wir verwenden
+            ein Cookie-Consent-System, das Ihnen die volle Kontrolle über Ihre
+            Cookie-Präferenzen gibt. Bei Ihrem ersten Besuch unserer Website
+            erscheint ein Cookie-Banner, über den Sie Ihre Einstellungen
+            verwalten können. Sie können jederzeit über die Cookie-Einstellungen
+            am unteren rechten Bildschirmrand Ihre Präferenzen ändern.
+            <br /><br />
+            <strong>Cookie-Kategorien:</strong>
+            <ul class="mt-2">
+              <li>
+                <strong>Notwendige Cookies:</strong> Diese sind für das
+                Funktionieren der Website erforderlich und können nicht
+                deaktiviert werden. Sie speichern Ihre Spielstände und
+                Einstellungen.
+              </li>
+              <li>
+                <strong>Analyse-Cookies:</strong> Diese helfen uns zu verstehen,
+                wie Besucher unsere Website nutzen (Google Analytics). Sie
+                können diese deaktivieren.
+              </li>
+              <li>
+                <strong>Marketing-Cookies:</strong> Derzeit verwenden wir keine
+                Marketing-Cookies. Diese Kategorie ist für zukünftige Features
+                vorgesehen.
+              </li>
+            </ul>
+            <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO
+            (Einwilligung) für nicht-notwendige Cookies.
+          </li>
           <li>
             <strong
               >Verarbeitung von Cookie-Daten auf Grundlage einer Einwilligung: </strong
