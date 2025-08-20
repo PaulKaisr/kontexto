@@ -360,7 +360,9 @@ export const useGameStore = defineStore("game", {
           return GameState.NOT_STARTED;
         }
 
-        const solution = progress.guesses.find((g: { guess: string; similarity: number }) => g.similarity === 1);
+        const solution = progress.guesses.find(
+          (g: { guess: string; similarity: number }) => g.similarity === 1
+        );
         if (solution) {
           return progress.hasGivenUp ? GameState.GIVEN_UP : GameState.SOLVED;
         }
@@ -369,16 +371,21 @@ export const useGameStore = defineStore("game", {
       };
 
       const totalGames = Object.keys(state.gamesProgress).length;
-      const completedGames = Object.keys(state.gamesProgress).filter((gameIdStr) => {
-        const gameId = parseInt(gameIdStr);
-        const gameState = getGameState(gameId);
-        return gameState === GameState.SOLVED || gameState === GameState.GIVEN_UP;
-      }).length;
-      
+      const completedGames = Object.keys(state.gamesProgress).filter(
+        (gameIdStr) => {
+          const gameId = parseInt(gameIdStr);
+          const gameState = getGameState(gameId);
+          return (
+            gameState === GameState.SOLVED || gameState === GameState.GIVEN_UP
+          );
+        }
+      ).length;
+
       return {
         completed: completedGames,
         total: totalGames,
-        percentage: totalGames > 0 ? Math.round((completedGames / totalGames) * 100) : 0,
+        percentage:
+          totalGames > 0 ? Math.round((completedGames / totalGames) * 100) : 0,
       };
     },
   },
