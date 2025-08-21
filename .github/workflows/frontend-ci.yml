@@ -32,24 +32,20 @@ jobs:
         cache-dependency-path: code/frontend/pnpm-lock.yaml
 
     - name: Install dependencies
-      run: |
-        cd code/frontend
-        pnpm install --frozen-lockfile
+      run: pnpm install --frozen-lockfile
+      working-directory: code/frontend
 
     - name: Run type checking
-      run: |
-        cd code/frontend
-        pnpm type-check
+      run: pnpm type-check
+      working-directory: code/frontend
 
     - name: Run tests
-      run: |
-        cd code/frontend
-        pnpm test --run
+      run: pnpm test --run
+      working-directory: code/frontend
 
     - name: Build frontend
-      run: |
-        cd code/frontend
-        pnpm build
+      run: pnpm build
+      working-directory: code/frontend
 
   lint:
     runs-on: ubuntu-latest
@@ -72,12 +68,10 @@ jobs:
         cache-dependency-path: code/frontend/pnpm-lock.yaml
 
     - name: Install dependencies
-      run: |
-        cd code/frontend
-        pnpm install --frozen-lockfile
+      run: pnpm install --frozen-lockfile
+      working-directory: code/frontend
 
     # Add lint step once linting is configured
     # - name: Run linting
-    #   run: |
-    #     cd code/frontend
-    #     pnpm lint
+    #   run: pnpm lint
+    #   working-directory: code/frontend
