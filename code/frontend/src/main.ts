@@ -15,7 +15,6 @@ import { createApp } from "vue";
 
 // Analytics
 import { inject } from "@vercel/analytics";
-import { injectSpeedInsights } from "@vercel/speed-insights";
 
 // Styles
 import "unfonts.css";
@@ -26,7 +25,6 @@ registerPlugins(app);
 
 if (import.meta.env.PROD) {
   inject();
-  injectSpeedInsights();
 }
 
 app.mount("#app");
