@@ -25,6 +25,21 @@ Object.defineProperty(window, 'visualViewport', {
   writable: true,
 });
 
+// Mock window.matchMedia for dark mode detection
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+});
+
 // Mock CSS imports
 vi.mock('*.css', () => ({}));
 vi.mock('*.scss', () => ({}));
@@ -36,6 +51,7 @@ vi.mock('@/services/supabase', () => ({
   getSimilarityByGameIdAndWord: vi.fn(() => Promise.resolve(null)),
   getHintForGame: vi.fn(() => Promise.resolve(null)),
   getTopSimilarWords: vi.fn(() => Promise.resolve([])),
+  getTopWordsByGame: vi.fn(() => Promise.resolve([])),
   getAllGames: vi.fn(() => Promise.resolve([])),
 }));
 
