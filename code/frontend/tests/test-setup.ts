@@ -25,7 +25,56 @@ Object.defineProperty(window, 'visualViewport', {
   writable: true,
 });
 
+// Mock window.matchMedia for dark mode detection
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+});
+
 // Mock CSS imports
 vi.mock('*.css', () => ({}));
 vi.mock('*.scss', () => ({}));
 vi.mock('*.sass', () => ({}));
+
+// Mock Supabase client
+vi.mock('@/services/supabase', () => ({
+  getMostRecentGame: vi.fn(() => Promise.resolve(null)),
+  getSimilarityByGameIdAndWord: vi.fn(() => Promise.resolve(null)),
+  getHintForGame: vi.fn(() => Promise.resolve(null)),
+  getTopSimilarWords: vi.fn(() => Promise.resolve([])),
+  getTopWordsByGame: vi.fn(() => Promise.resolve([])),
+  getAllGames: vi.fn(() => Promise.resolve([])),
+}));
+
+// Mock analytics
+vi.mock('@/composables/useAnalytics', () => ({
+  useAnalytics: () => ({
+    trackGameEvent: vi.fn(),
+    trackPageView: vi.fn(),
+  }),
+}));
+
+// Mock router
+vi.mock('vue-router', () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    go: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+  }),
+  useRoute: () => ({
+    params: {},
+    query: {},
+    path: '/',
+  }),
+}));

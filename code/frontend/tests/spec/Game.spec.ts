@@ -72,6 +72,7 @@ describe("Game.vue", () => {
 
     const textField = wrapper.find(".v-text-field input");
     await textField.trigger("keyup.enter");
+    await wrapper.vm.$nextTick(); // Wait for Vue reactivity
 
     expect(gameStore.submitGuess).toHaveBeenCalled();
   });

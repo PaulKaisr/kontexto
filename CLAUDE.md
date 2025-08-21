@@ -18,9 +18,18 @@ Navigate to `code/frontend/` directory for all frontend commands:
 - `pnpm build` - Build for production (runs type-check and build-only)
 - `pnpm type-check` - Run Vue TypeScript compiler
 - `pnpm preview` - Preview production build locally
-- `pnpm test` - Run frontend tests with Vitest (watch mode)
-- `pnpm test --run` - Run tests once (CI mode)
-- `pnpm test:ui` - Run tests with web UI interface
+
+### Testing Commands (All tests must pass for CI/CD)
+
+- `pnpm test` - Run frontend tests with Vitest in watch mode (development)
+- `pnpm test --run` - Run tests once in CI mode (required for pull requests)
+- `pnpm test:ui` - Run tests with interactive web UI interface
+
+**CI/CD Pipeline Requirements:**
+- All unit tests must pass before PR can be merged
+- Type checking must pass (`pnpm type-check`)
+- Build must succeed (`pnpm build`)
+- Tests are run automatically on push/PR to main branch
 
 ### Python Backend
 
@@ -154,6 +163,43 @@ Data persists across local restarts via Docker volumes.
 - Shared `mountComponent()` helper function in `beforeEach()` for consistent test setup
 - Test user interactions, component rendering, and store integration
 - Dialog testing requires special handling (use `teleport: true` stubs, `attachTo: document.body`)
+
+### CI/CD Pipeline & Testing Guidelines
+
+**GitHub Actions Workflow:**
+- **Automatic Testing**: All tests run on push/PR to main branch
+- **Required Checks**: Tests, type checking, and build must pass
+- **Branch Protection**: Pull requests cannot be merged unless all checks pass
+- **Workflow File**: Located at `.github/workflows/frontend-ci.yml`
+
+**Test Coverage:**
+- **9 Component Tests**: All major components have comprehensive test suites
+  - `ConfirmDialog.spec.ts` - Dialog component with event testing
+  - `ContextMenu.spec.ts` - Menu interactions and props
+  - `Game.spec.ts` - Main game component with store integration
+  - `GuessHistory.spec.ts` - Guess list rendering and sorting
+  - `GuessItem.spec.ts` - Individual guess styling and highlighting
+  - `HowToPlay.spec.ts` - Instructions modal content
+  - `Settings.spec.ts` - Theme settings and cookie preferences
+  - `StatsBar.spec.ts` - Game statistics display
+  - `StatsCard.spec.ts` - Victory card with sharing functionality
+
+**Testing Best Practices:**
+- **Always run tests before committing**: `pnpm test --run`
+- **Fix failing tests immediately** - do not push broken tests
+- **Test data-testid attributes** for reliable element selection
+- **Mock external dependencies** (navigator.clipboard, etc.)
+- **Test component props, events, and computed properties**
+- **Verify both success and error states**
+
+**Development Workflow:**
+1. Make code changes
+2. Run `pnpm test` to ensure tests pass
+3. Run `pnpm type-check` to verify TypeScript
+4. Run `pnpm build` to ensure build succeeds
+5. Commit changes and create PR
+6. CI pipeline automatically runs all checks
+7. PR can only be merged after all checks pass
 
 ### Components Structure
 
