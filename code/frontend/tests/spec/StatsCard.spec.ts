@@ -151,6 +151,7 @@ describe("StatsCard.vue", () => {
     expect(shareButton).toBeDefined();
 
     await shareButton!.trigger("click");
+    await wrapper.vm.$nextTick(); // Wait for Vue reactivity
 
     expect(navigator.clipboard.writeText).toHaveBeenCalled();
     const clipboardText = (navigator.clipboard.writeText as any).mock
@@ -168,7 +169,7 @@ describe("StatsCard.vue", () => {
     expect(shareButton).toBeDefined();
 
     await shareButton!.trigger("click");
-    await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick(); // Wait for Vue reactivity
 
     expect(wrapper.text()).toContain("Kopiert");
   });
