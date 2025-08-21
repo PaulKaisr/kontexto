@@ -1,0 +1,12 @@
+# ads.txt file for kontexto.app
+# This file helps prevent ad fraud by declaring authorized digital advertising sellers
+
+# Google AdSense
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+
+# Note: Replace pub-0000000000000000 with your actual AdSense Publisher ID
+# when you have been approved for AdSense
+
+# Format: domain, publisher account ID, relationship type, certification authority ID
+# DIRECT = direct relationship
+# RESELLER = reseller relationship

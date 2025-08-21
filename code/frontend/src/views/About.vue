@@ -240,7 +240,7 @@
                 <td class="text-center py-2">⚠️</td>
               </tr>
               <tr class="border-b border-gray-100">
-                <td class="py-2">Kostenlos & ohne Werbung</td>
+                <td class="py-2">Kostenlos verfügbar</td>
                 <td class="text-center py-2">✅</td>
                 <td class="text-center py-2">✅</td>
                 <td class="text-center py-2">⚠️</td>
@@ -278,8 +278,8 @@
             </h3>
             <p class="text-sm opacity-90">
               Bildung sollte für jeden zugänglich sein. Deshalb ist Kontexto
-              komplett kostenlos und wird es auch bleiben. Keine versteckten
-              Kosten, keine Werbung, nur reiner Spielspaß.
+              kostenlos verfügbar. Die Finanzierung erfolgt durch 
+              nutzerfreundliche Werbung, die das Spielerlebnis nicht beeinträchtigt.
             </p>
           </div>
         </div>

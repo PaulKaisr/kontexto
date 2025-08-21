@@ -82,6 +82,11 @@ const impressumUrl = computed(() => {
             >
           </li>
           <li>
+            <a class="underline text-blue-300 index-link" href="#m264"
+              >Werbung und Marketing</a
+            >
+          </li>
+          <li>
             <a class="underline text-blue-300 index-link" href="#m15"
               >Änderung und Aktualisierung der Datenschutzerklärung</a
             >
@@ -384,9 +389,9 @@ const impressumUrl = computed(() => {
                 können diese deaktivieren.
               </li>
               <li>
-                <strong>Marketing-Cookies:</strong> Derzeit verwenden wir keine
-                Marketing-Cookies. Diese Kategorie ist für zukünftige Features
-                vorgesehen.
+                <strong>Marketing-Cookies:</strong> Diese werden für
+                personalisierte Werbung verwendet, einschließlich Google AdSense.
+                Sie können diese jederzeit deaktivieren.
               </li>
             </ul>
             <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO
@@ -621,6 +626,69 @@ const impressumUrl = computed(() => {
               >https://privacy.google.com/businesses/adsservices</a
             >
             (Arten der Verarbeitung sowie der verarbeiteten Daten).
+          </li>
+        </v-list>
+        <div class="text-h5 my-2" id="m264">
+          Werbung und Marketing
+        </div>
+        <p>
+          Wir verwenden Werbedienstleister, um die kostenlose Bereitstellung
+          unseres Onlineangebotes zu finanzieren. Diese Dienste verwenden
+          Cookies und andere Technologien, um personalisierte Werbung zu
+          schalten und die Werbeleistung zu messen.
+        </p>
+        <v-list class="m-elements">
+          <li>
+            <strong>Verarbeitete Datenarten:</strong> Nutzungsdaten (z.B.
+            besuchte Webseiten, Interesse an Inhalten, Zugriffszeiten); Meta-,
+            Kommunikations- und Verfahrensdaten (z. B. IP-Adressen, Zeitangaben,
+            Identifikationsnummern, Einwilligungsstatus).
+          </li>
+          <li>
+            <strong>Betroffene Personen:</strong> Nutzer (z.B.
+            Webseitenbesucher, Nutzer von Onlinediensten).
+          </li>
+          <li>
+            <strong>Zwecke der Verarbeitung:</strong> Bereitstellung unseres
+            Onlineangebotes und Nutzerfreundlichkeit; Marketing; Profile mit
+            nutzerbezogenen Informationen; Tracking.
+          </li>
+          <li>
+            <strong>Rechtsgrundlagen:</strong> Einwilligung (Art. 6 Abs. 1 S. 1
+            lit. a) DSGVO); Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f) DSGVO).
+          </li>
+        </v-list>
+        <p>
+          <strong
+            >Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und
+            Diensten:</strong
+          >
+        </p>
+        <v-list class="m-elements">
+          <li>
+            <strong>Google AdSense: </strong>Wir nutzen Google AdSense zur
+            Schaltung von Werbeanzeigen. Google AdSense verwendet Cookies, um
+            anzeigenrelevante Informationen zu sammeln und personalisierte
+            Werbung zu schalten. <strong>Dienstanbieter:</strong> Google Ireland
+            Limited, Gordon House, Barrow Street, Dublin 4, Irland;
+            <strong>Rechtsgrundlagen:</strong> Einwilligung (Art. 6 Abs. 1 S. 1
+            lit. a) DSGVO); <strong>Website:</strong>
+            <a href="https://www.google.com/adsense" target="_blank"
+              >https://www.google.com/adsense</a
+            >; <strong>Datenschutzerklärung:</strong>
+            <a href="https://policies.google.com/privacy" target="_blank"
+              >https://policies.google.com/privacy</a
+            >; <strong>Widerspruchsmöglichkeit (Opt-Out):</strong>
+            <a
+              href="https://adssettings.google.com/authenticated"
+              target="_blank"
+              >https://adssettings.google.com/authenticated</a
+            >; <strong>Weitere Informationen:</strong>
+            <a
+              href="https://privacy.google.com/businesses/adsservices"
+              target="_blank"
+              >https://privacy.google.com/businesses/adsservices</a
+            >.
           </li>
         </v-list>
         <div class="text-h5 my-2" id="m15">
