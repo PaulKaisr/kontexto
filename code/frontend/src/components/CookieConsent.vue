@@ -84,8 +84,8 @@
                     />
                   </div>
                   <p class="text-caption text-grey">
-                    Derzeit verwenden wir keine Marketing-Cookies. Diese
-                    Einstellung ist für zukünftige Features vorgesehen.
+                    Werden für personalisierte Werbung verwendet, einschließlich
+                    Google AdSense. Helfen bei der Finanzierung des kostenlosen Spiels.
                   </p>
                 </div>
               </div>

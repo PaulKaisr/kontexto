@@ -13,8 +13,16 @@ const links = [
     route: "/about",
   },
   {
+    name: "FAQ",
+    route: "/faq",
+  },
+  {
     name: "Datenschutz",
     route: "/data-protection",
+  },
+  {
+    name: "Nutzungsbedingungen",
+    route: "/terms-of-service",
   },
   {
     name: "Kontakt",

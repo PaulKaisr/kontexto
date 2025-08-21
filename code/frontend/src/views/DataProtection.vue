@@ -82,6 +82,11 @@ const impressumUrl = computed(() => {
             >
           </li>
           <li>
+            <a class="underline text-blue-300 index-link" href="#m264"
+              >Werbung und Marketing</a
+            >
+          </li>
+          <li>
             <a class="underline text-blue-300 index-link" href="#m15"
               >Änderung und Aktualisierung der Datenschutzerklärung</a
             >
@@ -245,6 +250,7 @@ const impressumUrl = computed(() => {
           <a
             href="https://ec.europa.eu/info/law/law-topic/data-protection/international-dimension-data-protection_de"
             target="_blank"
+            rel="noopener noreferrer"
             >https://ec.europa.eu/info/law/law-topic/data-protection/international-dimension-data-protection_de</a
           >).
         </p>
@@ -346,11 +352,11 @@ const impressumUrl = computed(() => {
           (wobei dadurch auch die Funktionalität unserer Online-Dienste
           eingeschränkt sein kann). Ein Widerspruch gegen die Verwendung von
           Cookies zu Online-Marketing-Zwecken kann auch über die Websites
-          <a href="https://optout.aboutads.info" target="_blank"
+          <a href="https://optout.aboutads.info" target="_blank" rel="noopener noreferrer"
             >https://optout.aboutads.info</a
           >
           und
-          <a href="https://www.youronlinechoices.com/" target="_blank"
+          <a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener noreferrer"
             >https://www.youronlinechoices.com/</a
           >
           erklärt werden.
@@ -384,9 +390,9 @@ const impressumUrl = computed(() => {
                 können diese deaktivieren.
               </li>
               <li>
-                <strong>Marketing-Cookies:</strong> Derzeit verwenden wir keine
-                Marketing-Cookies. Diese Kategorie ist für zukünftige Features
-                vorgesehen.
+                <strong>Marketing-Cookies:</strong> Diese werden für
+                personalisierte Werbung verwendet, einschließlich Google AdSense.
+                Sie können diese jederzeit deaktivieren.
               </li>
             </ul>
             <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO
@@ -480,20 +486,20 @@ const impressumUrl = computed(() => {
             jeweiligen Vorfalls von der Löschung ausgenommen.
           </li>
           <li>
-            <strong>STRATO: </strong>Leistungen auf dem Gebiet der
+            <strong>Vercel: </strong>Leistungen auf dem Gebiet der
             Bereitstellung von informationstechnischer Infrastruktur und
-            verbundenen Dienstleistungen (z.B. Speicherplatz und/oder
-            Rechenkapazitäten); <strong>Dienstanbieter:</strong> STRATO AG,
-            Pascalstraße 10,10587 Berlin, Deutschland;
+            verbundenen Dienstleistungen (z.B. Webhosting, Content Delivery Network
+            und Deployment-Services); <strong>Dienstanbieter:</strong> Vercel Inc.,
+            340 S Lemon Ave #4133, Walnut, CA 91789, USA;
             <strong>Rechtsgrundlagen:</strong> Berechtigte Interessen (Art. 6
             Abs. 1 S. 1 lit. f) DSGVO);
             <strong>Website: </strong>
-            <a href="https://www.strato.de" target="_blank"
-              >https://www.strato.de</a
+            <a href="https://vercel.com" target="_blank" rel="noopener noreferrer"
+              >https://vercel.com</a
             >;
             <strong>Datenschutzerklärung: </strong>
-            <a href="https://www.strato.de/datenschutz" target="_blank"
-              >https://www.strato.de/datenschutz</a
+            <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer"
+              >https://vercel.com/legal/privacy-policy</a
             >; <strong>Auftragsverarbeitungsvertrag: </strong> Wird vom
             Dienstanbieter bereitgestellt.
           </li>
@@ -585,14 +591,16 @@ const impressumUrl = computed(() => {
             <a
               href="https://marketingplatform.google.com/intl/de/about/analytics/"
               target="_blank"
+              rel="noopener noreferrer"
               >https://marketingplatform.google.com/intl/de/about/analytics/</a
             >; <strong>Datenschutzerklärung:</strong>
-            <a href="https://policies.google.com/privacy" target="_blank"
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer"
               >https://policies.google.com/privacy</a
             >; <strong>Auftragsverarbeitungsvertrag:</strong>
             <a
               href="https://business.safety.google/adsprocessorterms"
               target="_blank"
+              rel="noopener noreferrer"
               >https://business.safety.google/adsprocessorterms</a
             >;
             <strong
@@ -602,25 +610,94 @@ const impressumUrl = computed(() => {
             <a
               href="https://business.safety.google/adsprocessorterms"
               target="_blank"
+              rel="noopener noreferrer"
               >https://business.safety.google/adsprocessorterms</a
             >;
             <strong>Widerspruchsmöglichkeit (Opt-Out):</strong> Opt-Out-Plugin:
             <a
               href="https://tools.google.com/dlpage/gaoptout?hl=de"
               target="_blank"
+              rel="noopener noreferrer"
               >https://tools.google.com/dlpage/gaoptout?hl=de</a
             >, Einstellungen für die Darstellung von Werbeeinblendungen:
             <a
               href="https://adssettings.google.com/authenticated"
               target="_blank"
+              rel="noopener noreferrer"
               >https://adssettings.google.com/authenticated</a
             >; <strong>Weitere Informationen:</strong>
             <a
               href="https://privacy.google.com/businesses/adsservices"
               target="_blank"
+              rel="noopener noreferrer"
               >https://privacy.google.com/businesses/adsservices</a
             >
             (Arten der Verarbeitung sowie der verarbeiteten Daten).
+          </li>
+        </v-list>
+        <div class="text-h5 my-2" id="m264">
+          Werbung und Marketing
+        </div>
+        <p>
+          Wir verwenden Werbedienstleister, um die kostenlose Bereitstellung
+          unseres Onlineangebotes zu finanzieren. Diese Dienste verwenden
+          Cookies und andere Technologien, um personalisierte Werbung zu
+          schalten und die Werbeleistung zu messen.
+        </p>
+        <v-list class="m-elements">
+          <li>
+            <strong>Verarbeitete Datenarten:</strong> Nutzungsdaten (z.B.
+            besuchte Webseiten, Interesse an Inhalten, Zugriffszeiten); Meta-,
+            Kommunikations- und Verfahrensdaten (z. B. IP-Adressen, Zeitangaben,
+            Identifikationsnummern, Einwilligungsstatus).
+          </li>
+          <li>
+            <strong>Betroffene Personen:</strong> Nutzer (z.B.
+            Webseitenbesucher, Nutzer von Onlinediensten).
+          </li>
+          <li>
+            <strong>Zwecke der Verarbeitung:</strong> Bereitstellung unseres
+            Onlineangebotes und Nutzerfreundlichkeit; Marketing; Profile mit
+            nutzerbezogenen Informationen; Tracking.
+          </li>
+          <li>
+            <strong>Rechtsgrundlagen:</strong> Einwilligung (Art. 6 Abs. 1 S. 1
+            lit. a) DSGVO); Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f) DSGVO).
+          </li>
+        </v-list>
+        <p>
+          <strong
+            >Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und
+            Diensten:</strong
+          >
+        </p>
+        <v-list class="m-elements">
+          <li>
+            <strong>Google AdSense: </strong>Wir nutzen Google AdSense zur
+            Schaltung von Werbeanzeigen. Google AdSense verwendet Cookies, um
+            anzeigenrelevante Informationen zu sammeln und personalisierte
+            Werbung zu schalten. <strong>Dienstanbieter:</strong> Google Ireland
+            Limited, Gordon House, Barrow Street, Dublin 4, Irland;
+            <strong>Rechtsgrundlagen:</strong> Einwilligung (Art. 6 Abs. 1 S. 1
+            lit. a) DSGVO); <strong>Website:</strong>
+            <a href="https://www.google.com/adsense" target="_blank" rel="noopener noreferrer"
+              >https://www.google.com/adsense</a
+            >; <strong>Datenschutzerklärung:</strong>
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer"
+              >https://policies.google.com/privacy</a
+            >; <strong>Widerspruchsmöglichkeit (Opt-Out):</strong>
+            <a
+              href="https://adssettings.google.com/authenticated"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://adssettings.google.com/authenticated</a
+            >; <strong>Weitere Informationen:</strong>
+            <a
+              href="https://privacy.google.com/businesses/adsservices"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://privacy.google.com/businesses/adsservices</a
+            >.
           </li>
         </v-list>
         <div class="text-h5 my-2" id="m15">

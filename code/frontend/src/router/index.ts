@@ -6,6 +6,8 @@ const DataProtection = () => import("../views/DataProtection.vue");
 const Contact = () => import("../views/Contact.vue");
 const GameTips = () => import("../views/GameTips.vue");
 const About = () => import("../views/About.vue");
+const TermsOfService = () => import("../views/TermsOfService.vue");
+const FAQ = () => import("../views/FAQ.vue");
 
 const routes = [
   {
@@ -56,6 +58,26 @@ const routes = [
       title: "Kontakt | Kontexto",
       description:
         "Kontaktiere das Kontexto Team - Feedback, Fragen und Anregungen",
+    },
+  },
+  {
+    path: "/terms-of-service",
+    name: "terms-of-service",
+    component: TermsOfService,
+    meta: {
+      title: "Nutzungsbedingungen | Kontexto",
+      description:
+        "Nutzungsbedingungen für Kontexto - Rechtliche Hinweise zur Nutzung",
+    },
+  },
+  {
+    path: "/faq",
+    name: "faq",
+    component: FAQ,
+    meta: {
+      title: "FAQ - Häufig gestellte Fragen | Kontexto",
+      description:
+        "Antworten auf häufige Fragen zu Kontexto - Spielregeln, Strategien und mehr",
     },
   },
   // Legacy routes for backwards compatibility
