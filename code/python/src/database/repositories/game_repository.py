@@ -35,6 +35,59 @@ class GameRepository:
         finally:
             session.close()
 
+    def get_game_by_id(self, game_id: int) -> GameEntity | None:
+        """
+        Get a game by its ID.
+        :param game_id: The ID of the game to retrieve.
+        :return: The GameEntity or None if not found.
+        """
+        session = self.db.get_session()
+        try:
+            game = session.query(GameEntity).filter(GameEntity.game_id == game_id).first()
+            return game
+        except Exception as e:
+            raise e
+        finally:
+            session.close()
+
+    def delete_game_by_id(self, game_id: int) -> bool:
+        """
+        Delete a game by its ID.
+        :param game_id: The ID of the game to delete.
+        :return: True if the game was deleted, False if it didn't exist.
+        """
+        session = self.db.get_session()
+        try:
+            deleted_count = session.query(GameEntity).filter(GameEntity.game_id == game_id).delete()
+            session.commit()
+            return deleted_count > 0
+        except Exception as e:
+            session.rollback()
+            raise e
+        finally:
+            session.close()
+
+    def new_game_with_date(self, game_date: date) -> GameEntity:
+        """
+        Add a new game to the database with a specific date.
+        :param game_date: The date for the new game.
+        :return: A new GameEntity object.
+        """
+        game = GameEntity()
+        game.date = game_date
+        
+        session = self.db.get_session()
+        try:
+            session.add(game)
+            session.commit()
+            session.refresh(game)
+            return game
+        except Exception as e:
+            session.rollback()
+            raise e
+        finally:
+            session.close()
+
     def new_game(self) -> GameEntity:
         """
         Add a new game to the database with a date that is one day after the last game.

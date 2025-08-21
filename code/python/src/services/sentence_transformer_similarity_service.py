@@ -27,6 +27,14 @@ class SentenceTransformerSimilarityService(ISimilarityService):
         """
         self.similarity_repository.delete_all()
 
+    def delete_similarities_by_game_id(self, game_id: int) -> None:
+        """
+        Delete all similarity entries for a specific game from the database.
+        
+        :param game_id: The ID of the game whose similarities should be deleted
+        """
+        self.similarity_repository.delete_by_game_id(game_id)
+
     def set_reference(self, reference: str) -> None:
         """
         Set the reference string for similarity calculation.

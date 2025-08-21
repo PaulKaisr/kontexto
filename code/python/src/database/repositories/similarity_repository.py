@@ -20,6 +20,21 @@ class SimilarityRepository:
         finally:
             session.close()
 
+    def delete_by_game_id(self, game_id: int):
+        """
+        Delete all similarities for a specific game.
+        :param game_id: The ID of the game whose similarities should be deleted.
+        """
+        session = self.db.get_session()
+        try:
+            session.query(SimilarityEntity).filter(SimilarityEntity.game_id == game_id).delete()
+            session.commit()
+        except Exception as e:
+            session.rollback()
+            raise e
+        finally:
+            session.close()
+
     def insert_all(self, similarities: list[SimilarityEntity]):
         """
         Insert a list of similarities into the database.

@@ -57,9 +57,61 @@ def get_solution_word_from_file(file_path: Path) -> str | None:
 
 def main(args):
     configure_env(args)
+    
+    # Validate argument combinations
+    if args.replace:
+        if args.reset:
+            raise SystemExit("Cannot use --replace and --reset together.")
+        if args.number != 1:
+            raise SystemExit("Cannot use --replace with --number. Replace operates on a single game.")
+    
     game_service = GameService()
     similarity_service: ISimilarityService = SimilarityServiceFactory.create_similarity_service(args.similarity_service)
     word_service = WordService()
+
+    # Handle replace functionality
+    if args.replace:
+        game_id = args.replace
+        print(f"Replacing similarities for game ID: {game_id}")
+        
+        # Check if the game exists
+        existing_game = game_service.get_game_by_id(game_id)
+        if not existing_game:
+            raise SystemExit(f"Game with ID {game_id} does not exist.")
+        
+        print(f"Found existing game: ID={existing_game.game_id}, Date={existing_game.date}")
+        
+        # Delete existing similarities (keep the game record)
+        print("Deleting existing similarities...")
+        similarity_service.delete_similarities_by_game_id(game_id)
+        
+        # Generate new similarities for the same game
+        solution = get_solution_word_from_file(SOLUTIONS_FILE)
+        if not solution:
+            raise SystemExit("No solution word could be selected.")
+        print(f"Selected new solution: {solution}")
+        
+        # Prepare similarity reference & compute scores
+        similarity_service.set_reference(solution)
+        words = word_service.get_all_words_from_db(min_freq=MIN_FREQ)
+        scores = similarity_service.get_similarities(words)
+        print(f"Calculated similarities for {len(words)} words.")
+
+        # Sort by similarity descending
+        sorted_scores: OrderedDict[str, float] = OrderedDict(
+            sorted(scores.items(), key=lambda kv: kv[1], reverse=True)
+        )
+
+        similarity_orms: list[SimilarityEntity] = []
+        for rank, word in enumerate(sorted_scores, start=1):
+            similarity_orms.append(
+                SimilarityEntity(game_id=game_id, word=word, similarity_rank=rank)
+            )
+
+        similarity_service.add_similarities(similarity_orms)
+        print(f"Inserted {len(similarity_orms)} similarity rows.")
+        print(f"Successfully replaced similarities for game ID {game_id}.")
+        return
 
     # Reset tables relevant for new game (only if --reset flag is provided)
     if args.reset:
@@ -111,6 +163,7 @@ if __name__ == "__main__":
     parser.add_argument('--production', action='store_true', help='Use .env from frontend')
     parser.add_argument('--reset', action='store_true', help='Reset all previous games and similarities before creating new game')
     parser.add_argument('-n', '--number', type=int, default=1, help='Number of games to create (default: 1)')
+    parser.add_argument('--replace', type=int, help='Replace similarities for an existing game_id with newly calculated ones (preserves game ID and date)')
     parser.add_argument('--similarity-service', choices=SimilarityServiceFactory.get_available_services(), default='transformer', help='Similarity service to use (default: transformer)')
     args = parser.parse_args()
     main(args)
