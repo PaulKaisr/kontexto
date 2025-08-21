@@ -14,6 +14,15 @@ class ISimilarityService(ABC):
         pass
 
     @abstractmethod
+    def delete_similarities_by_game_id(self, game_id: int) -> None:
+        """
+        Delete all similarity entries for a specific game from the database.
+        
+        :param game_id: The ID of the game whose similarities should be deleted
+        """
+        pass
+
+    @abstractmethod
     def set_reference(self, reference: str) -> None:
         """
         Set the reference string for similarity calculation.

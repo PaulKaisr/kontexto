@@ -1,5 +1,4 @@
 Mensch
-Zeit
 Haus
 Tag
 Wasser
@@ -297,7 +296,6 @@ Vater
 Ventil
 Verein
 Verlust
-Vers
 Versuch
 Vetter
 Video
@@ -326,7 +324,6 @@ Wiese
 Wind
 Winkel
 Wolke
-Wolle
 Wort
 Wunde
 Würfel

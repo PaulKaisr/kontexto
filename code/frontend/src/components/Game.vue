@@ -30,6 +30,8 @@
             label="Schreibe ein Wort"
             variant="outlined"
             autofocus
+            autocomplete="off"
+            spellcheck="false"
             v-model.trim="gameStore.currentGuess"
             @keyup.enter="handleSubmitGuess"
             :loading="loading"
@@ -50,11 +52,11 @@
           aria-label="Letzter Versuch"
         >
           <GuessItem
-            class="mb-4"
             :guess="gameStore.mostRecentGuess.guess"
             :similarity="gameStore.mostRecentGuess.similarity"
             :highlight="true"
           />
+          <div class="my-4 fade-divider"></div>
         </section>
 
         <!-- Guess history -->
@@ -164,3 +166,16 @@ onMounted(async () => {
   await gameStore.fetchAndSetRecentGame();
 });
 </script>
+
+<style scoped>
+.fade-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgb(var(--v-border-color)) 20%,
+    rgb(var(--v-border-color)) 80%,
+    transparent 100%
+  );
+}
+</style>
