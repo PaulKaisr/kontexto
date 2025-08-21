@@ -8,11 +8,15 @@
 
     <!-- Cookie Consent Banner -->
     <CookieConsent />
+
+    <!-- Speed Insights (only in production) -->
+    <SpeedInsights />
   </v-app>
 </template>
 
 <script setup lang="ts">
-import { RouterView } from "vue-router";
 import AppFooter from "@/components/AppFooter.vue";
 import CookieConsent from "@/components/CookieConsent.vue";
+import { SpeedInsights } from "@vercel/speed-insights/vue";
+import { RouterView } from "vue-router";
 </script>
