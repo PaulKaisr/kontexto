@@ -71,6 +71,7 @@ jobs:
       run: pnpm install --frozen-lockfile
       working-directory: code/frontend
 
-    - name: Run linting
-      run: pnpm lint
-      working-directory: code/frontend
+    # Add lint step once linting is configured
+    # - name: Run linting
+    #   run: pnpm lint
+    #   working-directory: code/frontend
