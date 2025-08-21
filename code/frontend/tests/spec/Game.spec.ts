@@ -67,7 +67,7 @@ describe("Game.vue", () => {
     expect(wrapper.find("[data-testid=stats-card]").exists()).toBe(true);
   });
 
-  it("calls submitGuess when Enter is pressed", async () => {
+  it("calls submitGuess when Enter is pressed", async() => {
     gameStore.submitGuess.mockResolvedValue({ success: true });
 
     const textField = wrapper.find(".v-text-field input");

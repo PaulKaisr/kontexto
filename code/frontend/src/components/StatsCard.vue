@@ -1,3 +1,112 @@
+<template>
+  <v-card
+    class="mx-auto mb-6 max-w-md"
+    data-testid="stats-card"
+  >
+    <v-card-title class="text-center py-4">
+      <span class="text-h5 font-bold">{{
+        gameStore.hasGivenUp ? "Aufgegeben!" : "Glückwunsch!"
+      }}</span>
+    </v-card-title>
+
+    <v-card-text class="text-center px-6 pb-6">
+      <div class="mb-6">
+        <p
+          v-if="!gameStore.hasGivenUp"
+          class="text-body-1 mb-4"
+        >
+          Du hast das Lösungswort von Tag {{ gameStore.recentGame?.game_id }}
+          <strong>"{{ gameStore.solution }}"</strong> mit
+          {{ gameStore.pastGuesses.length - gameStore.numHints }} Versuchen und
+          {{ gameStore.numHints }} Hinweisen erraten!
+        </p>
+        <p
+          v-else
+          class="text-body-1 mb-4"
+        >
+          Du hast das Spiel von Tag
+          {{ gameStore.recentGame?.game_id }} aufgegeben. Das Lösungswort war
+          <strong>"{{ gameStore.solution }}"</strong>. Du hattest
+          {{ gameStore.pastGuesses.length - gameStore.numHints - 1 }} Versuche
+          und {{ gameStore.numHints }} Hinweise verwendet.
+        </p>
+      </div>
+
+      <div class="mb-6">
+        <v-card
+          variant="outlined"
+          class="pa-4 mx-auto max-w-xs"
+        >
+          <pre class="text-sm">{{ chart }}</pre>
+        </v-card>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <v-btn
+          rounded="pill"
+          :prepend-icon="isCopied ? 'mdi-check' : 'mdi-content-copy'"
+          :color="isCopied ? 'success' : 'primary'"
+          size="large"
+          class="px-8"
+          :disabled="isCopied"
+          @click="copyStatsToClipboard"
+        >
+          {{ buttonText }}
+        </v-btn>
+
+        <v-btn
+          rounded="pill"
+          prepend-icon="mdi-eye"
+          color="secondary"
+          variant="outlined"
+          size="large"
+          class="px-8"
+          @click="showClosestWords = true"
+        >
+          Ähnlichste Wörter
+        </v-btn>
+
+        <span class="text-gray-500 text-center"> Weiter spielen? </span>
+
+        <v-btn
+          rounded="pill"
+          prepend-icon="mdi-calendar"
+          color="secondary"
+          variant="outlined"
+          size="large"
+          class="px-8"
+          @click="showPreviousGames = true"
+        >
+          Frühere Spiele
+        </v-btn>
+      </div>
+    </v-card-text>
+  </v-card>
+
+  <v-dialog
+    v-model="showClosestWords"
+    :max-width="$vuetify.display.smAndUp ? '800' : '100%'"
+    :fullscreen="$vuetify.display.xs"
+    scrollable
+    max-height="90vh"
+    class="ma-1 sm:ma-2"
+  >
+    <ClosestWords
+      :game-id="gameStore.recentGame?.game_id || 0"
+      :solution-word="gameStore.solution || ''"
+      @close="showClosestWords = false"
+    />
+  </v-dialog>
+
+  <v-dialog
+    v-model="showPreviousGames"
+    class="w-full max-w-3xl"
+    max-width="800"
+  >
+    <PreviousGames @close="showPreviousGames = false" />
+  </v-dialog>
+</template>
+
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useGameStore } from "@/stores/game.store";
@@ -20,13 +129,13 @@ async function copyStatsToClipboard() {
       `Versuche: ${attempts}\n` +
       `Hinweise: ${gameStore.numHints}\n\n` +
       `${chart.value}\n\n` +
-      `Spiele auch mit: https://kontexto.app/`
+      "Spiele auch mit: https://kontexto.app/"
     : `Ich habe das Kontexto-Rätsel von Tag ${gameStore.recentGame?.game_id} gelöst! 🎉\n\n` +
       `Lösungswort: "${gameStore.solution}"\n` +
       `Versuche: ${attempts}\n` +
       `Hinweise: ${gameStore.numHints}\n\n` +
       `${chart.value}\n\n` +
-      `Spiele auch mit: https://kontexto.app/`;
+      "Spiele auch mit: https://kontexto.app/";
 
   await navigator.clipboard.writeText(stats);
 
@@ -67,101 +176,4 @@ const chart = computed(() => {
 });
 </script>
 
-<template>
-  <v-card class="mx-auto mb-6 max-w-md" data-testid="stats-card">
-    <v-card-title class="text-center py-4">
-      <span class="text-h5 font-bold">{{
-        gameStore.hasGivenUp ? "Aufgegeben!" : "Glückwunsch!"
-      }}</span>
-    </v-card-title>
 
-    <v-card-text class="text-center px-6 pb-6">
-      <div class="mb-6">
-        <p class="text-body-1 mb-4" v-if="!gameStore.hasGivenUp">
-          Du hast das Lösungswort von Tag {{ gameStore.recentGame?.game_id }}
-          <strong>"{{ gameStore.solution }}"</strong> mit
-          {{ gameStore.pastGuesses.length - gameStore.numHints }} Versuchen und
-          {{ gameStore.numHints }} Hinweisen erraten!
-        </p>
-        <p class="text-body-1 mb-4" v-else>
-          Du hast das Spiel von Tag
-          {{ gameStore.recentGame?.game_id }} aufgegeben. Das Lösungswort war
-          <strong>"{{ gameStore.solution }}"</strong>. Du hattest
-          {{ gameStore.pastGuesses.length - gameStore.numHints - 1 }} Versuche
-          und {{ gameStore.numHints }} Hinweise verwendet.
-        </p>
-      </div>
-
-      <div class="mb-6">
-        <v-card variant="outlined" class="pa-4 mx-auto max-w-xs">
-          <pre class="text-sm">{{ chart }}</pre>
-        </v-card>
-      </div>
-
-      <div class="flex flex-col gap-4">
-        <v-btn
-          rounded="pill"
-          :prepend-icon="isCopied ? 'mdi-check' : 'mdi-content-copy'"
-          @click="copyStatsToClipboard"
-          :color="isCopied ? 'success' : 'primary'"
-          size="large"
-          class="px-8"
-          :disabled="isCopied"
-        >
-          {{ buttonText }}
-        </v-btn>
-
-        <v-btn
-          rounded="pill"
-          prepend-icon="mdi-eye"
-          @click="showClosestWords = true"
-          color="secondary"
-          variant="outlined"
-          size="large"
-          class="px-8"
-        >
-          Ähnlichste Wörter
-        </v-btn>
-
-        <span class="text-gray-500 text-center"> Weiter spielen? </span>
-
-        <v-btn
-          rounded="pill"
-          prepend-icon="mdi-calendar"
-          @click="showPreviousGames = true"
-          color="secondary"
-          variant="outlined"
-          size="large"
-          class="px-8"
-        >
-          Frühere Spiele
-        </v-btn>
-      </div>
-    </v-card-text>
-  </v-card>
-
-  <v-dialog
-    v-model="showClosestWords"
-    :max-width="$vuetify.display.smAndUp ? '800' : '100%'"
-    :fullscreen="$vuetify.display.xs"
-    scrollable
-    max-height="90vh"
-    class="ma-1 sm:ma-2"
-  >
-    <ClosestWords
-      :game-id="gameStore.recentGame?.game_id || 0"
-      :solution-word="gameStore.solution || ''"
-      @close="showClosestWords = false"
-    />
-  </v-dialog>
-
-  <v-dialog
-    v-model="showPreviousGames"
-    class="w-full max-w-3xl"
-    max-width="800"
-  >
-    <PreviousGames @close="showPreviousGames = false" />
-  </v-dialog>
-</template>
-
-<style scoped></style>

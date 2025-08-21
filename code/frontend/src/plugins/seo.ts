@@ -5,7 +5,7 @@ export function seoPlugin(): Plugin {
     name: "kontexto-seo",
     generateBundle() {
       // Additional SEO optimizations during build
-      console.log("🚀 SEO optimizations applied for Kontexto");
+      console.info("🚀 SEO optimizations applied for Kontexto");
     },
     configureServer(server) {
       // Development server optimizations

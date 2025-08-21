@@ -104,7 +104,7 @@ export const useGameStore = defineStore("game", {
         // Get similarity data for the current guess
         const similarity = await getSimilarityByGameIdAndWord(
           gameId,
-          this.currentGuess
+          this.currentGuess,
         );
 
         // Check if word was not found
@@ -121,7 +121,7 @@ export const useGameStore = defineStore("game", {
         if (
           this.gamesProgress[gameId].guesses.some(
             (g: { guess: string; similarity: number }) =>
-              g.guess === similarity.matchedWord
+              g.guess === similarity.matchedWord,
           )
         ) {
           return { success: false, error: "duplicate" };
@@ -162,7 +162,7 @@ export const useGameStore = defineStore("game", {
       this.initializeGameProgress(gameId);
 
       const guessedRanks = this.gamesProgress[gameId].guesses.map(
-        (g: { guess: string; similarity: number }) => g.similarity
+        (g: { guess: string; similarity: number }) => g.similarity,
       );
       const bestRank =
         guessedRanks.length > 0 ? Math.min(...guessedRanks) : Infinity;
@@ -361,7 +361,7 @@ export const useGameStore = defineStore("game", {
         }
 
         const solution = progress.guesses.find(
-          (g: { guess: string; similarity: number }) => g.similarity === 1
+          (g: { guess: string; similarity: number }) => g.similarity === 1,
         );
         if (solution) {
           return progress.hasGivenUp ? GameState.GIVEN_UP : GameState.SOLVED;
@@ -378,7 +378,7 @@ export const useGameStore = defineStore("game", {
           return (
             gameState === GameState.SOLVED || gameState === GameState.GIVEN_UP
           );
-        }
+        },
       ).length;
 
       return {

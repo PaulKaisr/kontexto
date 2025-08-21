@@ -21,7 +21,7 @@ describe("HowToPlay.vue", () => {
 
   it("renders how to play card", () => {
     const wrapper = mountComponent();
-    const card = wrapper.find('[data-testid="how-to-play"]');
+    const card = wrapper.find("[data-testid=\"how-to-play\"]");
     expect(card.exists()).toBe(true);
   });
 
@@ -76,25 +76,25 @@ describe("HowToPlay.vue", () => {
 
   it("displays close button", () => {
     const wrapper = mountComponent();
-    const closeButton = wrapper.find('[data-testid="close-button"]');
+    const closeButton = wrapper.find("[data-testid=\"close-button\"]");
     expect(closeButton.exists()).toBe(true);
     expect(closeButton.text()).toContain("Schließen");
   });
 
-  it("emits close event when close button is clicked", async () => {
+  it("emits close event when close button is clicked", async() => {
     const wrapper = mountComponent();
-    const closeButton = wrapper.find('[data-testid="close-button"]');
-    
-    await closeButton.trigger('click');
-    
-    expect(wrapper.emitted()).toHaveProperty('close');
-    expect(wrapper.emitted('close')).toHaveLength(1);
+    const closeButton = wrapper.find("[data-testid=\"close-button\"]");
+
+    await closeButton.trigger("click");
+
+    expect(wrapper.emitted()).toHaveProperty("close");
+    expect(wrapper.emitted("close")).toHaveLength(1);
   });
 
   it("renders all color chips", () => {
     const wrapper = mountComponent();
-    const chips = wrapper.findAll('.v-chip');
-    
+    const chips = wrapper.findAll(".v-chip");
+
     // Should have chips for red, orange, yellow, green, and success
     expect(chips.length).toBeGreaterThanOrEqual(5);
   });
@@ -110,8 +110,8 @@ describe("HowToPlay.vue", () => {
 
   it("displays proper icons", () => {
     const wrapper = mountComponent();
-    const icons = wrapper.findAll('.v-icon');
-    
+    const icons = wrapper.findAll(".v-icon");
+
     // Should have multiple icons for different sections
     expect(icons.length).toBeGreaterThan(10);
   });

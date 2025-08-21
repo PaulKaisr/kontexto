@@ -23,7 +23,7 @@ export const useCookiesStore = defineStore(
     const initializeCookieConsent = () => {
       const storedConsent = localStorage.getItem("kontexto-cookie-consent");
       const storedPreferences = localStorage.getItem(
-        "kontexto-cookie-preferences"
+        "kontexto-cookie-preferences",
       );
 
       if (storedConsent && storedPreferences) {
@@ -68,7 +68,7 @@ export const useCookiesStore = defineStore(
 
     // Save custom preferences
     const saveCustomPreferences = (
-      customPreferences: Partial<CookiePreferences>
+      customPreferences: Partial<CookiePreferences>,
     ) => {
       preferences.value = {
         ...preferences.value,
@@ -87,7 +87,7 @@ export const useCookiesStore = defineStore(
       localStorage.setItem("kontexto-cookie-consent", JSON.stringify(true));
       localStorage.setItem(
         "kontexto-cookie-preferences",
-        JSON.stringify(preferences.value)
+        JSON.stringify(preferences.value),
       );
     };
 
@@ -123,5 +123,5 @@ export const useCookiesStore = defineStore(
   },
   {
     persist: false, // We handle persistence manually for better control
-  }
+  },
 );

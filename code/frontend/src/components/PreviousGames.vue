@@ -6,40 +6,54 @@
           icon="mdi-calendar"
           class="mr-2"
           :size="$vuetify.display.smAndUp ? 'large' : 'default'"
-        ></v-icon>
+        />
         <span class="text-h6 sm:text-h4 font-bold">Frühere Spiele</span>
       </div>
     </v-card-title>
 
-    <v-card-text class="pa-0 flex-grow-1" style="overflow-y: auto">
-      <div v-if="loading" class="text-center py-6 sm:py-8">
+    <v-card-text
+      class="pa-0 flex-grow-1"
+      style="overflow-y: auto"
+    >
+      <div
+        v-if="loading"
+        class="text-center py-6 sm:py-8"
+      >
         <v-progress-circular
           indeterminate
           color="primary"
           :size="$vuetify.display.smAndUp ? '64' : '48'"
-        ></v-progress-circular>
-        <p class="mt-3 sm:mt-4 text-body-2 sm:text-body-1">Lade Spiele...</p>
+        />
+        <p class="mt-3 sm:mt-4 text-body-2 sm:text-body-1">
+          Lade Spiele...
+        </p>
       </div>
 
-      <div v-else-if="error" class="text-center py-6 sm:py-8 px-3">
+      <div
+        v-else-if="error"
+        class="text-center py-6 sm:py-8 px-3"
+      >
         <v-icon
           icon="mdi-alert-circle"
           color="error"
           :size="$vuetify.display.smAndUp ? '64' : '48'"
           class="mb-3 sm:mb-4"
-        ></v-icon>
+        />
         <p class="text-body-2 sm:text-body-1 text-error">
           Fehler beim Laden der Spiele. Bitte versuche es erneut.
         </p>
       </div>
 
-      <div v-else-if="games.length === 0" class="text-center py-6 sm:py-8 px-3">
+      <div
+        v-else-if="games.length === 0"
+        class="text-center py-6 sm:py-8 px-3"
+      >
         <v-icon
           icon="mdi-calendar-blank"
           color="grey"
           :size="$vuetify.display.smAndUp ? '64' : '48'"
           class="mb-3 sm:mb-4"
-        ></v-icon>
+        />
         <p class="text-body-2 sm:text-body-1">
           Keine früheren Spiele gefunden.
         </p>
@@ -52,7 +66,10 @@
           </p>
         </div>
 
-        <v-list class="pa-0" density="comfortable">
+        <v-list
+          class="pa-0"
+          density="comfortable"
+        >
           <template
             v-for="(game, index) in gamesWithProgress"
             :key="game.gameId"
@@ -62,11 +79,11 @@
               :class="{
                 'bg-primary-lighten-5': game.gameId === currentGameId,
               }"
-              @click="selectGame(game)"
               :disabled="switchingGame"
               min-height="auto"
+              @click="selectGame(game)"
             >
-              <template v-slot:prepend>
+              <template #prepend>
                 <v-avatar
                   :color="
                     game.gameId === currentGameId
@@ -80,7 +97,7 @@
                     :icon="getGameStateIcon(game.state)"
                     :color="game.gameId === currentGameId ? 'white' : 'white'"
                     :size="$vuetify.display.smAndUp ? 'default' : 'small'"
-                  ></v-icon>
+                  />
                 </v-avatar>
               </template>
 
@@ -110,9 +127,7 @@
                     class="text-caption text-grey-darken-1"
                   >
                     {{ game.guessCount }} Versuche
-                    <span v-if="game.hintsUsed > 0"
-                      >• {{ game.hintsUsed }} Hinweise</span
-                    >
+                    <span v-if="game.hintsUsed > 0">• {{ game.hintsUsed }} Hinweise</span>
                   </div>
                 </div>
 
@@ -125,7 +140,7 @@
                 </div>
               </div>
 
-              <template v-slot:append>
+              <template #append>
                 <div class="d-flex align-center">
                   <v-chip
                     v-if="game.gameId === currentGameId"
@@ -144,7 +159,7 @@
                     "
                     :color="game.gameId === currentGameId ? 'primary' : 'grey'"
                     :size="$vuetify.display.smAndUp ? 'default' : 'small'"
-                  ></v-icon>
+                  />
                 </div>
               </template>
             </v-list-item>
@@ -152,21 +167,21 @@
             <v-divider
               v-if="index < gamesWithProgress.length - 1"
               class="mx-3 sm:mx-4"
-            ></v-divider>
+            />
           </template>
         </v-list>
       </div>
     </v-card-text>
 
     <v-card-actions class="pa-2 sm:pa-4 pt-0 flex-shrink-0">
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn
         variant="outlined"
         prepend-icon="mdi-close"
-        @click="$emit('close')"
         :size="$vuetify.display.smAndUp ? 'large' : 'default'"
         class="px-3 sm:px-6"
         :disabled="switchingGame"
+        @click="$emit('close')"
       >
         Schließen
       </v-btn>
@@ -266,31 +281,31 @@ function formatDate(dateString: string | null): string {
 
 function getGameStateColor(state: GameState): string {
   switch (state) {
-    case GameState.NOT_STARTED:
-      return "grey-lighten-1";
-    case GameState.IN_PROGRESS:
-      return "orange";
-    case GameState.SOLVED:
-      return "success";
-    case GameState.GIVEN_UP:
-      return "error";
-    default:
-      return "grey-lighten-1";
+  case GameState.NOT_STARTED:
+    return "grey-lighten-1";
+  case GameState.IN_PROGRESS:
+    return "orange";
+  case GameState.SOLVED:
+    return "success";
+  case GameState.GIVEN_UP:
+    return "error";
+  default:
+    return "grey-lighten-1";
   }
 }
 
 function getGameStateIcon(state: GameState): string {
   switch (state) {
-    case GameState.NOT_STARTED:
-      return "mdi-play-circle-outline";
-    case GameState.IN_PROGRESS:
-      return "mdi-progress-clock";
-    case GameState.SOLVED:
-      return "mdi-check-circle";
-    case GameState.GIVEN_UP:
-      return "mdi-close-circle";
-    default:
-      return "mdi-play-circle-outline";
+  case GameState.NOT_STARTED:
+    return "mdi-play-circle-outline";
+  case GameState.IN_PROGRESS:
+    return "mdi-progress-clock";
+  case GameState.SOLVED:
+    return "mdi-check-circle";
+  case GameState.GIVEN_UP:
+    return "mdi-close-circle";
+  default:
+    return "mdi-play-circle-outline";
   }
 }
 
@@ -325,7 +340,7 @@ async function selectGame(game: GameWithProgress) {
   }
 }
 
-onMounted(async () => {
+onMounted(async() => {
   try {
     loading.value = true;
     error.value = false;

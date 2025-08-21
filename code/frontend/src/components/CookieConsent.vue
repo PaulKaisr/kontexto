@@ -8,7 +8,12 @@
   >
     <v-card class="cookie-consent-card">
       <v-card-title class="d-flex align-center">
-        <v-icon color="primary" class="me-2">mdi-cookie</v-icon>
+        <v-icon
+          color="primary"
+          class="me-2"
+        >
+          mdi-cookie
+        </v-icon>
         <span>Cookie-Einstellungen</span>
       </v-card-title>
 
@@ -18,7 +23,10 @@
           Sie können Ihre Präferenzen anpassen oder alle Cookies akzeptieren.
         </p>
 
-        <v-expansion-panels v-if="showDetails" variant="accordion">
+        <v-expansion-panels
+          v-if="showDetails"
+          variant="accordion"
+        >
           <v-expansion-panel>
             <v-expansion-panel-title>
               <div class="d-flex align-center justify-space-between w-100 pe-4">
@@ -32,9 +40,12 @@
                 <div class="mb-4">
                   <div class="d-flex align-center justify-space-between mb-2">
                     <div class="d-flex align-center">
-                      <v-icon color="success" class="me-2"
-                        >mdi-shield-check</v-icon
+                      <v-icon
+                        color="success"
+                        class="me-2"
                       >
+                        mdi-shield-check
+                      </v-icon>
                       <span class="font-weight-medium">Notwendige Cookies</span>
                     </div>
                     <v-switch
@@ -55,7 +66,12 @@
                 <div class="mb-4">
                   <div class="d-flex align-center justify-space-between mb-2">
                     <div class="d-flex align-center">
-                      <v-icon color="info" class="me-2">mdi-chart-line</v-icon>
+                      <v-icon
+                        color="info"
+                        class="me-2"
+                      >
+                        mdi-chart-line
+                      </v-icon>
                       <span class="font-weight-medium">Analyse-Cookies</span>
                     </div>
                     <v-switch
@@ -74,7 +90,12 @@
                 <div class="mb-4">
                   <div class="d-flex align-center justify-space-between mb-2">
                     <div class="d-flex align-center">
-                      <v-icon color="warning" class="me-2">mdi-bullhorn</v-icon>
+                      <v-icon
+                        color="warning"
+                        class="me-2"
+                      >
+                        mdi-bullhorn
+                      </v-icon>
                       <span class="font-weight-medium">Marketing-Cookies</span>
                     </div>
                     <v-switch
@@ -97,29 +118,29 @@
       <v-card-actions class="justify-space-between flex-wrap pa-4">
         <div class="d-flex flex-wrap gap-2">
           <v-btn
-            @click="handleAcceptAll"
             color="success"
             variant="elevated"
             prepend-icon="mdi-check-all"
+            @click="handleAcceptAll"
           >
             Alle akzeptieren
           </v-btn>
 
           <v-btn
-            @click="handleAcceptNecessary"
             color="grey"
             variant="outlined"
             prepend-icon="mdi-shield-check"
+            @click="handleAcceptNecessary"
           >
             Nur notwendige
           </v-btn>
 
           <v-btn
             v-if="showDetails"
-            @click="handleSaveCustom"
             color="primary"
             variant="outlined"
             prepend-icon="mdi-content-save"
+            @click="handleSaveCustom"
           >
             Auswahl speichern
           </v-btn>
@@ -127,10 +148,10 @@
 
         <div class="d-flex gap-2">
           <v-btn
-            @click="showDetails = !showDetails"
             variant="text"
             size="small"
             :prepend-icon="showDetails ? 'mdi-chevron-up' : 'mdi-cog'"
+            @click="showDetails = !showDetails"
           >
             {{ showDetails ? "Weniger" : "Anpassen" }}
           </v-btn>
@@ -148,6 +169,7 @@
     </v-card>
   </v-dialog>
 </template>
+
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from "vue";
 import {
@@ -194,7 +216,7 @@ watch(
   (newPreferences) => {
     Object.assign(localPreferences, newPreferences);
   },
-  { deep: true }
+  { deep: true },
 );
 </script>
 

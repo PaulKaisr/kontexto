@@ -24,20 +24,20 @@ describe("Settings.vue", () => {
 
   it("renders settings card correctly", () => {
     const wrapper = mountComponent();
-    const card = wrapper.find('[data-testid="settings-card"]');
+    const card = wrapper.find("[data-testid=\"settings-card\"]");
     expect(card.exists()).toBe(true);
   });
 
   it("renders theme radio group", () => {
     const wrapper = mountComponent();
-    const radioGroup = wrapper.find('[data-testid="theme-radio-group"]');
+    const radioGroup = wrapper.find("[data-testid=\"theme-radio-group\"]");
     expect(radioGroup.exists()).toBe(true);
   });
 
   it("renders light and dark mode radio buttons", () => {
     const wrapper = mountComponent();
-    const lightRadio = wrapper.find('[data-testid="light-mode-radio"]');
-    const darkRadio = wrapper.find('[data-testid="dark-mode-radio"]');
+    const lightRadio = wrapper.find("[data-testid=\"light-mode-radio\"]");
+    const darkRadio = wrapper.find("[data-testid=\"dark-mode-radio\"]");
 
     expect(lightRadio.exists()).toBe(true);
     expect(darkRadio.exists()).toBe(true);
@@ -45,13 +45,13 @@ describe("Settings.vue", () => {
 
   it("renders close button", () => {
     const wrapper = mountComponent();
-    const closeButton = wrapper.find('[data-testid="close-settings-button"]');
+    const closeButton = wrapper.find("[data-testid=\"close-settings-button\"]");
     expect(closeButton.exists()).toBe(true);
   });
 
-  it("emits close event when close button is clicked", async () => {
+  it("emits close event when close button is clicked", async() => {
     const wrapper = mountComponent();
-    const closeButton = wrapper.find('[data-testid="close-settings-button"]');
+    const closeButton = wrapper.find("[data-testid=\"close-settings-button\"]");
 
     await closeButton.trigger("click");
 

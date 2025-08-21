@@ -58,7 +58,7 @@ export class AnalyticsService {
     eventName: string,
     action: string,
     category: string,
-    value?: number
+    value?: number,
   ): void {
     if (!this.isInitialized || typeof window === "undefined" || !window.gtag) {
       return;
@@ -95,7 +95,7 @@ export class AnalyticsService {
       | "game_quit"
       | "hint_used"
       | "give_up",
-    metadata?: Record<string, any>
+    metadata?: Record<string, any>,
   ): void {
     if (!this.isInitialized) return;
 

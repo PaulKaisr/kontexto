@@ -17,4 +17,4 @@ export const calculateBarFill = (rank: number): number => {
   // Die Funktion: F(R) = 100 * e^(-k * (R-1))
   const fillPercentage = 100 * Math.exp(-k * (rank - 1));
   return Math.max(1, fillPercentage);
-}
+};

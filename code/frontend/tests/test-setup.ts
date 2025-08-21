@@ -3,6 +3,7 @@ import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import { config } from "@vue/test-utils";
+import ResizeObserverPolyfill from "resize-observer-polyfill";
 
 const vuetify = createVuetify({
   components,
@@ -12,10 +13,10 @@ const vuetify = createVuetify({
 // Set global Vuetify plugin for all tests
 config.global.plugins = [vuetify];
 
-global.ResizeObserver = require("resize-observer-polyfill");
+global.ResizeObserver = ResizeObserverPolyfill;
 
 // Mock visualViewport for Vuetify dialogs
-Object.defineProperty(window, 'visualViewport', {
+Object.defineProperty(window, "visualViewport", {
   value: {
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
@@ -26,7 +27,7 @@ Object.defineProperty(window, 'visualViewport', {
 });
 
 // Mock window.matchMedia for dark mode detection
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation(query => ({
     matches: false,
@@ -41,12 +42,12 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock CSS imports
-vi.mock('*.css', () => ({}));
-vi.mock('*.scss', () => ({}));
-vi.mock('*.sass', () => ({}));
+vi.mock("*.css", () => ({}));
+vi.mock("*.scss", () => ({}));
+vi.mock("*.sass", () => ({}));
 
 // Mock Supabase client
-vi.mock('@/services/supabase', () => ({
+vi.mock("@/services/supabase", () => ({
   getMostRecentGame: vi.fn(() => Promise.resolve(null)),
   getSimilarityByGameIdAndWord: vi.fn(() => Promise.resolve(null)),
   getHintForGame: vi.fn(() => Promise.resolve(null)),
@@ -56,7 +57,7 @@ vi.mock('@/services/supabase', () => ({
 }));
 
 // Mock analytics
-vi.mock('@/composables/useAnalytics', () => ({
+vi.mock("@/composables/useAnalytics", () => ({
   useAnalytics: () => ({
     trackGameEvent: vi.fn(),
     trackPageView: vi.fn(),
@@ -64,7 +65,7 @@ vi.mock('@/composables/useAnalytics', () => ({
 }));
 
 // Mock router
-vi.mock('vue-router', () => ({
+vi.mock("vue-router", () => ({
   useRouter: () => ({
     push: vi.fn(),
     replace: vi.fn(),
@@ -75,6 +76,6 @@ vi.mock('vue-router', () => ({
   useRoute: () => ({
     params: {},
     query: {},
-    path: '/',
+    path: "/",
   }),
 }));

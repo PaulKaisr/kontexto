@@ -1,24 +1,30 @@
 <template>
   <v-card class="d-flex flex-column">
     <v-card-text class="pa-0 flex-grow-1">
-      <div v-if="loading" class="text-center py-6 sm:py-8">
+      <div
+        v-if="loading"
+        class="text-center py-6 sm:py-8"
+      >
         <v-progress-circular
           indeterminate
           color="primary"
           :size="$vuetify.display.smAndUp ? '64' : '48'"
-        ></v-progress-circular>
+        />
         <p class="mt-3 sm:mt-4 text-body-2 sm:text-body-1">
           Lade ähnlichste Wörter...
         </p>
       </div>
 
-      <div v-else-if="error" class="text-center py-6 sm:py-8 px-3">
+      <div
+        v-else-if="error"
+        class="text-center py-6 sm:py-8 px-3"
+      >
         <v-icon
           icon="mdi-alert-circle"
           color="error"
           :size="$vuetify.display.smAndUp ? '64' : '48'"
           class="mb-3 sm:mb-4"
-        ></v-icon>
+        />
         <p class="text-body-2 sm:text-body-1 text-error">
           Fehler beim Laden der Wörter. Bitte versuche es erneut.
         </p>
@@ -28,15 +34,18 @@
         v-else-if="guessData.length === 0"
         class="text-center py-6 sm:py-8 px-3"
       >
-        <p class="text-body-2 sm:text-body-1">Keine Wörter gefunden.</p>
+        <p class="text-body-2 sm:text-body-1">
+          Keine Wörter gefunden.
+        </p>
       </div>
 
-      <div v-else class="d-flex flex-column h-100">
+      <div
+        v-else
+        class="d-flex flex-column h-100"
+      >
         <v-sheet class="pa-3 sm:pa-4 flex-shrink-0">
           <p class="text-center mb-2">
-            <strong class="text-body-2 sm:text-body-1"
-              >Das heutige Wort (#{{ props.gameId }}) war:</strong
-            >
+            <strong class="text-body-2 sm:text-body-1">Das heutige Wort (#{{ props.gameId }}) war:</strong>
           </p>
           <p class="text-h6 sm:text-h5 text-center font-bold text-primary">
             {{ props.solutionWord }}
@@ -53,13 +62,13 @@
     </v-card-text>
 
     <v-card-actions class="pa-2 sm:pa-4 pt-0 flex-shrink-0">
-      <v-spacer></v-spacer>
+      <v-spacer />
       <v-btn
         variant="outlined"
         prepend-icon="mdi-close"
-        @click="$emit('close')"
         :size="$vuetify.display.smAndUp ? 'large' : 'default'"
         class="px-3 sm:px-6"
+        @click="$emit('close')"
       >
         Schließen
       </v-btn>
@@ -86,7 +95,7 @@ const guessData = ref<{ guess: string; similarity: number }[]>([]);
 const loading = ref(true);
 const error = ref(false);
 
-onMounted(async () => {
+onMounted(async() => {
   try {
     loading.value = true;
     error.value = false;

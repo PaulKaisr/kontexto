@@ -47,7 +47,7 @@ describe("StatsCard.vue", () => {
 
   it("renders stats card", () => {
     const wrapper = mountComponent();
-    const card = wrapper.find('[data-testid="stats-card"]');
+    const card = wrapper.find("[data-testid=\"stats-card\"]");
     expect(card.exists()).toBe(true);
   });
 
@@ -142,11 +142,11 @@ describe("StatsCard.vue", () => {
     expect(wrapper.text()).toContain("Frühere Spiele");
   });
 
-  it("copies stats to clipboard when share button is clicked", async () => {
+  it("copies stats to clipboard when share button is clicked", async() => {
     const wrapper = mountComponent();
     const shareButtons = wrapper.findAll("button");
     const shareButton = shareButtons.find((button) =>
-      button.text().includes("Teilen")
+      button.text().includes("Teilen"),
     );
     expect(shareButton).toBeDefined();
 
@@ -160,11 +160,11 @@ describe("StatsCard.vue", () => {
     expect(clipboardText).toContain("testword");
   });
 
-  it("changes button text after copying", async () => {
+  it("changes button text after copying", async() => {
     const wrapper = mountComponent();
     const shareButtons = wrapper.findAll("button");
     const shareButton = shareButtons.find((button) =>
-      button.text().includes("Teilen")
+      button.text().includes("Teilen"),
     );
     expect(shareButton).toBeDefined();
 
@@ -174,11 +174,11 @@ describe("StatsCard.vue", () => {
     expect(wrapper.text()).toContain("Kopiert");
   });
 
-  it("has closest words button that can be clicked", async () => {
+  it("has closest words button that can be clicked", async() => {
     const wrapper = mountComponent();
     const buttons = wrapper.findAll("button");
     const closestWordsButton = buttons.find((button) =>
-      button.text().includes("Ähnlichste Wörter")
+      button.text().includes("Ähnlichste Wörter"),
     );
     expect(closestWordsButton).toBeDefined();
 
@@ -187,11 +187,11 @@ describe("StatsCard.vue", () => {
     // Dialog testing is complex in jsdom, so we just verify the click works
   });
 
-  it("has previous games button that can be clicked", async () => {
+  it("has previous games button that can be clicked", async() => {
     const wrapper = mountComponent();
     const buttons = wrapper.findAll("button");
     const previousGamesButton = buttons.find((button) =>
-      button.text().includes("Frühere Spiele")
+      button.text().includes("Frühere Spiele"),
     );
     expect(previousGamesButton).toBeDefined();
 

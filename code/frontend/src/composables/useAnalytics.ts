@@ -18,7 +18,7 @@ export function useAnalytics() {
       | "game_quit"
       | "hint_used"
       | "give_up",
-    metadata?: Record<string, any>
+    metadata?: Record<string, any>,
   ) => {
     if (cookiesStore.preferences.analytics && analytics.initialized) {
       analytics.trackGameEvent(event, metadata);
@@ -32,7 +32,7 @@ export function useAnalytics() {
     eventName: string,
     action: string,
     category: string,
-    value?: number
+    value?: number,
   ) => {
     if (cookiesStore.preferences.analytics && analytics.initialized) {
       analytics.trackEvent(eventName, action, category, value);
