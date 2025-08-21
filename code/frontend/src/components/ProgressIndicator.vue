@@ -1,7 +1,10 @@
 <template>
-  <div class="d-flex align-center" v-if="progressStats.total > 0">
+  <div
+    v-if="progressStats.total > 0"
+    class="d-flex align-center"
+  >
     <v-tooltip location="bottom">
-      <template v-slot:activator="{ props }">
+      <template #activator="{ props }">
         <div
           v-bind="props"
           class="d-flex align-center cursor-pointer"
@@ -46,13 +49,13 @@ import { computed, ref, onMounted } from "vue";
 import { useGameStore, GameState } from "@/stores/game.store";
 import { getAllGames } from "@/services/supabase";
 
-const emit = defineEmits<{
+defineEmits<{
   openProgress: [];
 }>();
 
 const gameStore = useGameStore();
 const allAvailableGames = ref<Array<{ game_id: number; date: string | null }>>(
-  []
+  [],
 );
 
 const progressStats = computed(() => {
@@ -68,7 +71,7 @@ const progressStats = computed(() => {
     }
 
     const solution = progress.guesses.find(
-      (g: { guess: string; similarity: number }) => g.similarity === 1
+      (g: { guess: string; similarity: number }) => g.similarity === 1,
     );
     if (solution) {
       return progress.hasGivenUp ? GameState.GIVEN_UP : GameState.SOLVED;
@@ -93,7 +96,7 @@ const progressStats = computed(() => {
   };
 });
 
-onMounted(async () => {
+onMounted(async() => {
   try {
     const games = await getAllGames();
     if (games) {

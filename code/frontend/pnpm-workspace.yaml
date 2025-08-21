@@ -1,8 +1,8 @@
 packages:
-  - '.'
-
+  - .
 ignoredBuiltDependencies:
   - esbuild
-
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'
+  - '@vercel/speed-insights'
+  - supabase

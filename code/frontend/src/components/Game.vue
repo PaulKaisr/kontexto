@@ -3,7 +3,9 @@
     <div class="max-w-full px-4 w-lg">
       <header class="flex flex-row w-full justify-between items-center my-2">
         <ProgressIndicator @open-progress="openPreviousGames" />
-        <h1 class="text-3xl font-bold">Kontexto</h1>
+        <h1 class="text-3xl font-bold">
+          Kontexto
+        </h1>
         <ContextMenu
           ref="contextMenuRef"
           :loading="loading"
@@ -22,8 +24,12 @@
 
       <!-- Game input section -->
       <main>
-        <section class="game-input" aria-label="Wort eingeben">
+        <section
+          class="game-input"
+          aria-label="Wort eingeben"
+        >
           <v-text-field
+            v-model.trim="gameStore.currentGuess"
             color="secondary"
             class="w-full mb-2"
             clearable
@@ -32,14 +38,16 @@
             autofocus
             autocomplete="off"
             spellcheck="false"
-            v-model.trim="gameStore.currentGuess"
-            @keyup.enter="handleSubmitGuess"
             :loading="loading"
             :error="!!errorMessage"
             :error-messages="errorMessage"
             aria-describedby="game-instructions"
-          ></v-text-field>
-          <div id="game-instructions" class="sr-only">
+            @keyup.enter="handleSubmitGuess"
+          />
+          <div
+            id="game-instructions"
+            class="sr-only"
+          >
             Gib ein deutsches Wort ein und drücke Enter, um zu sehen, wie
             ähnlich es dem gesuchten Wort ist.
           </div>
@@ -56,14 +64,17 @@
             :similarity="gameStore.mostRecentGuess.similarity"
             :highlight="true"
           />
-          <div class="my-4 fade-divider"></div>
+          <div class="my-4 fade-divider" />
         </section>
 
         <!-- Guess history -->
-        <section class="guess-history" aria-label="Bisherige Versuche">
+        <section
+          class="guess-history"
+          aria-label="Bisherige Versuche"
+        >
           <GuessHistory
             :guesses="gameStore.pastGuesses"
-            :lastGuess="gameStore.mostRecentGuess"
+            :last-guess="gameStore.mostRecentGuess"
           />
         </section>
       </main>
@@ -72,7 +83,7 @@
       <section
         v-if="
           (!gameStore.recentGame || gameStore.pastGuesses.length === 0) &&
-          !loading
+            !loading
         "
         class="mb-4 text-center"
       >
@@ -86,19 +97,31 @@
         </p>
         <div class="text-xs text-gray-500">
           <p>
-            <v-icon class="text-primary" icon="mdi-target"></v-icon> Täglich ein
+            <v-icon
+              class="text-primary"
+              icon="mdi-target"
+            /> Täglich ein
             neues Rätsel
           </p>
           <p>
-            <v-icon class="text-primary" icon="mdi-flag"></v-icon> Komplett auf
+            <v-icon
+              class="text-primary"
+              icon="mdi-flag"
+            /> Komplett auf
             Deutsch
           </p>
           <p>
-            <v-icon class="text-primary" icon="mdi-robot"></v-icon>
+            <v-icon
+              class="text-primary"
+              icon="mdi-robot"
+            />
             KI-basierte Wortähnlichkeit
           </p>
           <p>
-            <v-icon class="text-primary" icon="mdi-cellphone-check"></v-icon>
+            <v-icon
+              class="text-primary"
+              icon="mdi-cellphone-check"
+            />
             Funktioniert auf allen Geräten
           </p>
         </div>
@@ -134,18 +157,18 @@ async function handleSubmitGuess() {
   loading.value = false;
   if (!result.success) {
     switch (result.error) {
-      case "duplicate":
-        errorMessage.value = "Dieses Wort wurde bereits geraten.";
-        break;
-      case "not_found":
-        errorMessage.value =
+    case "duplicate":
+      errorMessage.value = "Dieses Wort wurde bereits geraten.";
+      break;
+    case "not_found":
+      errorMessage.value =
           "Das Wort konnte nicht gefunden werden oder ist ungültig.";
-        break;
-      case "empty":
-        errorMessage.value = "Bitte gib ein Wort ein.";
-        break;
-      default:
-        errorMessage.value = "Unbekannter Fehler.";
+      break;
+    case "empty":
+      errorMessage.value = "Bitte gib ein Wort ein.";
+      break;
+    default:
+      errorMessage.value = "Unbekannter Fehler.";
     }
   }
 }
@@ -162,7 +185,7 @@ async function handleGiveUp() {
   loading.value = false;
 }
 
-onMounted(async () => {
+onMounted(async() => {
   await gameStore.fetchAndSetRecentGame();
 });
 </script>

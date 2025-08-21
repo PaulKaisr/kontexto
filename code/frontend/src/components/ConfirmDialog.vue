@@ -1,10 +1,10 @@
 <template>
   <v-dialog
     :model-value="props.modelValue"
-    @update:model-value="$emit('update:modelValue', $event)"
     :max-width="$vuetify.display.smAndUp ? '500' : '95%'"
     persistent
     class="ma-2"
+    @update:model-value="$emit('update:modelValue', $event)"
   >
     <v-card>
       <v-card-title class="text-h6 pa-4 pb-2">
@@ -17,17 +17,17 @@
         </p>
 
         <!-- Optional slot for custom content -->
-        <slot></slot>
+        <slot />
       </v-card-text>
 
       <v-card-actions class="pa-4 pt-0">
-        <v-spacer></v-spacer>
+        <v-spacer />
 
         <v-btn
           variant="outlined"
-          @click="$emit('update:modelValue', false)"
           :disabled="props.loading"
           class="mr-2"
+          @click="$emit('update:modelValue', false)"
         >
           {{ props.cancelText }}
         </v-btn>
@@ -35,9 +35,9 @@
         <v-btn
           :color="props.confirmColor"
           :variant="props.confirmVariant"
-          @click="handleConfirm"
           :loading="props.loading"
           :disabled="props.loading"
+          @click="handleConfirm"
         >
           {{ props.confirmText }}
         </v-btn>
@@ -82,4 +82,4 @@ function handleConfirm() {
 }
 </script>
 
-<style scoped></style>
+

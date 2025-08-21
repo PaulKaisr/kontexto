@@ -1,62 +1,68 @@
 <template>
-  <v-menu location="bottom start" data-testid="context-menu">
-    <template v-slot:activator="{ props: activatorProps }">
+  <v-menu
+    location="bottom start"
+    data-testid="context-menu"
+  >
+    <template #activator="{ props: activatorProps }">
       <v-btn
         icon="mdi-dots-vertical"
         variant="text"
         v-bind="activatorProps"
         data-testid="context-menu-trigger"
-      ></v-btn>
+      />
     </template>
 
     <v-list>
       <v-list-item
-        @click="$emit('getHint')"
         :disabled="loading || gameOver"
         data-testid="hint-button"
+        @click="$emit('getHint')"
       >
-        <template v-slot:prepend>
-          <v-icon icon="mdi-lightbulb-outline"></v-icon>
+        <template #prepend>
+          <v-icon icon="mdi-lightbulb-outline" />
         </template>
         <v-list-item-title>Hinweis erhalten</v-list-item-title>
       </v-list-item>
 
       <v-list-item
-        @click="showGiveUpConfirm = true"
         :disabled="loading || gameOver"
         data-testid="give-up-button"
+        @click="showGiveUpConfirm = true"
       >
-        <template v-slot:prepend>
-          <v-icon icon="mdi-flag-outline"></v-icon>
+        <template #prepend>
+          <v-icon icon="mdi-flag-outline" />
         </template>
         <v-list-item-title>Aufgeben</v-list-item-title>
       </v-list-item>
 
-      <v-divider></v-divider>
+      <v-divider />
 
       <v-list-item
-        @click="showPreviousGames = true"
         data-testid="previous-games-button"
+        @click="showPreviousGames = true"
       >
-        <template v-slot:prepend>
-          <v-icon icon="mdi-calendar"></v-icon>
+        <template #prepend>
+          <v-icon icon="mdi-calendar" />
         </template>
         <v-list-item-title>Frühere Spiele</v-list-item-title>
       </v-list-item>
 
       <v-list-item
-        @click="showHowToPlay = true"
         data-testid="how-to-play-button"
+        @click="showHowToPlay = true"
       >
-        <template v-slot:prepend>
-          <v-icon icon="mdi-help-circle-outline"></v-icon>
+        <template #prepend>
+          <v-icon icon="mdi-help-circle-outline" />
         </template>
         <v-list-item-title>Wie spielt man?</v-list-item-title>
       </v-list-item>
 
-      <v-list-item @click="showSettings = true" data-testid="settings-button">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-cog-outline"></v-icon>
+      <v-list-item
+        data-testid="settings-button"
+        @click="showSettings = true"
+      >
+        <template #prepend>
+          <v-icon icon="mdi-cog-outline" />
         </template>
         <v-list-item-title>Einstellungen</v-list-item-title>
       </v-list-item>
@@ -91,7 +97,7 @@
   <ConfirmDialog
     v-model="showGiveUpConfirm"
     title="Spiel aufgeben?"
-    message="Bist du sicher, dass du das aktuelle Spiel aufgeben möchtest? Das Lösungswort wird angezeigt und das Spiel ist beendet."
+    message="Bist du sicher, dass du das aktuelle Spiel aufgeben möchtest? Das Lösungswort wird angezeigt."
     confirm-text="Aufgeben"
     cancel-text="Weiter spielen"
     confirm-color="error"
@@ -167,8 +173,8 @@ watch(
     if (!themePreference) return;
     theme.change(themePreference);
   },
-  { immediate: true }
+  { immediate: true },
 );
 </script>
 
-<style scoped></style>
+

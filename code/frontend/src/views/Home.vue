@@ -1,11 +1,9 @@
-<script setup lang="ts">
-import Game from "@/components/Game.vue";
-import SEOContent from "@/components/SEOContent.vue";
-</script>
-
 <template>
   <!-- Skip link for accessibility -->
-  <a href="#main-content" class="skip-link"> Zum Hauptinhalt springen </a>
+  <a
+    href="#main-content"
+    class="skip-link"
+  > Zum Hauptinhalt springen </a>
 
   <!-- Main game content -->
   <main id="main-content">
@@ -15,4 +13,9 @@ import SEOContent from "@/components/SEOContent.vue";
   <SEOContent />
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+import Game from "@/components/Game.vue";
+import SEOContent from "@/components/SEOContent.vue";
+</script>
+
+

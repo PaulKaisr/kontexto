@@ -1,8 +1,8 @@
-import {defineStore} from 'pinia'
+import { defineStore } from "pinia";
 
-export const useSettingsStore = defineStore('settings', {
+export const useSettingsStore = defineStore("settings", {
   state: () => ({
-    themePreference: null as 'light' | 'dark' | null,
+    themePreference: null as "light" | "dark" | null,
   }),
   persist: true,
-})
+});

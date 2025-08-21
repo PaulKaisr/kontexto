@@ -1,20 +1,13 @@
-<script setup lang="ts">
-import { computed } from "vue";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-
-const impressumUrl = computed(() => {
-  return window.location.origin + router.resolve("/impressum").href;
-});
-</script>
-
 <template>
   <v-container class="dialog">
     <v-card>
-      <v-card-title class="headline">Datenschutzerklärung</v-card-title>
+      <v-card-title class="headline">
+        Datenschutzerklärung
+      </v-card-title>
       <v-card-text>
-        <p class="text-h5 my-2" id="m4158">Präambel</p>
+        <p id="m4158" class="text-h5 my-2">
+          Präambel
+        </p>
         <p>
           Mit der folgenden Datenschutzerklärung möchten wir Sie darüber
           aufklären, welche Arten Ihrer personenbezogenen Daten (nachfolgend
@@ -24,96 +17,72 @@ const impressumUrl = computed(() => {
         </p>
         <p>Die verwendeten Begriffe sind nicht geschlechtsspezifisch.</p>
         <p>Stand: 19. August 2025</p>
-        <div class="text-h5 my-2">Inhaltsübersicht</div>
+        <div class="text-h5 my-2">
+          Inhaltsübersicht
+        </div>
         <v-list class="index">
           <li>
-            <a class="underline text-blue-300 index-link" href="#m4158"
-              >Präambel</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m4158">Präambel</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m3"
-              >Verantwortlicher</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m3">Verantwortlicher</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#mOverview"
-              >Übersicht der Verarbeitungen</a
-            >
+            <a class="underline text-blue-300 index-link" href="#mOverview">Übersicht der Verarbeitungen</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m13"
-              >Maßgebliche Rechtsgrundlagen</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m13">Maßgebliche Rechtsgrundlagen</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m27"
-              >Sicherheitsmaßnahmen</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m27">Sicherheitsmaßnahmen</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m25"
-              >Übermittlung von personenbezogenen Daten</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m25">Übermittlung von personenbezogenen Daten</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m24"
-              >Datenverarbeitung in Drittländern</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m24">Datenverarbeitung in Drittländern</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m12"
-              >Löschung von Daten</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m12">Löschung von Daten</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m134"
-              >Einsatz von Cookies</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m134">Einsatz von Cookies</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m225"
-              >Bereitstellung des Onlineangebotes und Webhosting</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m225">Bereitstellung des Onlineangebotes und
+              Webhosting</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m263"
-              >Webanalyse, Monitoring und Optimierung</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m263">Webanalyse, Monitoring und Optimierung</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m264"
-              >Werbung und Marketing</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m264">Werbung und Marketing</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m15"
-              >Änderung und Aktualisierung der Datenschutzerklärung</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m15">Änderung und Aktualisierung der
+              Datenschutzerklärung</a>
           </li>
           <li>
-            <a class="underline text-blue-300 index-link" href="#m10"
-              >Rechte der betroffenen Personen</a
-            >
+            <a class="underline text-blue-300 index-link" href="#m10">Rechte der betroffenen Personen</a>
           </li>
         </v-list>
-        <div class="text-h5 my-2" id="m3">Verantwortlicher</div>
-        <p>Paul Kaiser<br />Leonhardtstraße 2<br />76131 Karlsruhe</p>
+        <div id="m3" class="text-h5 my-2">
+          Verantwortlicher
+        </div>
+        <p>Paul Kaiser<br>Leonhardtstraße 2<br>76131 Karlsruhe</p>
         E-Mail-Adresse:
         <p>
-          <a
-            class="underline text-blue-300"
-            href="mailto:kontexto.app@gmail.com"
-            >kontexto.app@gmail.com</a
-          >
+          <a class="underline text-blue-300" href="mailto:kontexto.app@gmail.com">kontexto.app@gmail.com</a>
         </p>
         Impressum:
         <p>
-          <router-link class="underline text-blue-300" to="/impressum">{{
-            impressumUrl
-          }}</router-link>
+          <router-link class="underline text-blue-300" to="/impressum">
+            {{
+              impressumUrl
+            }}
+          </router-link>
         </p>
-        <div class="text-h5 my-2" id="mOverview">
+        <div id="mOverview" class="text-h5 my-2">
           Übersicht der Verarbeitungen
         </div>
         <p>
@@ -121,16 +90,22 @@ const impressumUrl = computed(() => {
           die Zwecke ihrer Verarbeitung zusammen und verweist auf die
           betroffenen Personen.
         </p>
-        <div class="text-h6">Arten der verarbeiteten Daten</div>
+        <div class="text-h6">
+          Arten der verarbeiteten Daten
+        </div>
         <ul>
           <li>Nutzungsdaten.</li>
           <li>Meta-, Kommunikations- und Verfahrensdaten.</li>
         </ul>
-        <div class="text-h5 my-2">Kategorien betroffener Personen</div>
+        <div class="text-h5 my-2">
+          Kategorien betroffener Personen
+        </div>
         <v-list>
           <li>Nutzer.</li>
         </v-list>
-        <div class="text-h5 my-2">Zwecke der Verarbeitung</div>
+        <div class="text-h5 my-2">
+          Zwecke der Verarbeitung
+        </div>
         <v-list>
           <li>Sicherheitsmaßnahmen.</li>
           <li>Reichweitenmessung.</li>
@@ -141,7 +116,9 @@ const impressumUrl = computed(() => {
           </li>
           <li>Informationstechnische Infrastruktur.</li>
         </v-list>
-        <div class="text-h5 my-2" id="m13">Maßgebliche Rechtsgrundlagen</div>
+        <div id="m13" class="text-h5 my-2">
+          Maßgebliche Rechtsgrundlagen
+        </div>
         <p>
           Im Folgenden erhalten Sie eine Übersicht der Rechtsgrundlagen der
           DSGVO, auf deren Basis wir personenbezogene Daten verarbeiten. Bitte
@@ -159,9 +136,7 @@ const impressumUrl = computed(() => {
             Zweck oder mehrere bestimmte Zwecke gegeben.
           </li>
           <li>
-            <strong
-              >Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f) DSGVO)</strong
-            >
+            <strong>Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f) DSGVO)</strong>
             - Die Verarbeitung ist zur Wahrung der berechtigten Interessen des
             Verantwortlichen oder eines Dritten erforderlich, sofern nicht die
             Interessen oder Grundrechte und Grundfreiheiten der betroffenen
@@ -185,7 +160,9 @@ const impressumUrl = computed(() => {
           Beschäftigten. Ferner können Landesdatenschutzgesetze der einzelnen
           Bundesländer zur Anwendung gelangen.
         </p>
-        <div class="text-h5 my-2" id="m27">Sicherheitsmaßnahmen</div>
+        <div id="m27" class="text-h5 my-2">
+          Sicherheitsmaßnahmen
+        </div>
         <p>
           Wir treffen nach Maßgabe der gesetzlichen Vorgaben unter
           Berücksichtigung des Stands der Technik, der Implementierungskosten
@@ -214,7 +191,7 @@ const impressumUrl = computed(() => {
           Sie erkennen derart verschlüsselte Verbindungen an dem Präfix https://
           in der Adresszeile Ihres Browsers.
         </p>
-        <div class="text-h5 my-2" id="m25">
+        <div id="m25" class="text-h5 my-2">
           Übermittlung von personenbezogenen Daten
         </div>
         <p>
@@ -228,7 +205,7 @@ const impressumUrl = computed(() => {
           schließen insbesondere entsprechende Verträge bzw. Vereinbarungen, die
           dem Schutz Ihrer Daten dienen, mit den Empfängern Ihrer Daten ab.
         </p>
-        <div class="text-h5 my-2" id="m24">
+        <div id="m24" class="text-h5 my-2">
           Datenverarbeitung in Drittländern
         </div>
         <p>
@@ -248,13 +225,13 @@ const impressumUrl = computed(() => {
           verbindlicher internen Datenschutzvorschriften verarbeiten (Art. 44
           bis 49 DSGVO, Informationsseite der EU-Kommission:
           <a
-            href="https://ec.europa.eu/info/law/law-topic/data-protection/international-dimension-data-protection_de"
+href="https://ec.europa.eu/info/law/law-topic/data-protection/international-dimension-data-protection_de"
             target="_blank"
-            rel="noopener noreferrer"
-            >https://ec.europa.eu/info/law/law-topic/data-protection/international-dimension-data-protection_de</a
-          >).
+            rel="noopener noreferrer">https://ec.europa.eu/info/law/law-topic/data-protection/international-dimension-data-protection_de</a>).
         </p>
-        <div class="text-h5 my-2" id="m12">Löschung von Daten</div>
+        <div id="m12" class="text-h5 my-2">
+          Löschung von Daten
+        </div>
         <p>
           Die von uns verarbeiteten Daten werden nach Maßgabe der gesetzlichen
           Vorgaben gelöscht, sobald deren zur Verarbeitung erlaubten
@@ -275,7 +252,9 @@ const impressumUrl = computed(() => {
           Aufbewahrung und Löschung von Daten beinhalten, die für die jeweiligen
           Verarbeitungen vorrangig gelten.
         </p>
-        <div class="text-h5 my-2" id="m134">Einsatz von Cookies</div>
+        <div id="m134" class="text-h5 my-2">
+          Einsatz von Cookies
+        </div>
         <p>
           Cookies sind kleine Textdateien, bzw. sonstige Speichervermerke, die
           Informationen auf Endgeräten speichern und Informationen aus den
@@ -300,8 +279,8 @@ const impressumUrl = computed(() => {
           Cookie-Nutzung.
         </p>
         <p>
-          <strong>Hinweise zu datenschutzrechtlichen Rechtsgrundlagen: </strong
-          >Auf welcher datenschutzrechtlichen Rechtsgrundlage wir die
+          <strong>Hinweise zu datenschutzrechtlichen Rechtsgrundlagen: </strong>Auf welcher datenschutzrechtlichen
+          Rechtsgrundlage wir die
           personenbezogenen Daten der Nutzer mit Hilfe von Cookies verarbeiten,
           hängt davon ab, ob wir Nutzer um eine Einwilligung bitten. Falls die
           Nutzer einwilligen, ist die Rechtsgrundlage der Verarbeitung Ihrer
@@ -322,9 +301,8 @@ const impressumUrl = computed(() => {
         </p>
         <v-list>
           <li>
-            <strong
-              >Temporäre Cookies (auch: Session- oder Sitzungs-Cookies):</strong
-            >Temporäre Cookies werden spätestens gelöscht, nachdem ein Nutzer
+            <strong>Temporäre Cookies (auch: Session- oder Sitzungs-Cookies):</strong>Temporäre Cookies werden
+            spätestens gelöscht, nachdem ein Nutzer
             ein Online-Angebot verlassen und sein Endgerät (z.B. Browser oder
             mobile Applikation) geschlossen hat.
           </li>
@@ -342,9 +320,8 @@ const impressumUrl = computed(() => {
           </li>
         </v-list>
         <p>
-          <strong
-            >Allgemeine Hinweise zum Widerruf und Widerspruch (Opt-Out): </strong
-          >Nutzer können die von ihnen abgegebenen Einwilligungen jederzeit
+          <strong>Allgemeine Hinweise zum Widerruf und Widerspruch (Opt-Out): </strong>Nutzer können die von ihnen
+          abgegebenen Einwilligungen jederzeit
           widerrufen und zudem einen Widerspruch gegen die Verarbeitung
           entsprechend den gesetzlichen Vorgaben im Art. 21 DSGVO einlegen.
           Nutzer können ihren Widerspruch auch über die Einstellungen ihres
@@ -352,20 +329,18 @@ const impressumUrl = computed(() => {
           (wobei dadurch auch die Funktionalität unserer Online-Dienste
           eingeschränkt sein kann). Ein Widerspruch gegen die Verwendung von
           Cookies zu Online-Marketing-Zwecken kann auch über die Websites
-          <a href="https://optout.aboutads.info" target="_blank" rel="noopener noreferrer"
-            >https://optout.aboutads.info</a
-          >
+          <a
+href="https://optout.aboutads.info" target="_blank"
+            rel="noopener noreferrer">https://optout.aboutads.info</a>
           und
-          <a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener noreferrer"
-            >https://www.youronlinechoices.com/</a
-          >
+          <a
+href="https://www.youronlinechoices.com/" target="_blank"
+            rel="noopener noreferrer">https://www.youronlinechoices.com/</a>
           erklärt werden.
         </p>
         <p>
-          <strong
-            >Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und
-            Diensten:</strong
-          >
+          <strong>Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und
+            Diensten:</strong>
         </p>
         <v-list class="m-elements">
           <li>
@@ -375,7 +350,7 @@ const impressumUrl = computed(() => {
             erscheint ein Cookie-Banner, über den Sie Ihre Einstellungen
             verwalten können. Sie können jederzeit über die Cookie-Einstellungen
             am unteren rechten Bildschirmrand Ihre Präferenzen ändern.
-            <br /><br />
+            <br><br>
             <strong>Cookie-Kategorien:</strong>
             <ul class="mt-2">
               <li>
@@ -399,9 +374,8 @@ const impressumUrl = computed(() => {
             (Einwilligung) für nicht-notwendige Cookies.
           </li>
           <li>
-            <strong
-              >Verarbeitung von Cookie-Daten auf Grundlage einer Einwilligung: </strong
-            >Wir setzen ein Verfahren zum Cookie-Einwilligungs-Management ein,
+            <strong>Verarbeitung von Cookie-Daten auf Grundlage einer Einwilligung: </strong>Wir setzen ein Verfahren
+            zum Cookie-Einwilligungs-Management ein,
             in dessen Rahmen die Einwilligungen der Nutzer in den Einsatz von
             Cookies, bzw. der im Rahmen des
             Cookie-Einwilligungs-Management-Verfahrens genannten Verarbeitungen
@@ -423,7 +397,7 @@ const impressumUrl = computed(() => {
             gespeichert.
           </li>
         </v-list>
-        <div class="text-h5 my-2" id="m225">
+        <div id="m225" class="text-h5 my-2">
           Bereitstellung des Onlineangebotes und Webhosting
         </div>
         <p>
@@ -457,10 +431,8 @@ const impressumUrl = computed(() => {
           </li>
         </v-list>
         <p>
-          <strong
-            >Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und
-            Diensten:</strong
-          >
+          <strong>Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und
+            Diensten:</strong>
         </p>
         <v-list class="m-elements">
           <li>
@@ -494,17 +466,16 @@ const impressumUrl = computed(() => {
             <strong>Rechtsgrundlagen:</strong> Berechtigte Interessen (Art. 6
             Abs. 1 S. 1 lit. f) DSGVO);
             <strong>Website: </strong>
-            <a href="https://vercel.com" target="_blank" rel="noopener noreferrer"
-              >https://vercel.com</a
-            >;
+            <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">https://vercel.com</a>;
             <strong>Datenschutzerklärung: </strong>
-            <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer"
-              >https://vercel.com/legal/privacy-policy</a
-            >; <strong>Auftragsverarbeitungsvertrag: </strong> Wird vom
+            <a
+href="https://vercel.com/legal/privacy-policy" target="_blank"
+              rel="noopener noreferrer">https://vercel.com/legal/privacy-policy</a>;
+            <strong>Auftragsverarbeitungsvertrag: </strong> Wird vom
             Dienstanbieter bereitgestellt.
           </li>
         </v-list>
-        <div class="text-h5 my-2" id="m263">
+        <div id="m263" class="text-h5 my-2">
           Webanalyse, Monitoring und Optimierung
         </div>
         <p>
@@ -575,10 +546,8 @@ const impressumUrl = computed(() => {
           </li>
         </v-list>
         <p>
-          <strong
-            >Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und
-            Diensten:</strong
-          >
+          <strong>Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und
+            Diensten:</strong>
         </p>
         <v-list class="m-elements">
           <li>
@@ -589,53 +558,37 @@ const impressumUrl = computed(() => {
             <strong>Rechtsgrundlagen:</strong> Einwilligung (Art. 6 Abs. 1 S. 1
             lit. a) DSGVO); <strong>Website:</strong>
             <a
-              href="https://marketingplatform.google.com/intl/de/about/analytics/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >https://marketingplatform.google.com/intl/de/about/analytics/</a
-            >; <strong>Datenschutzerklärung:</strong>
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer"
-              >https://policies.google.com/privacy</a
-            >; <strong>Auftragsverarbeitungsvertrag:</strong>
+href="https://marketingplatform.google.com/intl/de/about/analytics/" target="_blank"
+              rel="noopener noreferrer">https://marketingplatform.google.com/intl/de/about/analytics/</a>;
+            <strong>Datenschutzerklärung:</strong>
             <a
-              href="https://business.safety.google/adsprocessorterms"
-              target="_blank"
-              rel="noopener noreferrer"
-              >https://business.safety.google/adsprocessorterms</a
-            >;
-            <strong
-              >Standardvertragsklauseln (Gewährleistung Datenschutzniveau bei
-              Verarbeitung in Drittländern):</strong
-            >
+href="https://policies.google.com/privacy" target="_blank"
+              rel="noopener noreferrer">https://policies.google.com/privacy</a>;
+            <strong>Auftragsverarbeitungsvertrag:</strong>
             <a
-              href="https://business.safety.google/adsprocessorterms"
-              target="_blank"
-              rel="noopener noreferrer"
-              >https://business.safety.google/adsprocessorterms</a
-            >;
+href="https://business.safety.google/adsprocessorterms" target="_blank"
+              rel="noopener noreferrer">https://business.safety.google/adsprocessorterms</a>;
+            <strong>Standardvertragsklauseln (Gewährleistung Datenschutzniveau bei
+              Verarbeitung in Drittländern):</strong>
+            <a
+href="https://business.safety.google/adsprocessorterms" target="_blank"
+              rel="noopener noreferrer">https://business.safety.google/adsprocessorterms</a>;
             <strong>Widerspruchsmöglichkeit (Opt-Out):</strong> Opt-Out-Plugin:
             <a
-              href="https://tools.google.com/dlpage/gaoptout?hl=de"
-              target="_blank"
-              rel="noopener noreferrer"
-              >https://tools.google.com/dlpage/gaoptout?hl=de</a
-            >, Einstellungen für die Darstellung von Werbeeinblendungen:
+href="https://tools.google.com/dlpage/gaoptout?hl=de" target="_blank"
+              rel="noopener noreferrer">https://tools.google.com/dlpage/gaoptout?hl=de</a>, Einstellungen für die
+            Darstellung von Werbeeinblendungen:
             <a
-              href="https://adssettings.google.com/authenticated"
-              target="_blank"
-              rel="noopener noreferrer"
-              >https://adssettings.google.com/authenticated</a
-            >; <strong>Weitere Informationen:</strong>
+href="https://adssettings.google.com/authenticated" target="_blank"
+              rel="noopener noreferrer">https://adssettings.google.com/authenticated</a>; <strong>Weitere
+              Informationen:</strong>
             <a
-              href="https://privacy.google.com/businesses/adsservices"
-              target="_blank"
-              rel="noopener noreferrer"
-              >https://privacy.google.com/businesses/adsservices</a
-            >
+href="https://privacy.google.com/businesses/adsservices" target="_blank"
+              rel="noopener noreferrer">https://privacy.google.com/businesses/adsservices</a>
             (Arten der Verarbeitung sowie der verarbeiteten Daten).
           </li>
         </v-list>
-        <div class="text-h5 my-2" id="m264">
+        <div id="m264" class="text-h5 my-2">
           Werbung und Marketing
         </div>
         <p>
@@ -666,10 +619,8 @@ const impressumUrl = computed(() => {
           </li>
         </v-list>
         <p>
-          <strong
-            >Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und
-            Diensten:</strong
-          >
+          <strong>Weitere Hinweise zu Verarbeitungsprozessen, Verfahren und
+            Diensten:</strong>
         </p>
         <v-list class="m-elements">
           <li>
@@ -680,27 +631,23 @@ const impressumUrl = computed(() => {
             Limited, Gordon House, Barrow Street, Dublin 4, Irland;
             <strong>Rechtsgrundlagen:</strong> Einwilligung (Art. 6 Abs. 1 S. 1
             lit. a) DSGVO); <strong>Website:</strong>
-            <a href="https://www.google.com/adsense" target="_blank" rel="noopener noreferrer"
-              >https://www.google.com/adsense</a
-            >; <strong>Datenschutzerklärung:</strong>
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer"
-              >https://policies.google.com/privacy</a
-            >; <strong>Widerspruchsmöglichkeit (Opt-Out):</strong>
             <a
-              href="https://adssettings.google.com/authenticated"
-              target="_blank"
-              rel="noopener noreferrer"
-              >https://adssettings.google.com/authenticated</a
-            >; <strong>Weitere Informationen:</strong>
+href="https://www.google.com/adsense" target="_blank"
+              rel="noopener noreferrer">https://www.google.com/adsense</a>; <strong>Datenschutzerklärung:</strong>
             <a
-              href="https://privacy.google.com/businesses/adsservices"
-              target="_blank"
-              rel="noopener noreferrer"
-              >https://privacy.google.com/businesses/adsservices</a
-            >.
+href="https://policies.google.com/privacy" target="_blank"
+              rel="noopener noreferrer">https://policies.google.com/privacy</a>; <strong>Widerspruchsmöglichkeit
+              (Opt-Out):</strong>
+            <a
+href="https://adssettings.google.com/authenticated" target="_blank"
+              rel="noopener noreferrer">https://adssettings.google.com/authenticated</a>; <strong>Weitere
+              Informationen:</strong>
+            <a
+href="https://privacy.google.com/businesses/adsservices" target="_blank"
+              rel="noopener noreferrer">https://privacy.google.com/businesses/adsservices</a>.
           </li>
         </v-list>
-        <div class="text-h5 my-2" id="m15">
+        <div id="m15" class="text-h5 my-2">
           Änderung und Aktualisierung der Datenschutzerklärung
         </div>
         <p>
@@ -718,15 +665,16 @@ const impressumUrl = computed(() => {
           bitten wir zu beachten, dass die Adressen sich über die Zeit ändern
           können und bitten die Angaben vor Kontaktaufnahme zu prüfen.
         </p>
-        <div class="text-h5 my-2" id="m10">Rechte der betroffenen Personen</div>
+        <div id="m10" class="text-h5 my-2">
+          Rechte der betroffenen Personen
+        </div>
         <p>
           Ihnen stehen als Betroffene nach der DSGVO verschiedene Rechte zu, die
           sich insbesondere aus Art. 15 bis 21 DSGVO ergeben:
         </p>
         <v-list>
           <li>
-            <strong
-              >Widerspruchsrecht: Sie haben das Recht, aus Gründen, die sich aus
+            <strong>Widerspruchsrecht: Sie haben das Recht, aus Gründen, die sich aus
               Ihrer besonderen Situation ergeben, jederzeit gegen die
               Verarbeitung der Sie betreffenden personenbezogenen Daten, die
               aufgrund von Art. 6 Abs. 1 lit. e oder f DSGVO erfolgt,
@@ -737,8 +685,7 @@ const impressumUrl = computed(() => {
               Verarbeitung der Sie betreffenden personenbezogenen Daten zum
               Zwecke derartiger Werbung einzulegen; dies gilt auch für das
               Profiling, soweit es mit solcher Direktwerbung in Verbindung
-              steht.</strong
-            >
+              steht.</strong>
           </li>
           <li>
             <strong>Widerrufsrecht bei Einwilligungen:</strong> Sie haben das
@@ -758,9 +705,7 @@ const impressumUrl = computed(() => {
             unrichtigen Daten zu verlangen.
           </li>
           <li>
-            <strong
-              >Recht auf Löschung und Einschränkung der Verarbeitung:</strong
-            >
+            <strong>Recht auf Löschung und Einschränkung der Verarbeitung:</strong>
             Sie haben nach Maßgabe der gesetzlichen Vorgaben das Recht, zu
             verlangen, dass Sie betreffende Daten unverzüglich gelöscht werden,
             bzw. alternativ nach Maßgabe der gesetzlichen Vorgaben eine
@@ -788,3 +733,14 @@ const impressumUrl = computed(() => {
     </v-card>
   </v-container>
 </template>
+
+<script setup lang="ts">
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const impressumUrl = computed(() => {
+  return window.location.origin + router.resolve("/impressum").href;
+});
+</script>

@@ -111,7 +111,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.meta?.description) {
-    const metaDescription = document.querySelector('meta[name="description"]');
+    const metaDescription = document.querySelector("meta[name=\"description\"]");
     if (metaDescription) {
       metaDescription.setAttribute("content", to.meta.description as string);
     }

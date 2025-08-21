@@ -11,7 +11,7 @@ export default [
 
   {
     name: "app/files-to-ignore",
-    ignores: ["**/dist/**", "**/dist-ssr/**", "**/coverage/**"],
+    ignores: ["**/dist/**", "**/dist-ssr/**", "**/coverage/**", "**/*.spec.ts"],
   },
 
   js.configs.recommended,
@@ -33,24 +33,32 @@ export default [
       "vue/component-definition-name-casing": ["error", "PascalCase"],
       "vue/component-name-in-template-casing": ["error", "PascalCase"],
       "vue/prefer-import-from-vue": "error",
-      "vue/no-empty-component-block": "error",
+      "vue/no-empty-component-block": "warn",
       "vue/padding-line-between-blocks": ["error", "always"],
       "vue/component-tags-order": [
-        "error",
+        "warn",
         {
-          "order": ["template", "script", "style"]
-        }
+          order: ["template", "script", "style"],
+        },
       ],
+      "vue/max-attributes-per-line": "off",
+      "vue/singleline-html-element-content-newline": "off",
+      "vue/html-self-closing": "off",
+      "vue/attributes-order": "off",
+      "vue/html-closing-bracket-newline": "off",
+      "vue/html-indent": "off",
     },
   },
 
   {
-    name: "app/typescript-rules", 
+    name: "app/typescript-rules",
     files: ["**/*.{ts,mts,tsx}"],
     rules: {
       // TypeScript specific rules
-      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-      "@typescript-eslint/prefer-const": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_" },
+      ],
       "@typescript-eslint/no-explicit-any": "warn",
     },
   },
@@ -63,9 +71,9 @@ export default [
       "no-debugger": "error",
       "prefer-const": "error",
       "no-unused-vars": "off", // Use TypeScript version instead
-      "quotes": ["error", "double"],
-      "semi": ["error", "always"],
-      "indent": ["error", 2],
+      quotes: ["error", "double"],
+      semi: ["error", "always"],
+      indent: ["error", 2],
       "comma-dangle": ["error", "always-multiline"],
       "object-curly-spacing": ["error", "always"],
       "array-bracket-spacing": ["error", "never"],
@@ -74,7 +82,10 @@ export default [
       "space-infix-ops": "error",
       "eol-last": ["error", "always"],
       "no-trailing-spaces": "error",
-      "max-len": ["error", { "code": 120, "ignoreUrls": true, "ignoreStrings": true }],
+      "max-len": [
+        "warn",
+        { code: 120, ignoreUrls: true, ignoreStrings: true, ignoreTemplateLiterals: true },
+      ],
     },
   },
 ];

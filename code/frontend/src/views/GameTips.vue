@@ -4,7 +4,10 @@
     <header class="bg-white shadow-sm">
       <div class="max-w-4xl mx-auto px-4 py-6">
         <nav class="mb-4">
-          <router-link to="/" class="text-blue-600 hover:text-blue-800 text-sm">
+          <router-link
+            to="/"
+            class="text-blue-600 hover:text-blue-800 text-sm"
+          >
             ← Zurück zum Spiel
           </router-link>
         </nav>
@@ -49,7 +52,9 @@
           </div>
 
           <div class="border-l-4 border-purple-500 pl-4">
-            <h3 class="font-semibold text-gray-800">3. Denke in Kategorien</h3>
+            <h3 class="font-semibold text-gray-800">
+              3. Denke in Kategorien
+            </h3>
             <p class="text-gray-600">
               Wenn ein Wort eine mittlere Ähnlichkeit zeigt, versuche verwandte
               Begriffe aus derselben Kategorie: Tiere, Berufe, Farben,
@@ -128,7 +133,11 @@
         <div class="space-y-4">
           <div class="flex items-start">
             <div class="bg-red-100 text-red-600 rounded-full p-2 mr-4 mt-1">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <svg
+                class="w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
                 <path
                   fill-rule="evenodd"
                   d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
@@ -150,7 +159,11 @@
 
           <div class="flex items-start">
             <div class="bg-red-100 text-red-600 rounded-full p-2 mr-4 mt-1">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <svg
+                class="w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
                 <path
                   fill-rule="evenodd"
                   d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
@@ -171,7 +184,11 @@
 
           <div class="flex items-start">
             <div class="bg-red-100 text-red-600 rounded-full p-2 mr-4 mt-1">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <svg
+                class="w-4 h-4"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
                 <path
                   fill-rule="evenodd"
                   d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
@@ -218,7 +235,9 @@
             <h3 class="font-semibold text-green-900 mb-2">
               Emotionen & Gefühle
             </h3>
-            <p class="text-green-800 text-sm mb-2">Für abstrakte Zielwörter:</p>
+            <p class="text-green-800 text-sm mb-2">
+              Für abstrakte Zielwörter:
+            </p>
             <div class="text-xs text-green-700 space-x-2">
               <span class="bg-green-200 px-2 py-1 rounded">Liebe</span>
               <span class="bg-green-200 px-2 py-1 rounded">Freude</span>
@@ -254,7 +273,9 @@
 
         <div class="grid md:grid-cols-2 gap-6">
           <div>
-            <h3 class="text-lg font-semibold mb-3">⚡ Speed-Strategien</h3>
+            <h3 class="text-lg font-semibold mb-3">
+              ⚡ Speed-Strategien
+            </h3>
             <ul class="space-y-2 text-sm opacity-90">
               <li>• Nutze Synonyme systematisch (groß → riesig → winzig)</li>
               <li>• Teste Gegensätze bei mittlerer Ähnlichkeit</li>
@@ -263,7 +284,9 @@
           </div>
 
           <div>
-            <h3 class="text-lg font-semibold mb-3">🧠 Denkmuster</h3>
+            <h3 class="text-lg font-semibold mb-3">
+              🧠 Denkmuster
+            </h3>
             <ul class="space-y-2 text-sm opacity-90">
               <li>• Assoziationsketten: Was fällt dir zu diesem Wort ein?</li>
               <li>

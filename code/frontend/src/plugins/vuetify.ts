@@ -5,12 +5,12 @@
  */
 
 // Styles
-import '@mdi/font/css/materialdesignicons.css'
-import 'vuetify/styles'
+import "@mdi/font/css/materialdesignicons.css";
+import "vuetify/styles";
 
 // Composables
-import {createVuetify} from 'vuetify'
-import {VIconBtn} from "vuetify/labs/components";
+import { createVuetify } from "vuetify";
+import { VIconBtn } from "vuetify/labs/components";
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
@@ -18,6 +18,6 @@ export default createVuetify({
     VIconBtn,
   },
   theme: {
-    defaultTheme: 'system',
+    defaultTheme: "system",
   },
-})
+});

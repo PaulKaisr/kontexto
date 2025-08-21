@@ -8,7 +8,9 @@
             ← Zurück zum Spiel
           </router-link>
         </nav>
-        <h1 class="text-3xl font-bold text-gray-900">Über Kontexto</h1>
+        <h1 class="text-3xl font-bold text-gray-900">
+          Über Kontexto
+        </h1>
         <p class="text-lg text-gray-600 mt-2">
           Das innovative deutsche Wortspiel mit KI-basierter Ähnlichkeit
         </p>
@@ -108,18 +110,10 @@
         <div class="space-y-6">
           <div class="flex items-start">
             <div class="bg-blue-100 text-blue-600 rounded-full p-3 mr-4 mt-1">
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                />
+stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
               </svg>
             </div>
             <div>
@@ -136,18 +130,10 @@
 
           <div class="flex items-start">
             <div class="bg-green-100 text-green-600 rounded-full p-3 mr-4 mt-1">
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                />
+stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </div>
             <div>
@@ -163,21 +149,11 @@
           </div>
 
           <div class="flex items-start">
-            <div
-              class="bg-purple-100 text-purple-600 rounded-full p-3 mr-4 mt-1"
-            >
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+            <div class="bg-purple-100 text-purple-600 rounded-full p-3 mr-4 mt-1">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
+stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
@@ -195,9 +171,7 @@
       </section>
 
       <!-- Comparison with other games -->
-      <section
-        class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-6 mb-8"
-      >
+      <section class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-6 mb-8">
         <h2 class="text-2xl font-semibold text-gray-800 mb-4">
           📊 Kontexto vs. andere Wortspiele
         </h2>
@@ -222,34 +196,74 @@
             </thead>
             <tbody class="text-gray-700">
               <tr class="border-b border-gray-100">
-                <td class="py-2">KI-basierte Ähnlichkeit</td>
-                <td class="text-center py-2">✅</td>
-                <td class="text-center py-2">❌</td>
-                <td class="text-center py-2">❌</td>
+                <td class="py-2">
+                  KI-basierte Ähnlichkeit
+                </td>
+                <td class="text-center py-2">
+                  ✅
+                </td>
+                <td class="text-center py-2">
+                  ❌
+                </td>
+                <td class="text-center py-2">
+                  ❌
+                </td>
               </tr>
               <tr class="border-b border-gray-100">
-                <td class="py-2">Auf Deutsch optimiert</td>
-                <td class="text-center py-2">✅</td>
-                <td class="text-center py-2">⚠️</td>
-                <td class="text-center py-2">✅</td>
+                <td class="py-2">
+                  Auf Deutsch optimiert
+                </td>
+                <td class="text-center py-2">
+                  ✅
+                </td>
+                <td class="text-center py-2">
+                  ⚠️
+                </td>
+                <td class="text-center py-2">
+                  ✅
+                </td>
               </tr>
               <tr class="border-b border-gray-100">
-                <td class="py-2">Täglich neues Rätsel</td>
-                <td class="text-center py-2">✅</td>
-                <td class="text-center py-2">✅</td>
-                <td class="text-center py-2">⚠️</td>
+                <td class="py-2">
+                  Täglich neues Rätsel
+                </td>
+                <td class="text-center py-2">
+                  ✅
+                </td>
+                <td class="text-center py-2">
+                  ✅
+                </td>
+                <td class="text-center py-2">
+                  ⚠️
+                </td>
               </tr>
               <tr class="border-b border-gray-100">
-                <td class="py-2">Kostenlos verfügbar</td>
-                <td class="text-center py-2">✅</td>
-                <td class="text-center py-2">✅</td>
-                <td class="text-center py-2">⚠️</td>
+                <td class="py-2">
+                  Kostenlos verfügbar
+                </td>
+                <td class="text-center py-2">
+                  ✅
+                </td>
+                <td class="text-center py-2">
+                  ✅
+                </td>
+                <td class="text-center py-2">
+                  ⚠️
+                </td>
               </tr>
               <tr class="border-b border-gray-100">
-                <td class="py-2">Flexible Wortlängen</td>
-                <td class="text-center py-2">✅</td>
-                <td class="text-center py-2">❌</td>
-                <td class="text-center py-2">✅</td>
+                <td class="py-2">
+                  Flexible Wortlängen
+                </td>
+                <td class="text-center py-2">
+                  ✅
+                </td>
+                <td class="text-center py-2">
+                  ❌
+                </td>
+                <td class="text-center py-2">
+                  ✅
+                </td>
               </tr>
             </tbody>
           </table>
@@ -257,10 +271,10 @@
       </section>
 
       <!-- Mission & Vision -->
-      <section
-        class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg p-6 mb-8"
-      >
-        <h2 class="text-2xl font-semibold mb-4">🌟 Unsere Mission</h2>
+      <section class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg p-6 mb-8">
+        <h2 class="text-2xl font-semibold mb-4">
+          🌟 Unsere Mission
+        </h2>
         <div class="grid md:grid-cols-2 gap-6">
           <div>
             <h3 class="text-lg font-semibold mb-3">
@@ -278,7 +292,7 @@
             </h3>
             <p class="text-sm opacity-90">
               Bildung sollte für jeden zugänglich sein. Deshalb ist Kontexto
-              kostenlos verfügbar. Die Finanzierung erfolgt durch 
+              kostenlos verfügbar. Die Finanzierung erfolgt durch
               nutzerfreundliche Werbung, die das Spielerlebnis nicht beeinträchtigt.
             </p>
           </div>
@@ -303,7 +317,9 @@
           </div>
 
           <div class="border border-gray-200 p-4 rounded-lg">
-            <h3 class="font-semibold text-gray-800 mb-2">Thematische Modi</h3>
+            <h3 class="font-semibold text-gray-800 mb-2">
+              Thematische Modi
+            </h3>
             <p class="text-sm text-gray-600">
               Spezielle Rätselmodi zu bestimmten Themen wie Sport, Musik oder
               Geschichte.
@@ -311,7 +327,9 @@
           </div>
 
           <div class="border border-gray-200 p-4 rounded-lg">
-            <h3 class="font-semibold text-gray-800 mb-2">Mehrspieler-Modus</h3>
+            <h3 class="font-semibold text-gray-800 mb-2">
+              Mehrspieler-Modus
+            </h3>
             <p class="text-sm text-gray-600">
               Rate zusammen mit Freunden oder tritt in wöchentlichen Turnieren
               gegen andere an.
@@ -330,15 +348,13 @@
         </p>
         <div class="space-x-4">
           <router-link
-            to="/"
-            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-block"
-          >
+to="/"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-block">
             Jetzt spielen
           </router-link>
           <router-link
-            to="/spieltipps"
-            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors inline-block"
-          >
+to="/spieltipps"
+            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors inline-block">
             Spieltipps lesen
           </router-link>
         </div>
@@ -350,14 +366,18 @@
       <div class="max-w-4xl mx-auto px-4">
         <div class="grid md:grid-cols-3 gap-8">
           <div>
-            <h3 class="font-semibold mb-3">Kontexto</h3>
+            <h3 class="font-semibold mb-3">
+              Kontexto
+            </h3>
             <p class="text-sm text-gray-400">
               Das innovative deutsche Wortspiel mit KI-basierter
               Wortähnlichkeit. Täglich neue Rätsel, komplett kostenlos.
             </p>
           </div>
           <div>
-            <h3 class="font-semibold mb-3">Beliebte Suchbegriffe</h3>
+            <h3 class="font-semibold mb-3">
+              Beliebte Suchbegriffe
+            </h3>
             <div class="text-xs text-gray-400 space-y-1">
               <p>deutsches wortspiel online</p>
               <p>wordle deutsch alternative</p>
@@ -366,7 +386,9 @@
             </div>
           </div>
           <div>
-            <h3 class="font-semibold mb-3">Technologie</h3>
+            <h3 class="font-semibold mb-3">
+              Technologie
+            </h3>
             <div class="text-xs text-gray-400 space-y-1">
               <p>Vue.js Progressive Web App</p>
               <p>KI-basierte Ähnlichkeitsberechnung</p>

@@ -1,5 +1,5 @@
-import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/generated-sources/database.types.ts";
+import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
@@ -20,8 +20,6 @@ export async function getMostRecentGame() {
     .order("date", { ascending: false })
     .limit(1);
 
-  console.log("Most recent game data:", data);
-
   if (error) {
     console.error("Error fetching most recent game:", error);
     return null;
@@ -38,7 +36,7 @@ export async function getMostRecentGame() {
  */
 export async function getSimilarityByGameIdAndWord(
   gameId: number,
-  word: string
+  word: string,
 ) {
   const lowercaseWord = word.toLowerCase();
   const capitalizedWord =
