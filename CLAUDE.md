@@ -45,6 +45,9 @@ All scripts support explicit environment selection via command-line flags:
 **New Game Options:**
 
 - `--reset`: Clear all previous games and similarities before creating new game (use with caution in production)
+- `--replace <game_id>`: Replace similarities for an existing game with newly calculated ones (preserves game ID and date)
+- `-n <number>`: Create multiple games at once (default: 1)
+- `--similarity-service <service>`: Choose similarity service (spacy, transformer, sentence-transformer)
 
 **Common Usage Examples:**
 
@@ -62,6 +65,9 @@ python src/scripts/new_game.py
 
 # Reset and create new game (local development)
 python src/scripts/new_game.py --local --reset
+
+# Replace similarities for an existing game with new ones (preserves game ID and date)
+python src/scripts/new_game.py --local --replace <game_id>
 ```
 
 ### Database (Supabase)
