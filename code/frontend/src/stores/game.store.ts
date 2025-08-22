@@ -145,6 +145,14 @@ export const useGameStore = defineStore("game", {
           was_correct: similarity.similarity === 1,
         });
 
+        // Update streak if the game is now completed (similarity === 1)
+        if (similarity.similarity === 1) {
+          // Import streak store dynamically to avoid circular imports
+          const { useStreakStore } = await import("@/stores/streak.store");
+          const streakStore = useStreakStore();
+          streakStore.updateStreakOnGameComplete();
+        }
+
         return { success: true };
       }
       return { success: false, error: "not_found" };
@@ -228,6 +236,11 @@ export const useGameStore = defineStore("game", {
           hints_used: this.gamesProgress[gameId].numHints,
           solution_word: solution.word,
         });
+
+        // Update streak after giving up (game is now completed)
+        const { useStreakStore } = await import("@/stores/streak.store");
+        const streakStore = useStreakStore();
+        streakStore.updateStreakOnGameComplete();
       }
     },
 

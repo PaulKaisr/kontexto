@@ -88,5 +88,13 @@ describe("StatsBar.vue", () => {
     expect(wrapper.text()).toContain("Spiel");
     expect(wrapper.text()).toContain("Versuche");
     expect(wrapper.text()).toContain("Hinweise");
+    expect(wrapper.text()).toContain("Serie");
+  });
+
+  it("displays streak stat", () => {
+    const wrapper = mountComponent();
+    const streakStat = wrapper.find("[data-testid=\"streak-stat\"]");
+    expect(streakStat.exists()).toBe(true);
+    expect(streakStat.text()).toContain("Serie");
   });
 });

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-row justify-evenly items-center gap-6 w-full py-2"
+    class="flex flex-row justify-evenly items-center gap-4 w-full py-2"
     data-testid="stats-bar"
   >
     <div
@@ -24,15 +24,32 @@
       <span class="text-xs text-gray-500">Hinweise</span>
       <span class="font-bold text-lg">{{ numHints }}</span>
     </div>
+    <div
+      class="flex flex-col items-center"
+      data-testid="streak-stat"
+    >
+      <span class="text-xs text-gray-500">Serie</span>
+      <span class="font-bold text-lg text-orange-600">{{ streakStore.currentStreak }}</span>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { onMounted } from "vue";
+import { useStreakStore } from "@/stores/streak.store";
+
 defineProps<{
   gameId: number | null;
   numGuesses: number;
   numHints: number;
 }>();
+
+const streakStore = useStreakStore();
+
+// Calculate streak when component mounts
+onMounted(() => {
+  streakStore.calculateStreak();
+});
 </script>
 
 
