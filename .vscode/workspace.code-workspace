@@ -131,6 +131,15 @@
         },
         "isBackground": true,
         "problemMatcher": []
+      },
+      {
+        "label": "fe:lint:fix",
+        "type": "shell",
+        "command": "pnpm",
+        "args": ["lint:fix"],
+        "options": {
+          "cwd": "${workspaceFolder}/code/frontend"
+        }
       }
     ]
   }
