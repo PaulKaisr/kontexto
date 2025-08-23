@@ -8,6 +8,7 @@ from src.database.entities.word import WordEntity
 from src.database.repositories.word_repository import WordRepository
 from src.services.language import LanguageService
 from src.services.word_service import WordService
+from src.services.improved_word_filter import ImprovedWordFilter
 from src.database.database_config import DatabaseConfig
 
 MIN_FREQ = 20000
@@ -107,6 +108,16 @@ def main(args):
     # Attribute-based filter
     unique_words_orms = [w for w in unique_words_orms if w.word_type not in (None, "X")]
     print(f"{len(unique_words_orms)} passed additional filter based on attributes test.")
+
+    # Enhanced PROP filtering to address surname contamination
+    word_filter = ImprovedWordFilter()
+    original_count = len(unique_words_orms)
+    unique_words_orms = [
+        w for w in unique_words_orms 
+        if not word_filter.should_exclude_word(w.word, w.word_type, w.occurrences)[0]
+    ]
+    excluded_count = original_count - len(unique_words_orms)
+    print(f"{len(unique_words_orms)} passed enhanced PROP filtering (removed {excluded_count} likely surnames).")
 
     # Persist
     WordRepository().insert_all(unique_words_orms)
