@@ -41,6 +41,24 @@
         </v-card>
       </div>
 
+      <div class="mb-6">
+        <v-card
+          variant="outlined"
+          class="pa-4 mx-auto max-w-sm"
+        >
+          <div class="text-center">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-sm text-gray-500">Aktuelle Serie:</span>
+              <span class="font-bold text-lg text-orange-600">{{ streakStore.streakDisplayText }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-500">{{ streakStore.longestStreakDisplayText }}</span>
+              <span v-if="streakStore.currentStreak > 0" class="text-xs text-gray-400">🔥</span>
+            </div>
+          </div>
+        </v-card>
+      </div>
+
       <div class="flex flex-col gap-4">
         <v-btn
           rounded="pill"
@@ -108,16 +126,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useGameStore } from "@/stores/game.store";
+import { useStreakStore } from "@/stores/streak.store";
 import ClosestWords from "./ClosestWords.vue";
 import PreviousGames from "./PreviousGames.vue";
 
 const gameStore = useGameStore();
+const streakStore = useStreakStore();
 const buttonText = ref("Teilen");
 const isCopied = ref(false);
 const showClosestWords = ref(false);
 const showPreviousGames = ref(false);
+
+// Calculate streak when component mounts
+onMounted(() => {
+  streakStore.calculateStreak();
+});
 
 async function copyStatsToClipboard() {
   const attempts = gameStore.hasGivenUp
