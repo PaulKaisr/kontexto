@@ -22,7 +22,7 @@ class WordService:
         """
         return self.model.get_words(include_freq=include_freq)
 
-    def get_all_words_from_db(self, min_freq: int | None = None) -> list[str]:
+    def get_all_words_from_db(self, min_freq: int = 0) -> list[str]:
         """
         Get all words from the database.
         :return: List of words.
