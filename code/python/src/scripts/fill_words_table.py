@@ -14,7 +14,7 @@ from src.database.database_config import DatabaseConfig
 # Analysis showed that German surnames heavily cluster in the 20k-100k range for PROPN words
 # while legitimate nouns, verbs, adjectives are valuable even at lower frequencies
 MIN_FREQ_GENERAL = 8000    # Lower threshold for non-PROPN words (nouns, verbs, adjectives, etc.)
-MIN_FREQ_PROPN = 100000     # Higher threshold for PROPN words to filter out most surnames
+MIN_FREQ_PROPN = 200000     # Higher threshold for PROPN words to filter out most surnames
                            # 50k threshold eliminates ~70% of low-frequency surnames
                            # while preserving major cities, countries, and important proper names
 
