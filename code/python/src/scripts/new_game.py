@@ -17,7 +17,6 @@ SRC_DIR = SCRIPTS_DIR.parent
 PYTHON_DIR = SRC_DIR.parent
 CODE_DIR = PYTHON_DIR.parent
 DATA_DIR = PYTHON_DIR / "data"
-FRONTEND_DIR = CODE_DIR / "frontend"
 SOLUTIONS_FILE = DATA_DIR / "solutions_de.txt"
 
 
@@ -27,17 +26,17 @@ def configure_env(args):
 
     candidate = None
     if args.local:
-        candidate = FRONTEND_DIR / ".env.local"
+        candidate = PYTHON_DIR / ".env.local"
     elif args.production:
         candidate = PYTHON_DIR / ".env"
     else:  # auto-detect preference
-        if (FRONTEND_DIR / ".env.local").exists():
-            candidate = FRONTEND_DIR / ".env.local"
+        if (PYTHON_DIR / ".env.local").exists():
+            candidate = PYTHON_DIR / ".env.local"
         elif (PYTHON_DIR / ".env").exists():
             candidate = PYTHON_DIR / ".env"
 
     if not candidate or not candidate.exists():
-        raise SystemExit("No suitable environment file found (.env.local in frontend or .env in python directory)")
+        raise SystemExit("No suitable environment file found (.env.local in python or .env in python directory)")
 
     DatabaseConfig.set_environment(str(candidate))
     load_dotenv(str(candidate), override=True)

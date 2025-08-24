@@ -14,7 +14,6 @@ SCRIPTS_DIR = Path(__file__).resolve().parent
 SRC_DIR = SCRIPTS_DIR.parent
 PYTHON_DIR = SRC_DIR.parent
 CODE_DIR = PYTHON_DIR.parent
-FRONTEND_DIR = CODE_DIR / "frontend"
 
 
 def configure_env(args):
@@ -23,12 +22,12 @@ def configure_env(args):
 
     candidate = None
     if args.local:
-        candidate = FRONTEND_DIR / ".env.local"
+        candidate = PYTHON_DIR / ".env.local"
     elif args.production:
         candidate = PYTHON_DIR / ".env"
     else:  # auto-detect preference
-        if (FRONTEND_DIR / ".env.local").exists():
-            candidate = FRONTEND_DIR / ".env.local"
+        if (PYTHON_DIR / ".env.local").exists():
+            candidate = PYTHON_DIR / ".env.local"
         elif (PYTHON_DIR / ".env").exists():
             candidate = PYTHON_DIR / ".env"
 
@@ -77,7 +76,7 @@ def main(args):
     print("Tables created successfully.")
     
     # Determine if we should enable RLS
-    is_local_env = args.local or (not args.production and (FRONTEND_DIR / ".env.local").exists())
+    is_local_env = args.local or (not args.production and (PYTHON_DIR / ".env.local").exists())
     should_enable_rls = not args.no_rls and not is_local_env
     
     if should_enable_rls:
