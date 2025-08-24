@@ -14,7 +14,7 @@
     </div>
     <div
       v-if="similarity"
-      class="absolute left-0 bottom-0 h-full rounded transition-all duration-100 -z-100"
+      class="absolute left-0 bottom-0 h-full rounded progress-bar -z-100"
       :class="getBarClass(similarity)"
       :style="{ width: getBarFill(similarity) }"
     />
@@ -37,5 +37,18 @@ const getBarFill = (similarity: number) => {
   return `${width}%`;
 };
 </script>
+
+<style scoped>
+.progress-bar {
+  /* Use transform instead of width for smoother animations that don't cause layout shift */
+  transform-origin: left center;
+  transition: transform 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+/* Ensure consistent card height */
+.v-card {
+  min-height: 48px;
+}
+</style>
 
 

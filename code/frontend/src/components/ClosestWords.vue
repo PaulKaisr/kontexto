@@ -5,14 +5,11 @@
         v-if="loading"
         class="text-center py-6 sm:py-8"
       >
-        <v-progress-circular
-          indeterminate
-          color="primary"
-          :size="$vuetify.display.smAndUp ? '64' : '48'"
+        <v-skeleton-loader
+          type="heading, paragraph, list-item@10"
+          class="mx-auto"
+          max-width="400"
         />
-        <p class="mt-3 sm:mt-4 text-body-2 sm:text-body-1">
-          Lade ähnlichste Wörter...
-        </p>
       </div>
 
       <div

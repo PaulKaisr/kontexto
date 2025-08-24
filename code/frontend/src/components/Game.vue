@@ -15,7 +15,10 @@
         />
       </header>
 
-      <StatsCard v-if="gameStore.isGameOver" />
+      <!-- Reserve space for StatsCard to prevent layout shift -->
+      <div class="stats-card-container">
+        <StatsCard v-if="gameStore.isGameOver" />
+      </div>
       <StatsBar
         :game-id="gameStore.recentGame?.game_id ?? null"
         :num-guesses="gameStore.pastGuesses.length"
@@ -53,18 +56,16 @@
           </div>
         </section>
 
-        <!-- Recent guess highlight -->
-        <section
-          v-if="gameStore.mostRecentGuess"
-          class="recent-guess"
-          aria-label="Letzter Versuch"
-        >
-          <GuessItem
-            :guess="gameStore.mostRecentGuess.guess"
-            :similarity="gameStore.mostRecentGuess.similarity"
-            :highlight="true"
-          />
-          <div class="my-4 fade-divider" />
+        <!-- Recent guess highlight with reserved space -->
+        <section class="recent-guess-container" aria-label="Letzter Versuch">
+          <div v-if="gameStore.mostRecentGuess" class="recent-guess">
+            <GuessItem
+              :guess="gameStore.mostRecentGuess.guess"
+              :similarity="gameStore.mostRecentGuess.similarity"
+              :highlight="true"
+            />
+            <div class="my-4 fade-divider" />
+          </div>
         </section>
 
         <!-- Guess history -->
@@ -200,5 +201,40 @@ onMounted(async() => {
     rgb(var(--v-border-color)) 80%,
     transparent 100%
   );
+}
+
+/* Prevent layout shifts by reserving space for dynamic content */
+.stats-card-container {
+  /* Reserve space for stats card when game is complete */
+  min-height: 0;
+  transition: min-height 0.3s ease;
+}
+
+.recent-guess-container {
+  /* Reserve minimal space for recent guess section */
+  min-height: 0;
+  transition: min-height 0.2s ease;
+}
+
+.recent-guess {
+  /* Smooth appearance of recent guess */
+  animation: slideInFade 0.3s ease-out;
+}
+
+@keyframes slideInFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ensure consistent sizing for icons */
+.v-icon {
+  width: 24px !important;
+  height: 24px !important;
 }
 </style>
