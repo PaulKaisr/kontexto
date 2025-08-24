@@ -32,6 +32,7 @@ export default defineConfig({
         ],
       },
       custom: {
+        families: [],
         display: "swap",
         preload: true,
       },
