@@ -1,1 +1,0 @@
-export default "Kontexto - Deutsches Wortspiel | Täglich neue Wort-Rätsel"

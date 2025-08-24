@@ -1,1 +1,0 @@
-export default "Kontaktiere das Kontexto Team - Feedback, Fragen und Anregungen"

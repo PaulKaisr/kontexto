@@ -1,1 +1,0 @@
-export default "Lerne die besten Strategien und Tipps für Kontexto. Werde zum Wortspiel-Experten mit unseren bewährten Techniken!"

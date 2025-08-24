@@ -1,1 +1,0 @@
-export default "Nutzungsbedingungen für Kontexto - Rechtliche Hinweise zur Nutzung"

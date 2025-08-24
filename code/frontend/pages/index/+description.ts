@@ -1,1 +1,0 @@
-export default "Kostenloses deutsches Wortspiel mit täglich neuen Rätseln. Rate das Zielwort durch Kontext und Wortähnlichkeit!"

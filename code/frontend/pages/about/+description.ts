@@ -1,1 +1,0 @@
-export default "Erfahre mehr über Kontexto - das innovative deutsche Wortspiel mit KI-basierter Wortähnlichkeit. Geschichte, Technik und Team."

@@ -1,1 +1,0 @@
-export default "Datenschutzerklärung für Kontexto - Wie wir deine Daten schützen"

@@ -1,1 +1,0 @@
-export default "Über Kontexto | Das deutsche Wortspiel mit KI-Ähnlichkeit"
