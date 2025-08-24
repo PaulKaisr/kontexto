@@ -9,13 +9,34 @@ class WordRepository:
 
     def insert_all(self, words: list[WordEntity]):
         """
-        Insert a list of words into the database.
+        Insert a list of words into the database, ignoring duplicates.
         :param words: List of Word objects to insert.
         """
         session = self.db.get_session()
         try:
-            session.add_all(words)
+            # Insert words one by one to handle duplicates gracefully
+            inserted_count = 0
+            skipped_count = 0
+            
+            for word in words:
+                try:
+                    # Check if word already exists
+                    existing = session.query(WordEntity).filter(WordEntity.word == word.word).first()
+                    if existing is None:
+                        session.add(word)
+                        session.flush()  # Flush to catch any constraint violations
+                        inserted_count += 1
+                    else:
+                        skipped_count += 1
+                except Exception:
+                    # If there's a constraint violation, skip this word
+                    session.rollback()
+                    skipped_count += 1
+                    continue
+            
             session.commit()
+            print(f"Inserted {inserted_count} words, skipped {skipped_count} duplicates.")
+            
         except Exception as e:
             session.rollback()
             raise e

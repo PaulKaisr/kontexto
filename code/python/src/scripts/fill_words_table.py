@@ -8,10 +8,15 @@ from src.database.entities.word import WordEntity
 from src.database.repositories.word_repository import WordRepository
 from src.services.language import LanguageService
 from src.services.word_service import WordService
-from src.services.improved_word_filter import ImprovedWordFilter
 from src.database.database_config import DatabaseConfig
 
-MIN_FREQ = 20000
+# Frequency thresholds based on word type analysis
+# Analysis showed that German surnames heavily cluster in the 20k-100k range for PROPN words
+# while legitimate nouns, verbs, adjectives are valuable even at lower frequencies
+MIN_FREQ_GENERAL = 8000    # Lower threshold for non-PROPN words (nouns, verbs, adjectives, etc.)
+MIN_FREQ_PROPN = 100000     # Higher threshold for PROPN words to filter out most surnames
+                           # 50k threshold eliminates ~70% of low-frequency surnames
+                           # while preserving major cities, countries, and important proper names
 
 # Derive important project paths regardless of CWD
 SCRIPTS_DIR = Path(__file__).resolve().parent                      # .../code/python/src/scripts
@@ -49,15 +54,23 @@ def configure_env(args):
 
 def main(args):
     configure_env(args)
+    
+    # Reset table if requested
+    if args.reset:
+        print("Resetting words table (clearing all existing words)...")
+        word_repo = WordRepository()
+        word_repo.delete_all()
+        print("Words table cleared.")
+    
     print("Filling words table with words from word service...")
     word_service = WordService()
     words, freqs = word_service.get_all_words(include_freq=True)
 
     word_orms: list[WordEntity] = [WordEntity(word=w, occurrences=f) for w, f in zip(words, freqs)]
 
-    # Frequency filter
-    word_orms = [w for w in word_orms if w.occurrences > MIN_FREQ]
-    print(f"{len(word_orms)} passed frequency test.")
+    # Initial frequency filter (apply general minimum to reduce processing load)
+    word_orms = [w for w in word_orms if w.occurrences > MIN_FREQ_GENERAL]
+    print(f"{len(word_orms)} passed initial frequency test (>{MIN_FREQ_GENERAL}).")
 
     # Length filter
     word_orms = [w for w in word_orms if len(w.word) >= 3]
@@ -109,19 +122,56 @@ def main(args):
     unique_words_orms = [w for w in unique_words_orms if w.word_type not in (None, "X")]
     print(f"{len(unique_words_orms)} passed additional filter based on attributes test.")
 
-    # Enhanced PROP filtering to address surname contamination
-    word_filter = ImprovedWordFilter()
-    original_count = len(unique_words_orms)
-    unique_words_orms = [
-        w for w in unique_words_orms 
-        if not word_filter.should_exclude_word(w.word, w.word_type, w.occurrences)[0]
-    ]
-    excluded_count = original_count - len(unique_words_orms)
-    print(f"{len(unique_words_orms)} passed enhanced PROP filtering (removed {excluded_count} likely surnames).")
+    # Word-type-specific frequency filtering
+    original_count_freq = len(unique_words_orms)
+    unique_words_orms = apply_word_type_frequency_filter(unique_words_orms)
+    freq_excluded_count = original_count_freq - len(unique_words_orms)
+    print(f"{len(unique_words_orms)} passed word-type-specific frequency filtering (removed {freq_excluded_count} words).")
+
+    # Remove duplicates by word (shouldn't happen but let's be safe)
+    seen_words = set()
+    deduped_words = []
+    for word_orm in unique_words_orms:
+        if word_orm.word not in seen_words:
+            seen_words.add(word_orm.word)
+            deduped_words.append(word_orm)
+    
+    if len(deduped_words) != len(unique_words_orms):
+        print(f"Removed {len(unique_words_orms) - len(deduped_words)} duplicate words from processing pipeline.")
+        unique_words_orms = deduped_words
 
     # Persist
     WordRepository().insert_all(unique_words_orms)
     print("Insertion complete.")
+
+
+def apply_word_type_frequency_filter(words: list[WordEntity]) -> list[WordEntity]:
+    """
+    Apply different frequency thresholds based on word type.
+    PROPN words need higher frequency to avoid surname contamination.
+    Other word types can have lower frequency requirements.
+    """
+    filtered_words = []
+    stats = {"PROPN": 0, "other": 0, "PROPN_excluded": 0, "other_excluded": 0}
+    
+    for word in words:
+        if word.word_type == "PROPN":
+            stats["PROPN"] += 1
+            if word.occurrences >= MIN_FREQ_PROPN:
+                filtered_words.append(word)
+            else:
+                stats["PROPN_excluded"] += 1
+        else:
+            stats["other"] += 1
+            if word.occurrences >= MIN_FREQ_GENERAL:
+                filtered_words.append(word)
+            else:
+                stats["other_excluded"] += 1
+    
+    print(f"  PROPN words: {stats['PROPN']:,} total, {stats['PROPN_excluded']:,} excluded (freq < {MIN_FREQ_PROPN:,})")
+    print(f"  Other words: {stats['other']:,} total, {stats['other_excluded']:,} excluded (freq < {MIN_FREQ_GENERAL:,})")
+    
+    return filtered_words
 
 
 def filter_profane_or_unfitting(words: list[WordEntity]) -> list[WordEntity]:
@@ -137,4 +187,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Fill words table")
     parser.add_argument("--local", action="store_true", help="Use .env.local from frontend")
     parser.add_argument("--production", action="store_true", help="Use .env from frontend")
+    parser.add_argument("--reset", action="store_true", help="Clear all existing words before refilling")
     main(parser.parse_args())

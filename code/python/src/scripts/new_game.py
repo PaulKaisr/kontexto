@@ -55,6 +55,15 @@ def get_solution_word_from_file(file_path: Path) -> str | None:
     return random.choice(words) if words else None
 
 
+def get_solution_word(custom_solution: str | None, file_path: Path) -> str | None:
+    """Get solution word from custom parameter or file."""
+    if custom_solution:
+        print(f"Using custom solution word: {custom_solution}")
+        return custom_solution
+    else:
+        return get_solution_word_from_file(file_path)
+
+
 def main(args):
     configure_env(args)
     
@@ -64,6 +73,9 @@ def main(args):
             raise SystemExit("Cannot use --replace and --reset together.")
         if args.number != 1:
             raise SystemExit("Cannot use --replace with --number. Replace operates on a single game.")
+    
+    if args.solution and args.number != 1:
+        raise SystemExit("Cannot use --solution with --number > 1. Solution can only be specified for a single game.")
     
     game_service = GameService()
     similarity_service: ISimilarityService = SimilarityServiceFactory.create_similarity_service(args.similarity_service)
@@ -86,7 +98,7 @@ def main(args):
         similarity_service.delete_similarities_by_game_id(game_id)
         
         # Generate new similarities for the same game
-        solution = get_solution_word_from_file(SOLUTIONS_FILE)
+        solution = get_solution_word(args.solution, SOLUTIONS_FILE)
         if not solution:
             raise SystemExit("No solution word could be selected.")
         print(f"Selected new solution: {solution}")
@@ -129,7 +141,7 @@ def main(args):
         
         # Create a new game & choose solution
         game = game_service.new_game()
-        solution = get_solution_word_from_file(SOLUTIONS_FILE)
+        solution = get_solution_word(args.solution, SOLUTIONS_FILE)
         if not solution:
             raise SystemExit("No solution word could be selected.")
         print(f"New game created with ID: {game.game_id}, Date: {game.date}, Solution: {solution}")
@@ -164,6 +176,7 @@ if __name__ == "__main__":
     parser.add_argument('--reset', action='store_true', help='Reset all previous games and similarities before creating new game')
     parser.add_argument('-n', '--number', type=int, default=1, help='Number of games to create (default: 1)')
     parser.add_argument('--replace', type=int, help='Replace similarities for an existing game_id with newly calculated ones (preserves game ID and date)')
-    parser.add_argument('--similarity-service', choices=SimilarityServiceFactory.get_available_services(), default='transformer', help='Similarity service to use (default: transformer)')
+    parser.add_argument('--similarity-service', choices=SimilarityServiceFactory.get_available_services(), default='spacy', help='Similarity service to use (default: spacy)')
+    parser.add_argument('--solution', type=str, help='Specify a custom solution word instead of selecting randomly from file')
     args = parser.parse_args()
     main(args)

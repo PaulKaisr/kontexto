@@ -89,7 +89,6 @@ Korb
 Kran
 Kreis
 Kreuz
-Krug
 Kruste
 Kugel
 Kuh
