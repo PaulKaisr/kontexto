@@ -16,8 +16,10 @@ Navigate to `code/frontend/` directory for all frontend commands:
 
 - `pnpm dev` - Start development server (http://localhost:3000, auto-increments if port taken)
 - `pnpm build` - Build for production (runs type-check and build-only)
+- `pnpm build:ssg` - Build with Static Site Generation for SEO (recommended for production)
 - `pnpm type-check` - Run Vue TypeScript compiler
 - `pnpm preview` - Preview production build locally
+- `pnpm generate:static` - Generate static HTML pages for all routes (for SEO)
 
 ### Testing Commands (All tests must pass for CI/CD)
 
@@ -289,6 +291,27 @@ Game state (current guess, past guesses, hints, win status) is managed through P
 ### Type Safety
 
 Frontend uses generated TypeScript types from Supabase schema, ensuring type safety between database and UI components. All components use proper TypeScript definitions with strict typing.
+
+### SEO & Static Site Generation
+
+To improve search engine crawlability and meet Google AdSense requirements, the application includes Static Site Generation (SSG):
+
+**Implementation:**
+- **Build Command**: Use `pnpm build:ssg` for production deployments
+- **Static Generation**: Puppeteer-based script generates pre-rendered HTML for all 7 routes
+- **SEO Optimization**: Each route gets proper meta tags, titles, and descriptions
+- **Vercel Integration**: Custom `vercel.json` configuration for optimal deployment
+
+**Benefits:**
+- Search engines can crawl all pages (previously only root "/" was accessible)
+- Google AdSense compliance improved with proper page indexing  
+- Better SEO rankings with pre-rendered content
+- Maintains SPA functionality after initial page load
+
+**Technical Details:**
+- Routes pre-rendered: `/`, `/spieltipps`, `/about`, `/faq`, `/data-protection`, `/contact`, `/terms-of-service`
+- Static files generated in `dist/` with proper directory structure
+- Maintains all existing functionality (Vue Router, Pinia, Vuetify, etc.)
 
 ## Deployment
 

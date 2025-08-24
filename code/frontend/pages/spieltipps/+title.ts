@@ -1,0 +1,1 @@
+export default "Kontexto Spieltipps & Strategien | Besser werden im Wortspiel"

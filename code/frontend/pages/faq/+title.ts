@@ -1,0 +1,1 @@
+export default "FAQ - Häufig gestellte Fragen | Kontexto"

@@ -1,0 +1,1 @@
+export default "Antworten auf häufige Fragen zu Kontexto - Spielregeln, Strategien und mehr"
