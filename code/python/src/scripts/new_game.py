@@ -11,8 +11,6 @@ from src.services.similarity_service_factory import SimilarityServiceFactory
 from src.services.interfaces.i_similarity_service import ISimilarityService
 from src.services.word_service import WordService
 
-MIN_FREQ = 20000
-
 # Path derivations (independent of CWD)
 SCRIPTS_DIR = Path(__file__).resolve().parent
 SRC_DIR = SCRIPTS_DIR.parent
@@ -105,7 +103,7 @@ def main(args):
         
         # Prepare similarity reference & compute scores
         similarity_service.set_reference(solution)
-        words = word_service.get_all_words_from_db(min_freq=MIN_FREQ)
+        words = word_service.get_all_words_from_db()
         scores = similarity_service.get_similarities(words)
         print(f"Calculated similarities for {len(words)} words.")
 
@@ -148,7 +146,7 @@ def main(args):
 
         # Prepare similarity reference & compute scores
         similarity_service.set_reference(solution)
-        words = word_service.get_all_words_from_db(min_freq=MIN_FREQ)
+        words = word_service.get_all_words_from_db()
         scores = similarity_service.get_similarities(words)
         print(f"Calculated similarities for {len(words)} words.")
 

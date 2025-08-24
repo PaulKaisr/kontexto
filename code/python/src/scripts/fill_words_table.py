@@ -84,7 +84,7 @@ def main(args):
     word_orms = filter_profane_or_unfitting(word_orms)
     print(f"{len(word_orms)} passed unfitting filter.")
 
-    # Lemma uniqueness
+    # Lemma uniqueness (case-insensitive for German nouns)
     language_service = LanguageService()
     unique_words_orms: list[WordEntity] = []
     p_bar = progressbar.ProgressBar(max_value=len(word_orms))
@@ -92,7 +92,12 @@ def main(args):
         word = w.word
         if word and set(word[1:]).issubset(valid_chars) and word[0] in valid_first:
             nlp_obj = language_service.get_nlp_object(word)
-            if word == nlp_obj.lemma_:
+            
+            # Check if word equals lemma (case-insensitive comparison for better German support)
+            is_lemma_match = (word == nlp_obj.lemma_ or 
+                            word.lower() == nlp_obj.lemma_.lower())
+            
+            if is_lemma_match:
                 unique_words_orms.append(
                     WordEntity(
                         word=word,

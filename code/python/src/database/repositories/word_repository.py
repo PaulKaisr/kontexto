@@ -56,7 +56,7 @@ class WordRepository:
         finally:
             session.close()
 
-    def get_all_words(self, min_freq: int | None = None) -> list[WordEntity]:
+    def get_all_words(self, min_freq: int = 0) -> list[WordEntity]:
         """
         Get all words from the database.
         :return: List of WordEntity objects.
