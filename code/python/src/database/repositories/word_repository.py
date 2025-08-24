@@ -1,4 +1,3 @@
-from typing import Dict
 from src.database.database import Database
 from src.database.entities.word import WordEntity
 
@@ -97,42 +96,6 @@ class WordRepository:
                 == WordEntity.word
             ).order_by(WordEntity.occurrences.desc()).limit(top_n).all()
             return word
-        except Exception as e:
-            session.rollback()
-            raise e
-        finally:
-            session.close()
-
-    def analyze_prop_words(self) -> Dict[str, int]:
-        """
-        Analyze PROP word distribution in database to understand filtering impact.
-        
-        Returns:
-            Dictionary with statistics about PROP words by frequency ranges
-        """
-        session = self.db.get_session()
-        try:
-            prop_words = session.query(WordEntity).filter(WordEntity.word_type == "PROP").all()
-            
-            stats = {
-                'total_prop': len(prop_words),
-                'high_freq_100k_plus': len([w for w in prop_words if w.occurrences >= 100000]),
-                'medium_freq_50k_100k': len([w for w in prop_words if 50000 <= w.occurrences < 100000]),
-                'low_freq_20k_50k': len([w for w in prop_words if 20000 <= w.occurrences < 50000]),
-                'very_low_freq_under_20k': len([w for w in prop_words if w.occurrences < 20000])
-            }
-            
-            # Add some example words for each category for debugging
-            if prop_words:
-                high_freq_examples = [w.word for w in prop_words if w.occurrences >= 100000][:5]
-                medium_freq_examples = [w.word for w in prop_words if 50000 <= w.occurrences < 100000][:5]
-                low_freq_examples = [w.word for w in prop_words if 20000 <= w.occurrences < 50000][:5]
-                
-                stats['high_freq_examples'] = high_freq_examples
-                stats['medium_freq_examples'] = medium_freq_examples
-                stats['low_freq_examples'] = low_freq_examples
-            
-            return stats
         except Exception as e:
             session.rollback()
             raise e

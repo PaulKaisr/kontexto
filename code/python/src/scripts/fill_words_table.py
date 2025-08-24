@@ -13,10 +13,8 @@ from src.database.database_config import DatabaseConfig
 # Frequency thresholds based on word type analysis
 # Analysis showed that German surnames heavily cluster in the 20k-100k range for PROPN words
 # while legitimate nouns, verbs, adjectives are valuable even at lower frequencies
-MIN_FREQ_GENERAL = 8000    # Lower threshold for non-PROPN words (nouns, verbs, adjectives, etc.)
-MIN_FREQ_PROPN = 200000     # Higher threshold for PROPN words to filter out most surnames
-                           # 50k threshold eliminates ~70% of low-frequency surnames
-                           # while preserving major cities, countries, and important proper names
+MIN_FREQ_GENERAL = 5000    # Lower threshold for non-PROPN words (nouns, verbs, adjectives, etc.)
+MIN_FREQ_PROPN = 5000     # Higher threshold for PROPN words to filter out most surnames
 
 # Derive important project paths regardless of CWD
 SCRIPTS_DIR = Path(__file__).resolve().parent                      # .../code/python/src/scripts
