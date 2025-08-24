@@ -31,6 +31,10 @@ export default defineConfig({
           },
         ],
       },
+      custom: {
+        display: "swap",
+        preload: true,
+      },
     }),
   ],
   optimizeDeps: {
