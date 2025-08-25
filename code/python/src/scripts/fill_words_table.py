@@ -108,8 +108,35 @@ def main(args):
     unique_words_orms = [w for w in unique_words_orms if w.word_type not in (None, "X")]
     print(f"{len(unique_words_orms)} passed additional filter based on attributes test.")
 
-    # Persist
-    WordRepository().insert_all(unique_words_orms)
+    # Word-type-specific frequency filtering
+    original_count_freq = len(unique_words_orms)
+    unique_words_orms = apply_word_type_frequency_filter(unique_words_orms)
+    freq_excluded_count = original_count_freq - len(unique_words_orms)
+    print(f"{len(unique_words_orms)} passed word-type-specific frequency filtering (removed {freq_excluded_count} words).")
+
+    # Remove duplicates by word (shouldn't happen but let's be safe)
+    seen_words = set()
+    deduped_words = []
+    for word_orm in unique_words_orms:
+        if word_orm.word not in seen_words:
+            seen_words.add(word_orm.word)
+            deduped_words.append(word_orm)
+    
+    if len(deduped_words) != len(unique_words_orms):
+        print(f"Removed {len(unique_words_orms) - len(deduped_words)} duplicate words from processing pipeline.")
+        unique_words_orms = deduped_words
+
+    # Persist in chunks with progress bar
+    CHUNK_SIZE = 1000
+    total_words = len(unique_words_orms)
+    print(f"Inserting {total_words} words into the database in chunks of {CHUNK_SIZE}...")
+    repo = WordRepository()
+    insert_pbar = progressbar.ProgressBar(max_value=total_words)
+    for i in range(0, total_words, CHUNK_SIZE):
+        chunk = unique_words_orms[i:i+CHUNK_SIZE]
+        repo.insert_all(chunk)
+        insert_pbar.update(min(i + CHUNK_SIZE, total_words))
+    insert_pbar.finish()
     print("Insertion complete.")
 
 

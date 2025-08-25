@@ -13,8 +13,27 @@ class WordRepository:
         """
         session = self.db.get_session()
         try:
-            session.add_all(words)
-            session.commit()
+            # Get existing words in bulk to avoid repeated queries
+            existing_words = set()
+            if words:
+                word_texts = [word.word for word in words]
+                existing_records = session.query(WordEntity.word).filter(WordEntity.word.in_(word_texts)).all()
+                existing_words = {record[0] for record in existing_records}
+            
+            # Filter out existing words
+            new_words = [word for word in words if word.word not in existing_words]
+            skipped_count = len(words) - len(new_words)
+            
+            # Bulk insert new words
+            if new_words:
+                session.bulk_save_objects(new_words)
+                session.commit()
+                inserted_count = len(new_words)
+            else:
+                inserted_count = 0
+            
+            print(f"Inserted {inserted_count} words, skipped {skipped_count} duplicates.")
+            
         except Exception as e:
             session.rollback()
             raise e
