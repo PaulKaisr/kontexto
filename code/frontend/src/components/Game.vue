@@ -121,34 +121,14 @@ import GuessItem from "@/components/GuessHistory/GuessItem.vue";
 import ProgressIndicator from "@/components/ProgressIndicator.vue";
 import StatsBar from "@/components/StatsBar.vue";
 import StatsCard from "@/components/StatsCard.vue";
+import { useTheme } from "@/composables/useTheme";
 import { useGameStore } from "@/stores/game.store";
-import { useSettingsStore } from "@/stores/settings.store";
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 const gameStore = useGameStore();
-const settingsStore = useSettingsStore();
+const { logoSrc } = useTheme();
 const loading = ref(false);
 const errorMessage = ref("");
 const contextMenuRef = ref<InstanceType<typeof ContextMenu> | null>(null);
-
-// Function to get system theme preference
-const getSystemTheme = (): "light" | "dark" => {
-  if (typeof window !== "undefined" && window.matchMedia) {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  }
-  return "light"; // fallback
-};
-
-// Computed property to determine which logo to use based on current theme
-const logoSrc = computed(() => {
-  const currentTheme =
-    settingsStore.themePreference === "system"
-      ? getSystemTheme()
-      : settingsStore.themePreference;
-
-  return currentTheme === "dark" ? "/favicon_dark.svg" : "/favicon.svg";
-});
 
 function openPreviousGames() {
   // Call the exposed method from ContextMenu to open the previous games dialog
@@ -162,18 +142,18 @@ async function handleSubmitGuess() {
   loading.value = false;
   if (!result.success) {
     switch (result.error) {
-      case "duplicate":
-        errorMessage.value = "Dieses Wort wurde bereits geraten.";
-        break;
-      case "not_found":
-        errorMessage.value =
+    case "duplicate":
+      errorMessage.value = "Dieses Wort wurde bereits geraten.";
+      break;
+    case "not_found":
+      errorMessage.value =
           "Das Wort konnte nicht gefunden werden oder ist ungültig.";
-        break;
-      case "empty":
-        errorMessage.value = "Bitte gib ein Wort ein.";
-        break;
-      default:
-        errorMessage.value = "Unbekannter Fehler.";
+      break;
+    case "empty":
+      errorMessage.value = "Bitte gib ein Wort ein.";
+      break;
+    default:
+      errorMessage.value = "Unbekannter Fehler.";
     }
   }
 }
@@ -190,7 +170,7 @@ async function handleGiveUp() {
   loading.value = false;
 }
 
-onMounted(async () => {
+onMounted(async() => {
   await gameStore.fetchAndSetRecentGame();
 });
 </script>
