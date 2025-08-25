@@ -4,6 +4,13 @@ import { createPinia, setActivePinia } from "pinia";
 import Game from "../../src/components/Game.vue";
 import { useGameStore } from "@/stores/game.store";
 
+// Mock the useTheme composable
+vi.mock("@/composables/useTheme", () => ({
+  useTheme: () => ({
+    logoSrc: { value: "/favicon.svg" },
+  }),
+}));
+
 describe("Game.vue", () => {
   let pinia: any;
   let gameStore: any;
@@ -36,6 +43,11 @@ describe("Game.vue", () => {
   });
 
   it("renders the game title", () => {
+    // Check for the logo image
+    const logo = wrapper.find('img[alt="Kontexto Logo"]');
+    expect(logo.exists()).toBe(true);
+    
+    // Check for the complete title text (including screen reader text)
     expect(wrapper.text()).toContain("Kontexto");
   });
 

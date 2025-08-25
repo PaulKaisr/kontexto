@@ -3,9 +3,17 @@
     <div class="max-w-full px-4 w-lg">
       <header class="flex flex-row w-full justify-between items-center my-2">
         <ProgressIndicator @open-progress="openPreviousGames" />
-        <h1 class="text-3xl font-bold">
-          Kontexto
-        </h1>
+        <div class="flex items-center">
+          <img
+            :src="logoSrc"
+            alt="Kontexto Logo"
+            class="kontexto-logo bg-transparent"
+            aria-hidden="true"
+          />
+          <h1 class="text-3xl font-bold">
+            <span class="sr-only">K</span>ontexto
+          </h1>
+        </div>
         <ContextMenu
           ref="contextMenuRef"
           :loading="loading"
@@ -27,10 +35,7 @@
 
       <!-- Game input section -->
       <main>
-        <section
-          class="game-input"
-          aria-label="Wort eingeben"
-        >
+        <section class="game-input" aria-label="Wort eingeben">
           <v-text-field
             v-model.trim="gameStore.currentGuess"
             color="secondary"
@@ -47,10 +52,7 @@
             aria-describedby="game-instructions"
             @keyup.enter="handleSubmitGuess"
           />
-          <div
-            id="game-instructions"
-            class="sr-only"
-          >
+          <div id="game-instructions" class="sr-only">
             Gib ein deutsches Wort ein und drücke Enter, um zu sehen, wie
             ähnlich es dem gesuchten Wort ist.
           </div>
@@ -69,10 +71,7 @@
         </section>
 
         <!-- Guess history -->
-        <section
-          class="guess-history"
-          aria-label="Bisherige Versuche"
-        >
+        <section class="guess-history" aria-label="Bisherige Versuche">
           <GuessHistory
             :guesses="gameStore.pastGuesses"
             :last-guess="gameStore.mostRecentGuess"
@@ -84,7 +83,7 @@
       <section
         v-if="
           (!gameStore.recentGame || gameStore.pastGuesses.length === 0) &&
-            !loading
+          !loading
         "
         class="mb-4 text-center"
       >
@@ -98,31 +97,18 @@
         </p>
         <div class="text-xs text-gray-500">
           <p>
-            <v-icon
-              class="text-primary"
-              icon="mdi-target"
-            /> Täglich ein
-            neues Rätsel
+            <v-icon class="text-primary" icon="mdi-target" /> Täglich ein neues
+            Rätsel
           </p>
           <p>
-            <v-icon
-              class="text-primary"
-              icon="mdi-flag"
-            /> Komplett auf
-            Deutsch
+            <v-icon class="text-primary" icon="mdi-flag" /> Komplett auf Deutsch
           </p>
           <p>
-            <v-icon
-              class="text-primary"
-              icon="mdi-robot"
-            />
+            <v-icon class="text-primary" icon="mdi-robot" />
             KI-basierte Wortähnlichkeit
           </p>
           <p>
-            <v-icon
-              class="text-primary"
-              icon="mdi-cellphone-check"
-            />
+            <v-icon class="text-primary" icon="mdi-cellphone-check" />
             Funktioniert auf allen Geräten
           </p>
         </div>
@@ -132,16 +118,17 @@
 </template>
 
 <script setup lang="ts">
+import ContextMenu from "@/components/ContextMenu.vue";
+import GuessHistory from "@/components/GuessHistory/GuessHistory.vue";
+import GuessItem from "@/components/GuessHistory/GuessItem.vue";
+import ProgressIndicator from "@/components/ProgressIndicator.vue";
+import StatsBar from "@/components/StatsBar.vue";
+import StatsCard from "@/components/StatsCard.vue";
+import { useTheme } from "@/composables/useTheme";
 import { useGameStore } from "@/stores/game.store";
 import { onMounted, ref } from "vue";
-import GuessHistory from "@/components/GuessHistory/GuessHistory.vue";
-import StatsBar from "@/components/StatsBar.vue";
-import GuessItem from "@/components/GuessHistory/GuessItem.vue";
-import ContextMenu from "@/components/ContextMenu.vue";
-import StatsCard from "@/components/StatsCard.vue";
-import ProgressIndicator from "@/components/ProgressIndicator.vue";
-
 const gameStore = useGameStore();
+const { logoSrc } = useTheme();
 const loading = ref(false);
 const errorMessage = ref("");
 const contextMenuRef = ref<InstanceType<typeof ContextMenu> | null>(null);
@@ -226,6 +213,7 @@ onMounted(async() => {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -236,5 +224,11 @@ onMounted(async() => {
 .v-icon {
   width: 24px !important;
   height: 24px !important;
+}
+
+/* Logo styling with transparent background */
+.kontexto-logo {
+  width: 32px;
+  height: 32px;
 }
 </style>
