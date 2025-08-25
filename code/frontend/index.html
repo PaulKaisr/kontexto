@@ -47,9 +47,9 @@
     <meta name="distribution" content="Global" />
     <meta name="rating" content="General" />
 
-    <!-- Google Adsense -->
+    <!-- Google Adsense - Deferred to improve FCP -->
     <script
-      async
+      defer
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8170200247971328"
       crossorigin="anonymous"
     ></script>
@@ -89,14 +89,13 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://kontexto.app" />
 
-    <!-- Preload critical resources -->
+    <!-- Preload critical resources for FCP optimization -->
+    <link rel="preload" href="/src/main.ts" as="script" type="module" />
     <link rel="preload" href="/src/styles.css" as="style" />
+    <!-- Only preload essential font weight for faster FCP -->
     <link rel="preload" href="/@fontsource/roboto/400.css" as="style" />
-    <link
-      rel="preload"
-      href="/@mdi/font/css/materialdesignicons.css"
-      as="style"
-    />
+    <!-- Prefetch (not preload) icons to avoid blocking critical path -->
+    <link rel="prefetch" href="/@mdi/font/css/materialdesignicons.css" as="style" />
 
     <!-- DNS prefetch for external domains -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
@@ -176,8 +175,9 @@
 
       gtag("js", new Date());
     </script>
+    <!-- Google Analytics - Deferred to improve FCP -->
     <script
-      async
+      defer
       src="https://www.googletagmanager.com/gtag/js?id=G-LHFSL7CVEB"
     ></script>
   </head>

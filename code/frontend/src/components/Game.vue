@@ -25,7 +25,9 @@
 
       <!-- Reserve space for StatsCard to prevent layout shift -->
       <div class="stats-card-container">
-        <StatsCard v-if="gameStore.isGameOver" />
+        <Suspense v-if="gameStore.isGameOver">
+          <StatsCard />
+        </Suspense>
       </div>
       <StatsBar
         :game-id="gameStore.recentGame?.game_id ?? null"
@@ -123,10 +125,11 @@ import GuessHistory from "@/components/GuessHistory/GuessHistory.vue";
 import GuessItem from "@/components/GuessHistory/GuessItem.vue";
 import ProgressIndicator from "@/components/ProgressIndicator.vue";
 import StatsBar from "@/components/StatsBar.vue";
-import StatsCard from "@/components/StatsCard.vue";
+// Lazy load StatsCard since it's only needed after game completion
+const StatsCard = defineAsyncComponent(() => import("@/components/StatsCard.vue"));
 import { useTheme } from "@/composables/useTheme";
 import { useGameStore } from "@/stores/game.store";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, defineAsyncComponent } from "vue";
 const gameStore = useGameStore();
 const { logoSrc } = useTheme();
 const loading = ref(false);

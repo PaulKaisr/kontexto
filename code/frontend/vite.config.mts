@@ -26,15 +26,17 @@ export default defineConfig({
         families: [
           {
             name: "Roboto",
-            weights: [100, 300, 400, 500, 700, 900],
-            styles: ["normal", "italic"],
+            // Reduce font weights to only what's actually used
+            weights: [300, 400, 500, 700],
+            styles: ["normal"],
+            display: "swap", // Add font-display: swap for better FCP
           },
         ],
       },
       custom: {
         families: [],
         display: "swap",
-        preload: true,
+        preload: false, // Disable preload to avoid blocking critical path
       },
     }),
   ],
@@ -65,18 +67,40 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
+          // Core framework chunks for optimal caching
           vendor: ["vue", "vue-router", "pinia"],
           ui: ["vuetify"],
+          
+          // Split analytics and fonts into separate chunks to defer loading
+          analytics: ["@vercel/analytics", "@vercel/speed-insights"],
+          fonts: ["@fontsource/roboto", "@mdi/font"],
+          
+          // Split large components into their own chunks
+          components: [
+            "./src/components/StatsCard.vue",
+            "./src/components/ClosestWords.vue",
+            "./src/components/PreviousGames.vue",
+            "./src/components/HowToPlay.vue",
+            "./src/components/Settings.vue"
+          ],
         },
       },
     },
-    // Additional SEO optimizations
+    // Performance optimizations
     minify: "terser",
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true,
+        pure_funcs: ["console.log", "console.info", "console.debug"],
+      },
+      mangle: {
+        safari10: true,
       },
     },
+    // Optimize chunk size limits
+    chunkSizeWarningLimit: 600,
+    cssCodeSplit: true,
+    sourcemap: false, // Disable source maps in production for smaller bundle
   },
 });
