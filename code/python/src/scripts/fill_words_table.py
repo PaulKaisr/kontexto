@@ -10,7 +10,11 @@ from src.services.language import LanguageService
 from src.services.word_service import WordService
 from src.database.database_config import DatabaseConfig
 
-MIN_FREQ = 20000
+# Frequency thresholds based on word type analysis
+# Analysis showed that German surnames heavily cluster in the 20k-100k range for PROPN words
+# while legitimate nouns, verbs, adjectives are valuable even at lower frequencies
+MIN_FREQ_GENERAL = 5000    # Lower threshold for non-PROPN words (nouns, verbs, adjectives, etc.)
+MIN_FREQ_PROPN = 5000     # Higher threshold for PROPN words to filter out most surnames
 
 # Derive important project paths regardless of CWD
 SCRIPTS_DIR = Path(__file__).resolve().parent                      # .../code/python/src/scripts
@@ -19,7 +23,6 @@ PYTHON_DIR = SRC_DIR.parent                                        # .../code/py
 CODE_DIR = PYTHON_DIR.parent                                       # .../code
 PROJECT_ROOT = CODE_DIR.parent                                     # .../kontexto
 DATA_DIR = PYTHON_DIR / "data"                                    # .../code/python/data
-FRONTEND_DIR = CODE_DIR / "frontend"                              # .../code/frontend
 
 
 def configure_env(args):
@@ -29,14 +32,14 @@ def configure_env(args):
 
     candidate = None
     if args.local:
-        candidate = FRONTEND_DIR / ".env.local"
+        candidate = PYTHON_DIR / ".env.local"
     elif args.production:
-        candidate = FRONTEND_DIR / ".env"
+        candidate = PYTHON_DIR / ".env"
     else:  # auto-detect preference
-        if (FRONTEND_DIR / ".env.local").exists():
-            candidate = FRONTEND_DIR / ".env.local"
-        elif (FRONTEND_DIR / ".env").exists():
-            candidate = FRONTEND_DIR / ".env"
+        if (PYTHON_DIR / ".env.local").exists():
+            candidate = PYTHON_DIR / ".env.local"
+        elif (PYTHON_DIR / ".env").exists():
+            candidate = PYTHON_DIR / ".env"
 
     if not candidate or not candidate.exists():
         raise SystemExit("No suitable environment file found (.env.local / .env) in frontend directory")
@@ -48,15 +51,23 @@ def configure_env(args):
 
 def main(args):
     configure_env(args)
+    
+    # Reset table if requested
+    if args.reset:
+        print("Resetting words table (clearing all existing words)...")
+        word_repo = WordRepository()
+        word_repo.delete_all()
+        print("Words table cleared.")
+    
     print("Filling words table with words from word service...")
     word_service = WordService()
     words, freqs = word_service.get_all_words(include_freq=True)
 
     word_orms: list[WordEntity] = [WordEntity(word=w, occurrences=f) for w, f in zip(words, freqs)]
 
-    # Frequency filter
-    word_orms = [w for w in word_orms if w.occurrences > MIN_FREQ]
-    print(f"{len(word_orms)} passed frequency test.")
+    # Initial frequency filter (apply general minimum to reduce processing load)
+    word_orms = [w for w in word_orms if w.occurrences > MIN_FREQ_GENERAL]
+    print(f"{len(word_orms)} passed initial frequency test (>{MIN_FREQ_GENERAL}).")
 
     # Length filter
     word_orms = [w for w in word_orms if len(w.word) >= 3]
@@ -72,7 +83,7 @@ def main(args):
     word_orms = filter_profane_or_unfitting(word_orms)
     print(f"{len(word_orms)} passed unfitting filter.")
 
-    # Lemma uniqueness
+    # Lemma uniqueness (case-insensitive for German nouns)
     language_service = LanguageService()
     unique_words_orms: list[WordEntity] = []
     p_bar = progressbar.ProgressBar(max_value=len(word_orms))
@@ -80,7 +91,12 @@ def main(args):
         word = w.word
         if word and set(word[1:]).issubset(valid_chars) and word[0] in valid_first:
             nlp_obj = language_service.get_nlp_object(word)
-            if word == nlp_obj.lemma_:
+            
+            # Check if word equals lemma (case-insensitive comparison for better German support)
+            is_lemma_match = (word == nlp_obj.lemma_ or 
+                            word.lower() == nlp_obj.lemma_.lower())
+            
+            if is_lemma_match:
                 unique_words_orms.append(
                     WordEntity(
                         word=word,
@@ -126,18 +142,38 @@ def main(args):
         print(f"Removed {len(unique_words_orms) - len(deduped_words)} duplicate words from processing pipeline.")
         unique_words_orms = deduped_words
 
-    # Persist in chunks with progress bar
-    CHUNK_SIZE = 1000
-    total_words = len(unique_words_orms)
-    print(f"Inserting {total_words} words into the database in chunks of {CHUNK_SIZE}...")
-    repo = WordRepository()
-    insert_pbar = progressbar.ProgressBar(max_value=total_words)
-    for i in range(0, total_words, CHUNK_SIZE):
-        chunk = unique_words_orms[i:i+CHUNK_SIZE]
-        repo.insert_all(chunk)
-        insert_pbar.update(min(i + CHUNK_SIZE, total_words))
-    insert_pbar.finish()
+    # Persist
+    WordRepository().insert_all(unique_words_orms)
     print("Insertion complete.")
+
+
+def apply_word_type_frequency_filter(words: list[WordEntity]) -> list[WordEntity]:
+    """
+    Apply different frequency thresholds based on word type.
+    PROPN words need higher frequency to avoid surname contamination.
+    Other word types can have lower frequency requirements.
+    """
+    filtered_words = []
+    stats = {"PROPN": 0, "other": 0, "PROPN_excluded": 0, "other_excluded": 0}
+    
+    for word in words:
+        if word.word_type == "PROPN":
+            stats["PROPN"] += 1
+            if word.occurrences >= MIN_FREQ_PROPN:
+                filtered_words.append(word)
+            else:
+                stats["PROPN_excluded"] += 1
+        else:
+            stats["other"] += 1
+            if word.occurrences >= MIN_FREQ_GENERAL:
+                filtered_words.append(word)
+            else:
+                stats["other_excluded"] += 1
+    
+    print(f"  PROPN words: {stats['PROPN']:,} total, {stats['PROPN_excluded']:,} excluded (freq < {MIN_FREQ_PROPN:,})")
+    print(f"  Other words: {stats['other']:,} total, {stats['other_excluded']:,} excluded (freq < {MIN_FREQ_GENERAL:,})")
+    
+    return filtered_words
 
 
 def filter_profane_or_unfitting(words: list[WordEntity]) -> list[WordEntity]:
@@ -153,4 +189,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Fill words table")
     parser.add_argument("--local", action="store_true", help="Use .env.local from frontend")
     parser.add_argument("--production", action="store_true", help="Use .env from frontend")
+    parser.add_argument("--reset", action="store_true", help="Clear all existing words before refilling")
     main(parser.parse_args())

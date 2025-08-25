@@ -8,30 +8,32 @@ class WordRepository:
 
     def insert_all(self, words: list[WordEntity]):
         """
-        Insert a list of words into the database.
+        Insert a list of words into the database, ignoring duplicates.
         :param words: List of Word objects to insert.
         """
         session = self.db.get_session()
         try:
-            # Get existing words in bulk to avoid repeated queries
-            existing_words = set()
-            if words:
-                word_texts = [word.word for word in words]
-                existing_records = session.query(WordEntity.word).filter(WordEntity.word.in_(word_texts)).all()
-                existing_words = {record[0] for record in existing_records}
+            # Insert words one by one to handle duplicates gracefully
+            inserted_count = 0
+            skipped_count = 0
             
-            # Filter out existing words
-            new_words = [word for word in words if word.word not in existing_words]
-            skipped_count = len(words) - len(new_words)
+            for word in words:
+                try:
+                    # Check if word already exists
+                    existing = session.query(WordEntity).filter(WordEntity.word == word.word).first()
+                    if existing is None:
+                        session.add(word)
+                        session.flush()  # Flush to catch any constraint violations
+                        inserted_count += 1
+                    else:
+                        skipped_count += 1
+                except Exception:
+                    # If there's a constraint violation, skip this word
+                    session.rollback()
+                    skipped_count += 1
+                    continue
             
-            # Bulk insert new words
-            if new_words:
-                session.bulk_save_objects(new_words)
-                session.commit()
-                inserted_count = len(new_words)
-            else:
-                inserted_count = 0
-            
+            session.commit()
             print(f"Inserted {inserted_count} words, skipped {skipped_count} duplicates.")
             
         except Exception as e:
@@ -54,7 +56,7 @@ class WordRepository:
         finally:
             session.close()
 
-    def get_all_words(self, min_freq: int | None = None) -> list[WordEntity]:
+    def get_all_words(self, min_freq: int = 0) -> list[WordEntity]:
         """
         Get all words from the database.
         :return: List of WordEntity objects.
