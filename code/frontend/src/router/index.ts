@@ -89,6 +89,11 @@ const routes = [
     path: "/impressum",
     redirect: "/contact",
   },
+  // Catch-all route - redirect any unmatched route to home
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/",
+  },
 ];
 
 const router = createRouter({
