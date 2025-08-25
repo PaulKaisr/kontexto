@@ -8,8 +8,11 @@
             :src="logoSrc"
             alt="Kontexto Logo"
             class="kontexto-logo bg-transparent"
+            aria-hidden="true"
           />
-          <h1 class="text-3xl font-bold">ontexto</h1>
+          <h1 class="text-3xl font-bold">
+            <span class="sr-only">K</span>ontexto
+          </h1>
         </div>
         <ContextMenu
           ref="contextMenuRef"
