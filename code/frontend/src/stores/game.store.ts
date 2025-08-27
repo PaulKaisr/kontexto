@@ -56,10 +56,7 @@ export const useGameStore = defineStore("game", {
     async fetchAndSetRecentGame() {
       const game = await getMostRecentGame();
       // Only reset if the fetched game is different from the current one
-      if (
-        game &&
-        (!this.recentGame || game.game_id !== this.recentGame.game_id)
-      ) {
+      if (game && (!this.recentGame || game.game_id !== this.recentGame.game_id)) {
         // Don't reset the entire store - just set the new game
         this.recentGame = game;
         this.currentGuess = "";
@@ -102,10 +99,7 @@ export const useGameStore = defineStore("game", {
         this.initializeGameProgress(gameId);
 
         // Get similarity data for the current guess
-        const similarity = await getSimilarityByGameIdAndWord(
-          gameId,
-          this.currentGuess,
-        );
+        const similarity = await getSimilarityByGameIdAndWord(gameId, this.currentGuess);
 
         // Check if word was not found
         if (
@@ -120,8 +114,7 @@ export const useGameStore = defineStore("game", {
         // Check if this matched word is already in our guesses
         if (
           this.gamesProgress[gameId].guesses.some(
-            (g: { guess: string; similarity: number }) =>
-              g.guess === similarity.matchedWord,
+            (g: { guess: string; similarity: number }) => g.guess === similarity.matchedWord,
           )
         ) {
           return { success: false, error: "duplicate" };
@@ -172,8 +165,7 @@ export const useGameStore = defineStore("game", {
       const guessedRanks = this.gamesProgress[gameId].guesses.map(
         (g: { guess: string; similarity: number }) => g.similarity,
       );
-      const bestRank =
-        guessedRanks.length > 0 ? Math.min(...guessedRanks) : Infinity;
+      const bestRank = guessedRanks.length > 0 ? Math.min(...guessedRanks) : Infinity;
 
       let nextHintRank: number;
       if (bestRank <= 1) {
@@ -215,8 +207,7 @@ export const useGameStore = defineStore("game", {
       const gameId = this.recentGame.game_id;
       this.initializeGameProgress(gameId);
 
-      if (this.gamesProgress[gameId].hasGivenUp || this.getGameSolution(gameId))
-        return;
+      if (this.gamesProgress[gameId].hasGivenUp || this.getGameSolution(gameId)) return;
 
       // Get the solution word (rank 1)
       const solution = await getHintForGame(gameId, 1);
@@ -384,21 +375,16 @@ export const useGameStore = defineStore("game", {
       };
 
       const totalGames = Object.keys(state.gamesProgress).length;
-      const completedGames = Object.keys(state.gamesProgress).filter(
-        (gameIdStr) => {
-          const gameId = parseInt(gameIdStr);
-          const gameState = getGameState(gameId);
-          return (
-            gameState === GameState.SOLVED || gameState === GameState.GIVEN_UP
-          );
-        },
-      ).length;
+      const completedGames = Object.keys(state.gamesProgress).filter((gameIdStr) => {
+        const gameId = parseInt(gameIdStr);
+        const gameState = getGameState(gameId);
+        return gameState === GameState.SOLVED || gameState === GameState.GIVEN_UP;
+      }).length;
 
       return {
         completed: completedGames,
         total: totalGames,
-        percentage:
-          totalGames > 0 ? Math.round((completedGames / totalGames) * 100) : 0,
+        percentage: totalGames > 0 ? Math.round((completedGames / totalGames) * 100) : 0,
       };
     },
   },

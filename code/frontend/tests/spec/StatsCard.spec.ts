@@ -47,7 +47,7 @@ describe("StatsCard.vue", () => {
 
   it("renders stats card", () => {
     const wrapper = mountComponent();
-    const card = wrapper.find("[data-testid=\"stats-card\"]");
+    const card = wrapper.find('[data-testid="stats-card"]');
     expect(card.exists()).toBe(true);
   });
 
@@ -142,30 +142,25 @@ describe("StatsCard.vue", () => {
     expect(wrapper.text()).toContain("Frühere Spiele");
   });
 
-  it("copies stats to clipboard when share button is clicked", async() => {
+  it("copies stats to clipboard when share button is clicked", async () => {
     const wrapper = mountComponent();
     const shareButtons = wrapper.findAll("button");
-    const shareButton = shareButtons.find((button) =>
-      button.text().includes("Teilen"),
-    );
+    const shareButton = shareButtons.find((button) => button.text().includes("Teilen"));
     expect(shareButton).toBeDefined();
 
     await shareButton!.trigger("click");
     await wrapper.vm.$nextTick(); // Wait for Vue reactivity
 
     expect(navigator.clipboard.writeText).toHaveBeenCalled();
-    const clipboardText = (navigator.clipboard.writeText as any).mock
-      .calls[0][0];
+    const clipboardText = (navigator.clipboard.writeText as any).mock.calls[0][0];
     expect(clipboardText).toContain("Kontexto-Rätsel von Tag 42");
     expect(clipboardText).toContain("testword");
   });
 
-  it("changes button text after copying", async() => {
+  it("changes button text after copying", async () => {
     const wrapper = mountComponent();
     const shareButtons = wrapper.findAll("button");
-    const shareButton = shareButtons.find((button) =>
-      button.text().includes("Teilen"),
-    );
+    const shareButton = shareButtons.find((button) => button.text().includes("Teilen"));
     expect(shareButton).toBeDefined();
 
     await shareButton!.trigger("click");
@@ -174,7 +169,7 @@ describe("StatsCard.vue", () => {
     expect(wrapper.text()).toContain("Kopiert");
   });
 
-  it("has closest words button that can be clicked", async() => {
+  it("has closest words button that can be clicked", async () => {
     const wrapper = mountComponent();
     const buttons = wrapper.findAll("button");
     const closestWordsButton = buttons.find((button) =>
@@ -187,12 +182,10 @@ describe("StatsCard.vue", () => {
     // Dialog testing is complex in jsdom, so we just verify the click works
   });
 
-  it("has previous games button that can be clicked", async() => {
+  it("has previous games button that can be clicked", async () => {
     const wrapper = mountComponent();
     const buttons = wrapper.findAll("button");
-    const previousGamesButton = buttons.find((button) =>
-      button.text().includes("Frühere Spiele"),
-    );
+    const previousGamesButton = buttons.find((button) => button.text().includes("Frühere Spiele"));
     expect(previousGamesButton).toBeDefined();
 
     // Just verify we can click it without error

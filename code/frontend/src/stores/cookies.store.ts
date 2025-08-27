@@ -22,9 +22,7 @@ export const useCookiesStore = defineStore(
     // Check if user has already made a choice
     const initializeCookieConsent = () => {
       const storedConsent = localStorage.getItem("kontexto-cookie-consent");
-      const storedPreferences = localStorage.getItem(
-        "kontexto-cookie-preferences",
-      );
+      const storedPreferences = localStorage.getItem("kontexto-cookie-preferences");
 
       if (storedConsent && storedPreferences) {
         hasConsented.value = JSON.parse(storedConsent);
@@ -67,9 +65,7 @@ export const useCookiesStore = defineStore(
     };
 
     // Save custom preferences
-    const saveCustomPreferences = (
-      customPreferences: Partial<CookiePreferences>,
-    ) => {
+    const saveCustomPreferences = (customPreferences: Partial<CookiePreferences>) => {
       preferences.value = {
         ...preferences.value,
         ...customPreferences,
@@ -85,10 +81,7 @@ export const useCookiesStore = defineStore(
       showBanner.value = false;
 
       localStorage.setItem("kontexto-cookie-consent", JSON.stringify(true));
-      localStorage.setItem(
-        "kontexto-cookie-preferences",
-        JSON.stringify(preferences.value),
-      );
+      localStorage.setItem("kontexto-cookie-preferences", JSON.stringify(preferences.value));
     };
 
     // Apply analytics settings based on preferences

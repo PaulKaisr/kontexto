@@ -10,9 +10,7 @@
             class="kontexto-logo bg-transparent"
             aria-hidden="true"
           />
-          <h1 class="text-3xl font-bold">
-            <span class="sr-only">K</span>ontexto
-          </h1>
+          <h1 class="text-3xl font-bold"><span class="sr-only">K</span>ontexto</h1>
         </div>
         <ContextMenu
           ref="contextMenuRef"
@@ -53,8 +51,8 @@
             @keyup.enter="handleSubmitGuess"
           />
           <div id="game-instructions" class="sr-only">
-            Gib ein deutsches Wort ein und drücke Enter, um zu sehen, wie
-            ähnlich es dem gesuchten Wort ist.
+            Gib ein deutsches Wort ein und drücke Enter, um zu sehen, wie ähnlich es dem gesuchten
+            Wort ist.
           </div>
         </section>
 
@@ -72,37 +70,24 @@
 
         <!-- Guess history -->
         <section class="guess-history" aria-label="Bisherige Versuche">
-          <GuessHistory
-            :guesses="gameStore.pastGuesses"
-            :last-guess="gameStore.mostRecentGuess"
-          />
+          <GuessHistory :guesses="gameStore.pastGuesses" :last-guess="gameStore.mostRecentGuess" />
         </section>
       </main>
 
       <!-- SEO-friendly description when game is not started -->
       <section
-        v-if="
-          (!gameStore.recentGame || gameStore.pastGuesses.length === 0) &&
-          !loading
-        "
+        v-if="(!gameStore.recentGame || gameStore.pastGuesses.length === 0) && !loading"
         class="mb-4 text-center"
       >
-        <h2 class="text-lg font-semibold mb-2">
-          Deutsches Wortspiel - Täglich neue Rätsel
-        </h2>
+        <h2 class="text-lg font-semibold mb-2">Deutsches Wortspiel - Täglich neue Rätsel</h2>
         <p class="text-sm text-gray-600 mb-3">
-          Rate das Zielwort durch clevere Hinweise! Jeder Versuch zeigt dir, wie
-          ähnlich dein Wort dem gesuchten Begriff ist. Ähnlich wie Wordle, aber
-          auf Deutsch und mit KI-basierter Wortähnlichkeit.
+          Rate das Zielwort durch clevere Hinweise! Jeder Versuch zeigt dir, wie ähnlich dein Wort
+          dem gesuchten Begriff ist. Ähnlich wie Wordle, aber auf Deutsch und mit KI-basierter
+          Wortähnlichkeit.
         </p>
         <div class="text-xs text-gray-500">
-          <p>
-            <v-icon class="text-primary" icon="mdi-target" /> Täglich ein neues
-            Rätsel
-          </p>
-          <p>
-            <v-icon class="text-primary" icon="mdi-flag" /> Komplett auf Deutsch
-          </p>
+          <p><v-icon class="text-primary" icon="mdi-target" /> Täglich ein neues Rätsel</p>
+          <p><v-icon class="text-primary" icon="mdi-flag" /> Komplett auf Deutsch</p>
           <p>
             <v-icon class="text-primary" icon="mdi-robot" />
             KI-basierte Wortähnlichkeit
@@ -145,18 +130,17 @@ async function handleSubmitGuess() {
   loading.value = false;
   if (!result.success) {
     switch (result.error) {
-    case "duplicate":
-      errorMessage.value = "Dieses Wort wurde bereits geraten.";
-      break;
-    case "not_found":
-      errorMessage.value =
-          "Das Wort konnte nicht gefunden werden oder ist ungültig.";
-      break;
-    case "empty":
-      errorMessage.value = "Bitte gib ein Wort ein.";
-      break;
-    default:
-      errorMessage.value = "Unbekannter Fehler.";
+      case "duplicate":
+        errorMessage.value = "Dieses Wort wurde bereits geraten.";
+        break;
+      case "not_found":
+        errorMessage.value = "Das Wort konnte nicht gefunden werden oder ist ungültig.";
+        break;
+      case "empty":
+        errorMessage.value = "Bitte gib ein Wort ein.";
+        break;
+      default:
+        errorMessage.value = "Unbekannter Fehler.";
     }
   }
 }
@@ -173,7 +157,7 @@ async function handleGiveUp() {
   loading.value = false;
 }
 
-onMounted(async() => {
+onMounted(async () => {
   await gameStore.fetchAndSetRecentGame();
 });
 </script>
@@ -218,12 +202,6 @@ onMounted(async() => {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Ensure consistent sizing for icons */
-.v-icon {
-  width: 24px !important;
-  height: 24px !important;
 }
 
 /* Logo styling with transparent background */

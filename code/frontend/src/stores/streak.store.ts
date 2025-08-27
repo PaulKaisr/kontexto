@@ -26,8 +26,8 @@ export const useStreakStore = defineStore("streak", {
       }
 
       // Sort games by date ascending (oldest first) for streak calculation
-      const sortedGames = [...allGames].sort((a, b) =>
-        new Date(a.date || "").getTime() - new Date(b.date || "").getTime(),
+      const sortedGames = [...allGames].sort(
+        (a, b) => new Date(a.date || "").getTime() - new Date(b.date || "").getTime(),
       );
 
       // Get today's date for comparison
@@ -41,7 +41,7 @@ export const useStreakStore = defineStore("streak", {
       const currentDate = new Date(todayDate);
 
       // Check if today's game exists and is completed
-      const todaysGame = sortedGames.find(game => game.date === today);
+      const todaysGame = sortedGames.find((game) => game.date === today);
       let includeToday = false;
 
       if (todaysGame) {
@@ -59,7 +59,7 @@ export const useStreakStore = defineStore("streak", {
         const dateStr = currentDate.toISOString().split("T")[0];
 
         // Find game for this date
-        const gameForDate = sortedGames.find(game => game.date === dateStr);
+        const gameForDate = sortedGames.find((game) => game.date === dateStr);
 
         if (!gameForDate) {
           // No game exists for this date, break the streak

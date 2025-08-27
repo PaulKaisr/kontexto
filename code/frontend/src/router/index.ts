@@ -47,8 +47,7 @@ const routes = [
     component: DataProtection,
     meta: {
       title: "Datenschutz | Kontexto",
-      description:
-        "Datenschutzerklärung für Kontexto - Wie wir deine Daten schützen",
+      description: "Datenschutzerklärung für Kontexto - Wie wir deine Daten schützen",
     },
   },
   {
@@ -57,8 +56,7 @@ const routes = [
     component: Contact,
     meta: {
       title: "Kontakt | Kontexto",
-      description:
-        "Kontaktiere das Kontexto Team - Feedback, Fragen und Anregungen",
+      description: "Kontaktiere das Kontexto Team - Feedback, Fragen und Anregungen",
     },
   },
   {
@@ -67,8 +65,7 @@ const routes = [
     component: TermsOfService,
     meta: {
       title: "Nutzungsbedingungen | Kontexto",
-      description:
-        "Nutzungsbedingungen für Kontexto - Rechtliche Hinweise zur Nutzung",
+      description: "Nutzungsbedingungen für Kontexto - Rechtliche Hinweise zur Nutzung",
     },
   },
   {
@@ -77,8 +74,7 @@ const routes = [
     component: FAQ,
     meta: {
       title: "FAQ - Häufig gestellte Fragen | Kontexto",
-      description:
-        "Antworten auf häufige Fragen zu Kontexto - Spielregeln, Strategien und mehr",
+      description: "Antworten auf häufige Fragen zu Kontexto - Spielregeln, Strategien und mehr",
     },
   },
   {
@@ -87,8 +83,7 @@ const routes = [
     component: Blog,
     meta: {
       title: "Blog | Kontexto",
-      description:
-        "Neueste Nachrichten und Updates zu Kontexto - Wortspiel-Trends und Insights",
+      description: "Neueste Nachrichten und Updates zu Kontexto - Wortspiel-Trends und Insights",
     },
   },
   // Legacy routes for backwards compatibility
@@ -127,7 +122,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.meta?.description) {
-    const metaDescription = document.querySelector("meta[name=\"description\"]");
+    const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute("content", to.meta.description as string);
     }

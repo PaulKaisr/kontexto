@@ -34,19 +34,13 @@ export async function getMostRecentGame() {
  * Checks both capitalized and non-capitalized versions and returns the best (lowest rank) result.
  * Returns an object with the similarity data and the actual word that achieved the best match, or null if not found.
  */
-export async function getSimilarityByGameIdAndWord(
-  gameId: number,
-  word: string,
-) {
+export async function getSimilarityByGameIdAndWord(gameId: number, word: string) {
   const lowercaseWord = word.toLowerCase();
-  const capitalizedWord =
-    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  const capitalizedWord = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 
   // Create array of unique words to check (avoid duplicate queries if word is already lowercase)
   const wordsToCheck =
-    lowercaseWord === capitalizedWord
-      ? [lowercaseWord]
-      : [lowercaseWord, capitalizedWord];
+    lowercaseWord === capitalizedWord ? [lowercaseWord] : [lowercaseWord, capitalizedWord];
 
   const { data, error } = await supabase
     .from("similarity")

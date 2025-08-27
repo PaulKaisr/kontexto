@@ -21,7 +21,7 @@ describe("HowToPlay.vue", () => {
 
   it("renders how to play card", () => {
     const wrapper = mountComponent();
-    const card = wrapper.find("[data-testid=\"how-to-play\"]");
+    const card = wrapper.find('[data-testid="how-to-play"]');
     expect(card.exists()).toBe(true);
   });
 
@@ -76,14 +76,14 @@ describe("HowToPlay.vue", () => {
 
   it("displays close button", () => {
     const wrapper = mountComponent();
-    const closeButton = wrapper.find("[data-testid=\"close-button\"]");
+    const closeButton = wrapper.find('[data-testid="close-button"]');
     expect(closeButton.exists()).toBe(true);
     expect(closeButton.text()).toContain("Schließen");
   });
 
-  it("emits close event when close button is clicked", async() => {
+  it("emits close event when close button is clicked", async () => {
     const wrapper = mountComponent();
-    const closeButton = wrapper.find("[data-testid=\"close-button\"]");
+    const closeButton = wrapper.find('[data-testid="close-button"]');
 
     await closeButton.trigger("click");
 

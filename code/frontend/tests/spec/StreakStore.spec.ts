@@ -19,7 +19,7 @@ describe("StreakStore", () => {
     setActivePinia(pinia);
     streakStore = useStreakStore();
     gameStore = useGameStore();
-    
+
     // Clear any existing state
     streakStore.resetStreak();
     gameStore.resetStore();
@@ -28,51 +28,47 @@ describe("StreakStore", () => {
   describe("streak calculation", () => {
     it("calculates streak of 0 when no games exist", async () => {
       vi.mocked(supabaseService.getAllGames).mockResolvedValue([]);
-      
+
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(0);
     });
 
     it("calculates streak of 1 for single completed game today", async () => {
-      const today = new Date().toISOString().split('T')[0];
-      
-      vi.mocked(supabaseService.getAllGames).mockResolvedValue([
-        { game_id: 1, date: today }
-      ]);
-      
+      const today = new Date().toISOString().split("T")[0];
+
+      vi.mocked(supabaseService.getAllGames).mockResolvedValue([{ game_id: 1, date: today }]);
+
       // Mock game as completed
       gameStore.gamesProgress[1] = {
         gameId: 1,
         guesses: [{ guess: "test", similarity: 1 }], // Solved
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
-      
+
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(1);
     });
 
     it("calculates streak of 0 when today's game exists but is not completed", async () => {
-      const today = new Date().toISOString().split('T')[0];
-      
-      vi.mocked(supabaseService.getAllGames).mockResolvedValue([
-        { game_id: 1, date: today }
-      ]);
-      
+      const today = new Date().toISOString().split("T")[0];
+
+      vi.mocked(supabaseService.getAllGames).mockResolvedValue([{ game_id: 1, date: today }]);
+
       // Mock game as not completed (no solution guess)
       gameStore.gamesProgress[1] = {
         gameId: 1,
         guesses: [{ guess: "test", similarity: 500 }], // Not solved
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
-      
+
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(0);
     });
 
@@ -82,38 +78,38 @@ describe("StreakStore", () => {
       yesterday.setDate(yesterday.getDate() - 1);
       const twoDaysAgo = new Date(today);
       twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
-      
+
       vi.mocked(supabaseService.getAllGames).mockResolvedValue([
-        { game_id: 3, date: today.toISOString().split('T')[0] },
-        { game_id: 2, date: yesterday.toISOString().split('T')[0] },
-        { game_id: 1, date: twoDaysAgo.toISOString().split('T')[0] }
+        { game_id: 3, date: today.toISOString().split("T")[0] },
+        { game_id: 2, date: yesterday.toISOString().split("T")[0] },
+        { game_id: 1, date: twoDaysAgo.toISOString().split("T")[0] },
       ]);
-      
+
       // Mock all games as completed
       gameStore.gamesProgress[3] = {
         gameId: 3,
         guesses: [{ guess: "test", similarity: 1 }],
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
       gameStore.gamesProgress[2] = {
         gameId: 2,
         guesses: [{ guess: "test", similarity: 1 }],
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
       gameStore.gamesProgress[1] = {
         gameId: 1,
         guesses: [{ guess: "test", similarity: 1 }],
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
-      
+
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(3);
     });
 
@@ -123,38 +119,38 @@ describe("StreakStore", () => {
       yesterday.setDate(yesterday.getDate() - 1);
       const threeDaysAgo = new Date(today);
       threeDaysAgo.setDate(threeDaysAgo.getDate() - 3); // Skip day -2
-      
+
       vi.mocked(supabaseService.getAllGames).mockResolvedValue([
-        { game_id: 3, date: today.toISOString().split('T')[0] },
-        { game_id: 2, date: yesterday.toISOString().split('T')[0] },
-        { game_id: 1, date: threeDaysAgo.toISOString().split('T')[0] }
+        { game_id: 3, date: today.toISOString().split("T")[0] },
+        { game_id: 2, date: yesterday.toISOString().split("T")[0] },
+        { game_id: 1, date: threeDaysAgo.toISOString().split("T")[0] },
       ]);
-      
+
       // Mock all games as completed
       gameStore.gamesProgress[3] = {
         gameId: 3,
         guesses: [{ guess: "test", similarity: 1 }],
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
       gameStore.gamesProgress[2] = {
         gameId: 2,
         guesses: [{ guess: "test", similarity: 1 }],
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
       gameStore.gamesProgress[1] = {
         gameId: 1,
         guesses: [{ guess: "test", similarity: 1 }],
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
-      
+
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(2); // Only today and yesterday
     });
 
@@ -164,38 +160,38 @@ describe("StreakStore", () => {
       yesterday.setDate(yesterday.getDate() - 1);
       const twoDaysAgo = new Date(today);
       twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
-      
+
       vi.mocked(supabaseService.getAllGames).mockResolvedValue([
-        { game_id: 3, date: today.toISOString().split('T')[0] },
-        { game_id: 2, date: yesterday.toISOString().split('T')[0] },
-        { game_id: 1, date: twoDaysAgo.toISOString().split('T')[0] }
+        { game_id: 3, date: today.toISOString().split("T")[0] },
+        { game_id: 2, date: yesterday.toISOString().split("T")[0] },
+        { game_id: 1, date: twoDaysAgo.toISOString().split("T")[0] },
       ]);
-      
+
       // Mock today and two days ago as completed, yesterday as not completed
       gameStore.gamesProgress[3] = {
         gameId: 3,
         guesses: [{ guess: "test", similarity: 1 }],
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
       gameStore.gamesProgress[2] = {
         gameId: 2,
         guesses: [{ guess: "test", similarity: 500 }], // Not completed
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
       gameStore.gamesProgress[1] = {
         gameId: 1,
         guesses: [{ guess: "test", similarity: 1 }],
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
-      
+
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(1); // Only today
     });
 
@@ -203,30 +199,30 @@ describe("StreakStore", () => {
       const today = new Date();
       const yesterday = new Date(today);
       yesterday.setDate(yesterday.getDate() - 1);
-      
+
       vi.mocked(supabaseService.getAllGames).mockResolvedValue([
-        { game_id: 2, date: today.toISOString().split('T')[0] },
-        { game_id: 1, date: yesterday.toISOString().split('T')[0] }
+        { game_id: 2, date: today.toISOString().split("T")[0] },
+        { game_id: 1, date: yesterday.toISOString().split("T")[0] },
       ]);
-      
+
       // Mock today as solved, yesterday as given up
       gameStore.gamesProgress[2] = {
         gameId: 2,
         guesses: [{ guess: "test", similarity: 1 }],
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
       gameStore.gamesProgress[1] = {
         gameId: 1,
         guesses: [{ guess: "solution", similarity: 1 }],
         numHints: 0,
         hasGivenUp: true, // Given up
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
-      
+
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(2);
     });
   });
@@ -236,41 +232,41 @@ describe("StreakStore", () => {
       const today = new Date();
       const yesterday = new Date(today);
       yesterday.setDate(yesterday.getDate() - 1);
-      
+
       vi.mocked(supabaseService.getAllGames).mockResolvedValue([
-        { game_id: 2, date: today.toISOString().split('T')[0] },
-        { game_id: 1, date: yesterday.toISOString().split('T')[0] }
+        { game_id: 2, date: today.toISOString().split("T")[0] },
+        { game_id: 1, date: yesterday.toISOString().split("T")[0] },
       ]);
-      
+
       gameStore.gamesProgress[2] = {
         gameId: 2,
         guesses: [{ guess: "test", similarity: 1 }],
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
       gameStore.gamesProgress[1] = {
         gameId: 1,
         guesses: [{ guess: "test", similarity: 1 }],
         numHints: 0,
         hasGivenUp: false,
-        lastPlayed: new Date().toISOString()
+        lastPlayed: new Date().toISOString(),
       };
-      
+
       // Initial calculation
       streakStore.longestStreak = 1; // Set a previous longest
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(2);
       expect(streakStore.longestStreak).toBe(2);
     });
 
     it("does not decrease longest streak when current is lower", async () => {
       vi.mocked(supabaseService.getAllGames).mockResolvedValue([]);
-      
+
       streakStore.longestStreak = 5; // Set a higher longest streak
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(0);
       expect(streakStore.longestStreak).toBe(5); // Should remain unchanged
     });
@@ -313,9 +309,9 @@ describe("StreakStore", () => {
       streakStore.currentStreak = 5;
       streakStore.longestStreak = 8;
       streakStore.lastUpdated = "2023-01-01T00:00:00.000Z";
-      
+
       streakStore.resetStreak();
-      
+
       expect(streakStore.currentStreak).toBe(0);
       expect(streakStore.longestStreak).toBe(0);
       expect(streakStore.lastUpdated).toBeNull();
@@ -324,42 +320,38 @@ describe("StreakStore", () => {
     it("updateStreakOnGameComplete calls calculateStreak", async () => {
       const calculateStreakSpy = vi.spyOn(streakStore, "calculateStreak");
       vi.mocked(supabaseService.getAllGames).mockResolvedValue([]);
-      
+
       await streakStore.updateStreakOnGameComplete();
-      
+
       expect(calculateStreakSpy).toHaveBeenCalledOnce();
     });
   });
 
   describe("edge cases", () => {
     it("handles null dates gracefully", async () => {
-      vi.mocked(supabaseService.getAllGames).mockResolvedValue([
-        { game_id: 1, date: null }
-      ]);
-      
+      vi.mocked(supabaseService.getAllGames).mockResolvedValue([{ game_id: 1, date: null }]);
+
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(0);
     });
 
     it("handles games without progress data", async () => {
-      const today = new Date().toISOString().split('T')[0];
-      
-      vi.mocked(supabaseService.getAllGames).mockResolvedValue([
-        { game_id: 1, date: today }
-      ]);
-      
+      const today = new Date().toISOString().split("T")[0];
+
+      vi.mocked(supabaseService.getAllGames).mockResolvedValue([{ game_id: 1, date: today }]);
+
       // Don't add game to gamesProgress (no progress data)
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(0);
     });
 
     it("handles API error gracefully", async () => {
       vi.mocked(supabaseService.getAllGames).mockResolvedValue(null);
-      
+
       await streakStore.calculateStreak();
-      
+
       expect(streakStore.currentStreak).toBe(0);
     });
   });

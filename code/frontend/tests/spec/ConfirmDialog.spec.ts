@@ -20,7 +20,7 @@ describe("ConfirmDialog.vue", () => {
     });
   }
 
-  it("renders with default props", async() => {
+  it("renders with default props", async () => {
     const wrapper = createWrapper();
     await wrapper.vm.$nextTick();
 
@@ -41,7 +41,7 @@ describe("ConfirmDialog.vue", () => {
     expect(wrapper.props("cancelText")).toBe("No");
   });
 
-  it("emits confirm event when handleConfirm is called", async() => {
+  it("emits confirm event when handleConfirm is called", async () => {
     const wrapper = createWrapper();
 
     // Trigger the confirm event by emitting it directly
@@ -51,7 +51,7 @@ describe("ConfirmDialog.vue", () => {
     expect(wrapper.emitted("confirm")).toHaveLength(1);
   });
 
-  it("emits update:modelValue event when dialog should close", async() => {
+  it("emits update:modelValue event when dialog should close", async () => {
     const wrapper = createWrapper();
 
     // Simulate clicking outside or pressing escape (closing the dialog)

@@ -54,12 +54,7 @@ export class AnalyticsService {
   /**
    * Track custom event (only if user has consented)
    */
-  trackEvent(
-    eventName: string,
-    action: string,
-    category: string,
-    value?: number,
-  ): void {
+  trackEvent(eventName: string, action: string, category: string, value?: number): void {
     if (!this.isInitialized || typeof window === "undefined" || !window.gtag) {
       return;
     }
@@ -89,12 +84,7 @@ export class AnalyticsService {
    * Track game-specific events
    */
   trackGameEvent(
-    event:
-      | "game_start"
-      | "game_complete"
-      | "game_quit"
-      | "hint_used"
-      | "give_up",
+    event: "game_start" | "game_complete" | "game_quit" | "hint_used" | "give_up",
     metadata?: Record<string, any>,
   ): void {
     if (!this.isInitialized) return;

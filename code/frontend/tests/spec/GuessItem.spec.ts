@@ -36,13 +36,13 @@ describe("GuessItem.vue", () => {
 
   it("applies highlight styling when highlighted", () => {
     const wrapper = mountComponent({ highlight: true });
-    const card = wrapper.find("[data-testid=\"guess-item\"]");
+    const card = wrapper.find('[data-testid="guess-item"]');
     expect(card.attributes("style")).toContain("border: 2px solid");
   });
 
   it("does not apply highlight styling when not highlighted", () => {
     const wrapper = mountComponent({ highlight: false });
-    const card = wrapper.find("[data-testid=\"guess-item\"]");
+    const card = wrapper.find('[data-testid="guess-item"]');
     // When highlight is false, there should be no inline style or different styling
     const style = card.attributes("style");
     // Since Vue may not render empty style objects, we check that it's either empty or contains border: none

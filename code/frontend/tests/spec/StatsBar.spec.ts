@@ -27,13 +27,13 @@ describe("StatsBar.vue", () => {
 
   it("renders stats bar", () => {
     const wrapper = mountComponent();
-    const statsBar = wrapper.find("[data-testid=\"stats-bar\"]");
+    const statsBar = wrapper.find('[data-testid="stats-bar"]');
     expect(statsBar.exists()).toBe(true);
   });
 
   it("displays game ID stat", () => {
     const wrapper = mountComponent({ gameId: 42 });
-    const gameIdStat = wrapper.find("[data-testid=\"game-id-stat\"]");
+    const gameIdStat = wrapper.find('[data-testid="game-id-stat"]');
     expect(gameIdStat.exists()).toBe(true);
     expect(gameIdStat.text()).toContain("Spiel");
     expect(gameIdStat.text()).toContain("42");
@@ -41,13 +41,13 @@ describe("StatsBar.vue", () => {
 
   it("displays dash when game ID is null", () => {
     const wrapper = mountComponent({ gameId: null });
-    const gameIdStat = wrapper.find("[data-testid=\"game-id-stat\"]");
+    const gameIdStat = wrapper.find('[data-testid="game-id-stat"]');
     expect(gameIdStat.text()).toContain("-");
   });
 
   it("displays guesses stat", () => {
     const wrapper = mountComponent({ numGuesses: 7 });
-    const guessesStat = wrapper.find("[data-testid=\"guesses-stat\"]");
+    const guessesStat = wrapper.find('[data-testid="guesses-stat"]');
     expect(guessesStat.exists()).toBe(true);
     expect(guessesStat.text()).toContain("Versuche");
     expect(guessesStat.text()).toContain("7");
@@ -55,7 +55,7 @@ describe("StatsBar.vue", () => {
 
   it("displays hints stat", () => {
     const wrapper = mountComponent({ numHints: 3 });
-    const hintsStat = wrapper.find("[data-testid=\"hints-stat\"]");
+    const hintsStat = wrapper.find('[data-testid="hints-stat"]');
     expect(hintsStat.exists()).toBe(true);
     expect(hintsStat.text()).toContain("Hinweise");
     expect(hintsStat.text()).toContain("3");
@@ -68,14 +68,14 @@ describe("StatsBar.vue", () => {
       numHints: 0,
     });
 
-    expect(wrapper.find("[data-testid=\"game-id-stat\"]").text()).toContain("0");
-    expect(wrapper.find("[data-testid=\"guesses-stat\"]").text()).toContain("0");
-    expect(wrapper.find("[data-testid=\"hints-stat\"]").text()).toContain("0");
+    expect(wrapper.find('[data-testid="game-id-stat"]').text()).toContain("0");
+    expect(wrapper.find('[data-testid="guesses-stat"]').text()).toContain("0");
+    expect(wrapper.find('[data-testid="hints-stat"]').text()).toContain("0");
   });
 
   it("has proper layout structure", () => {
     const wrapper = mountComponent();
-    const statsBar = wrapper.find("[data-testid=\"stats-bar\"]");
+    const statsBar = wrapper.find('[data-testid="stats-bar"]');
 
     // Should have flexbox layout classes
     expect(statsBar.classes()).toContain("flex");
@@ -93,7 +93,7 @@ describe("StatsBar.vue", () => {
 
   it("displays streak stat", () => {
     const wrapper = mountComponent();
-    const streakStat = wrapper.find("[data-testid=\"streak-stat\"]");
+    const streakStat = wrapper.find('[data-testid="streak-stat"]');
     expect(streakStat.exists()).toBe(true);
     expect(streakStat.text()).toContain("Serie");
   });

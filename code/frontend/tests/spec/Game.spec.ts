@@ -46,7 +46,7 @@ describe("Game.vue", () => {
     // Check for the logo image
     const logo = wrapper.find('img[alt="Kontexto Logo"]');
     expect(logo.exists()).toBe(true);
-    
+
     // Check for the complete title text (including screen reader text)
     expect(wrapper.text()).toContain("Kontexto");
   });
@@ -79,7 +79,7 @@ describe("Game.vue", () => {
     expect(wrapper.find("[data-testid=stats-card]").exists()).toBe(true);
   });
 
-  it("calls submitGuess when Enter is pressed", async() => {
+  it("calls submitGuess when Enter is pressed", async () => {
     gameStore.submitGuess.mockResolvedValue({ success: true });
 
     const textField = wrapper.find(".v-text-field input");
