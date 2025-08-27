@@ -8,6 +8,7 @@ const GameTips = () => import("../views/GameTips.vue");
 const About = () => import("../views/About.vue");
 const TermsOfService = () => import("../views/TermsOfService.vue");
 const FAQ = () => import("../views/FAQ.vue");
+const Blog = () => import("../views/Blog.vue");
 
 const routes = [
   {
@@ -78,6 +79,16 @@ const routes = [
       title: "FAQ - Häufig gestellte Fragen | Kontexto",
       description:
         "Antworten auf häufige Fragen zu Kontexto - Spielregeln, Strategien und mehr",
+    },
+  },
+  {
+    path: "/blog",
+    name: "blog",
+    component: Blog,
+    meta: {
+      title: "Blog | Kontexto",
+      description:
+        "Neueste Nachrichten und Updates zu Kontexto - Wortspiel-Trends und Insights",
     },
   },
   // Legacy routes for backwards compatibility

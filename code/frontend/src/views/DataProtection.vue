@@ -76,9 +76,9 @@
         </p>
         Impressum:
         <p>
-          <router-link class="underline text-blue-300" to="/impressum">
+          <router-link class="underline text-blue-300" to="/contact">
             {{
-              impressumUrl
+              contactUrl
             }}
           </router-link>
         </p>
@@ -740,7 +740,7 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const impressumUrl = computed(() => {
-  return window.location.origin + router.resolve("/impressum").href;
+const contactUrl = computed(() => {
+  return window.location.origin + router.resolve("/contact").href;
 });
 </script>
