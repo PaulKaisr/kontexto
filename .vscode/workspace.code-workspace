@@ -10,21 +10,18 @@
     "[typescript]": {
       "editor.formatOnSave": true,
       "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit",
         "source.organizeImports": "explicit"
       }
     },
     "[vue]": {
       "editor.formatOnSave": true,
       "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit",
         "source.organizeImports": "explicit"
       }
     },
     "[javascript]": {
       "editor.formatOnSave": true,
       "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit",
         "source.organizeImports": "explicit"
       }
     },
