@@ -184,8 +184,8 @@ import { getBlogPost, getRecentPosts } from "@/services/blog";
 import type { BlogPost } from "@/types/blog";
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { marked } from 'marked';
-import DOMPurify from 'dompurify';
+import { marked } from "marked";
+import DOMPurify from "dompurify";
 
 const route = useRoute();
 
@@ -212,10 +212,10 @@ const formattedContent = computed(() => {
   try {
     // Parse markdown content
     const rawHtml = marked(post.value.content);
-    
+
     // Add Vuetify classes to HTML elements
     let styledHtml = rawHtml as string;
-    
+
     // Add classes to headings
     styledHtml = styledHtml
       .replace(/<h1>/g, '<h1 class="text-h4 font-weight-bold text-primary mb-4 mt-8">')
@@ -224,26 +224,42 @@ const formattedContent = computed(() => {
       .replace(/<h4>/g, '<h4 class="text-h6 font-weight-medium text-primary mb-2 mt-3">')
       .replace(/<h5>/g, '<h5 class="text-subtitle-1 font-weight-medium text-primary mb-2 mt-2">')
       .replace(/<h6>/g, '<h6 class="text-subtitle-2 font-weight-medium text-primary mb-1 mt-2">');
-    
+
     // Add classes to paragraphs and lists
     styledHtml = styledHtml
       .replace(/<p>/g, '<p class="mb-4">')
       .replace(/<ul>/g, '<ul class="mb-4">')
       .replace(/<ol>/g, '<ol class="mb-4">')
       .replace(/<li>/g, '<li class="mb-1">');
-    
+
     // Sanitize HTML to prevent XSS
     const sanitizedHtml = DOMPurify.sanitize(styledHtml, {
-      ALLOWED_TAGS: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol', 'li', 'strong', 'em', 'a', 'br'],
-      ALLOWED_ATTR: ['class', 'href', 'target', 'rel'],
-      ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
-      ADD_ATTR: ['target'],
-      ADD_DATA_URI_TAGS: []
+      ALLOWED_TAGS: [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "p",
+        "ul",
+        "ol",
+        "li",
+        "strong",
+        "em",
+        "a",
+        "br",
+      ],
+      ALLOWED_ATTR: ["class", "href", "target", "rel"],
+      ALLOWED_URI_REGEXP:
+        /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+      ADD_ATTR: ["target"],
+      ADD_DATA_URI_TAGS: [],
     });
-    
+
     return sanitizedHtml;
   } catch (error) {
-    console.error('Error parsing markdown content:', error);
+    console.error("Error parsing markdown content:", error);
     return '<p class="text-error">Fehler beim Laden des Inhalts</p>';
   }
 });
