@@ -355,7 +355,9 @@ Jeder, der schon einmal alleine ein komplexes Projekt entwickelt hat, kennt die 
 
 ### Die Kontexto-Vision
 
-Meine Idee war simpel: Ein deutsches Pendant zu Wordle, aber mit semantischer Ähnlichkeit statt Buchstabenpositionen. Was ich nicht ahnte: Dahinter steckt ein komplexes System aus NLP-Technologie, Datenbanken, Frontend-Framework und Performance-Optimierung.
+Meine Idee war simpel: Ein deutsches Pendant zu Wordle, aber mit semantischer Ähnlichkeit statt Buchstabenpositionen. Die Inspiration kam vom englischen Spiel **Semantle**, das bereits zeigte, wie faszinierend Wortbedeutungen als Spielmechanik sein können. Jedoch war ich frustriert darüber, dass es keine vergleichbare Erfahrung für die deutschsprachige Community gab. Deutsche Sprache hat ihre eigenen Nuancen, zusammengesetzte Wörter und kulturellen Bezüge, die ein eigenständiges Spiel verdienen.
+
+So entstand die Vision von Kontexto: Ein Spiel, das die Schönheit und Komplexität der deutschen Sprache feiert und gleichzeitig die deutschsprachige Worträtsel-Community mit einem hochwertigen, täglich aktualisierten Spielerlebnis versorgt. Was ich nicht ahnte: Dahinter steckt ein komplexes System aus NLP-Technologie, Datenbanken, Frontend-Framework und Performance-Optimierung.
 
 ## Enter Claude Code: Der geduldige Mentor
 
