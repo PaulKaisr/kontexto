@@ -15,9 +15,7 @@
         </v-btn>
 
         <h1 class="text-h3 font-weight-bold text-primary mb-2">Häufig gestellte Fragen (FAQ)</h1>
-        <p class="text-h6 text-medium-emphasis">
-          Antworten auf die wichtigsten Fragen zu Kontexto
-        </p>
+        <p class="text-h6 text-medium-emphasis">Antworten auf die wichtigsten Fragen zu Kontexto</p>
       </v-card-text>
     </v-card>
 
@@ -62,7 +60,9 @@
             <v-expansion-panel-title>
               <div class="d-flex align-center">
                 <v-icon icon="mdi-infinity" class="mr-3" color="warning" />
-                <span class="text-h6 font-weight-medium">Gibt es eine Begrenzung der Versuche?</span>
+                <span class="text-h6 font-weight-medium"
+                  >Gibt es eine Begrenzung der Versuche?</span
+                >
               </div>
             </v-expansion-panel-title>
             <v-expansion-panel-text class="text-body-1 pa-6">
@@ -85,7 +85,9 @@
             <v-expansion-panel-title>
               <div class="d-flex align-center">
                 <v-icon icon="mdi-devices" class="mr-3" color="info" />
-                <span class="text-h6 font-weight-medium">Auf welchen Geräten funktioniert Kontexto?</span>
+                <span class="text-h6 font-weight-medium"
+                  >Auf welchen Geräten funktioniert Kontexto?</span
+                >
               </div>
             </v-expansion-panel-title>
             <v-expansion-panel-text class="text-body-1 pa-6">
@@ -98,7 +100,9 @@
             <v-expansion-panel-title>
               <div class="d-flex align-center">
                 <v-icon icon="mdi-content-save" class="mr-3" color="success" />
-                <span class="text-h6 font-weight-medium">Werden meine Spielstände gespeichert?</span>
+                <span class="text-h6 font-weight-medium"
+                  >Werden meine Spielstände gespeichert?</span
+                >
               </div>
             </v-expansion-panel-title>
             <v-expansion-panel-text class="text-body-1 pa-6">
@@ -112,7 +116,9 @@
             <v-expansion-panel-title>
               <div class="d-flex align-center">
                 <v-icon icon="mdi-spellcheck" class="mr-3" color="warning" />
-                <span class="text-h6 font-weight-medium">Warum erkennt Kontexto mein Wort nicht?</span>
+                <span class="text-h6 font-weight-medium"
+                  >Warum erkennt Kontexto mein Wort nicht?</span
+                >
               </div>
             </v-expansion-panel-title>
             <v-expansion-panel-text class="text-body-1 pa-6">
@@ -135,7 +141,9 @@
             <v-expansion-panel-title>
               <div class="d-flex align-center">
                 <v-icon icon="mdi-play" class="mr-3" color="success" />
-                <span class="text-h6 font-weight-medium">Mit welchen Wörtern sollte ich beginnen?</span>
+                <span class="text-h6 font-weight-medium"
+                  >Mit welchen Wörtern sollte ich beginnen?</span
+                >
               </div>
             </v-expansion-panel-title>
             <v-expansion-panel-text class="text-body-1 pa-6">
@@ -148,7 +156,9 @@
             <v-expansion-panel-title>
               <div class="d-flex align-center">
                 <v-icon icon="mdi-palette" class="mr-3" color="info" />
-                <span class="text-h6 font-weight-medium">Was bedeuten die verschiedenen Ähnlichkeitswerte?</span>
+                <span class="text-h6 font-weight-medium"
+                  >Was bedeuten die verschiedenen Ähnlichkeitswerte?</span
+                >
               </div>
             </v-expansion-panel-title>
             <v-expansion-panel-text class="pa-6">
@@ -194,7 +204,9 @@
             <v-expansion-panel-title>
               <div class="d-flex align-center">
                 <v-icon icon="mdi-trending-up" class="mr-3" color="secondary" />
-                <span class="text-h6 font-weight-medium">Wie kann ich meine Erfolgsrate verbessern?</span>
+                <span class="text-h6 font-weight-medium"
+                  >Wie kann ich meine Erfolgsrate verbessern?</span
+                >
               </div>
             </v-expansion-panel-title>
             <v-expansion-panel-text class="text-body-1 pa-6">
@@ -240,8 +252,8 @@
               Wir sammeln nur minimal notwendige Daten für das Funktionieren des Spiels und anonyme
               Nutzungsstatistiken. Detaillierte Informationen finden Sie in unserer
               <router-link to="/data-protection" class="text-primary text-decoration-underline">
-                Datenschutzerklärung
-              </router-link>.
+                Datenschutzerklärung </router-link
+              >.
             </v-expansion-panel-text>
           </v-expansion-panel>
 
@@ -249,7 +261,9 @@
             <v-expansion-panel-title>
               <div class="d-flex align-center">
                 <v-icon icon="mdi-cookie" class="mr-3" color="warning" />
-                <span class="text-h6 font-weight-medium">Kann ich meine Cookie-Einstellungen ändern?</span>
+                <span class="text-h6 font-weight-medium"
+                  >Kann ich meine Cookie-Einstellungen ändern?</span
+                >
               </div>
             </v-expansion-panel-title>
             <v-expansion-panel-text class="text-body-1 pa-6">
@@ -269,13 +283,7 @@
             <p class="text-h6 mb-6">
               Haben Sie eine Frage, die hier nicht beantwortet wurde? Kontaktieren Sie uns gerne!
             </p>
-            <v-btn
-              :to="{ name: 'contact' }"
-              color="white"
-              variant="flat"
-              size="large"
-              rounded="lg"
-            >
+            <v-btn :to="{ name: 'contact' }" color="white" variant="flat" size="large" rounded="lg">
               Kontakt aufnehmen
             </v-btn>
           </v-card-text>
@@ -289,13 +297,7 @@
             <v-icon icon="mdi-gamepad-variant" size="48" class="mb-4" />
             <h2 class="text-h4 font-weight-bold mb-4">Bereit zum Spielen?</h2>
             <p class="text-h6 mb-6">Testen Sie Ihr Wissen mit dem heutigen Kontexto-Rätsel!</p>
-            <v-btn
-              :to="{ name: 'home' }"
-              color="white"
-              variant="flat"
-              size="large"
-              rounded="lg"
-            >
+            <v-btn :to="{ name: 'home' }" color="white" variant="flat" size="large" rounded="lg">
               Jetzt spielen
             </v-btn>
           </v-card-text>

@@ -30,9 +30,9 @@
           <v-card-text class="pa-8">
             <p class="text-h6 mb-4">
               <strong>Kontexto</strong> ist ein innovatives deutsches Wortspiel, das die Kraft der
-              künstlichen Intelligenz nutzt, um ein völlig neues Spielerlebnis zu schaffen. Anders als
-              traditionelle Wortspiele basiert Kontexto auf <em>semantischer Ähnlichkeit</em>
-              – das bedeutet, es bewertet nicht nur Buchstaben oder Wortlängen, sondern die
+              künstlichen Intelligenz nutzt, um ein völlig neues Spielerlebnis zu schaffen. Anders
+              als traditionelle Wortspiele basiert Kontexto auf <em>semantischer Ähnlichkeit</em> –
+              das bedeutet, es bewertet nicht nur Buchstaben oder Wortlängen, sondern die
               tatsächliche <strong>Bedeutung</strong> und den <strong>Kontext</strong> der Wörter.
             </p>
 
@@ -43,8 +43,8 @@
             </p>
 
             <p class="text-body-1 text-medium-emphasis">
-              Das Besondere an Kontexto: Es ist <strong>komplett kostenlos</strong>, funktioniert in jedem Webbrowser und wurde speziell
-              für die deutsche Sprache entwickelt.
+              Das Besondere an Kontexto: Es ist <strong>komplett kostenlos</strong>, funktioniert in
+              jedem Webbrowser und wurde speziell für die deutsche Sprache entwickelt.
             </p>
           </v-card-text>
         </v-card>
@@ -64,12 +64,13 @@
                 <v-icon icon="mdi-chart-scatter-plot" color="info" size="48" class="mb-3" />
                 <h3 class="text-h6 font-weight-bold mb-3">Semantische Vektorräume</h3>
                 <p class="text-body-2 text-medium-emphasis mb-4">
-                  Kontexto verwendet moderne Machine Learning-Modelle, die Wörter als Punkte in einem
-                  hochdimensionalen Raum darstellen. Wörter mit ähnlicher Bedeutung liegen dabei näher
-                  beieinander.
+                  Kontexto verwendet moderne Machine Learning-Modelle, die Wörter als Punkte in
+                  einem hochdimensionalen Raum darstellen. Wörter mit ähnlicher Bedeutung liegen
+                  dabei näher beieinander.
                 </p>
                 <v-alert type="info" variant="tonal" class="text-body-2">
-                  <strong>Beispiel:</strong> "Hund" und "Katze" haben eine hohe Ähnlichkeit, weil beide Haustiere sind.
+                  <strong>Beispiel:</strong> "Hund" und "Katze" haben eine hohe Ähnlichkeit, weil
+                  beide Haustiere sind.
                 </v-alert>
               </v-card-text>
             </v-card>
@@ -86,7 +87,8 @@
                   Ähnlichkeitsverbindungen.
                 </p>
                 <v-alert type="success" variant="tonal" class="text-body-2">
-                  <strong>Beispiel:</strong> "Schule" ist ähnlich zu "Kindheit", "Freunde" oder "Pausenhof".
+                  <strong>Beispiel:</strong> "Schule" ist ähnlich zu "Kindheit", "Freunde" oder
+                  "Pausenhof".
                 </v-alert>
               </v-card-text>
             </v-card>
@@ -108,7 +110,8 @@
                 <v-icon icon="mdi-lightbulb" color="warning" size="48" class="mb-3" />
                 <h3 class="text-h6 font-weight-bold mb-3">Innovatives Spielprinzip</h3>
                 <p class="text-body-2 text-medium-emphasis">
-                  Bedeutungsbasierte Ähnlichkeit statt Buchstabenpositionen revolutioniert das Wortspielgenre.
+                  Bedeutungsbasierte Ähnlichkeit statt Buchstabenpositionen revolutioniert das
+                  Wortspielgenre.
                 </p>
               </v-card-text>
             </v-card>
@@ -148,7 +151,7 @@
               <v-icon icon="mdi-rocket" size="48" class="mb-4" />
               <h2 class="text-h4 font-weight-bold mb-4">Unsere Mission</h2>
             </div>
-            
+
             <v-row>
               <v-col cols="12" md="6">
                 <h3 class="text-h6 font-weight-bold mb-3">Sprache spielerisch erleben</h3>
@@ -161,9 +164,9 @@
               <v-col cols="12" md="6">
                 <h3 class="text-h6 font-weight-bold mb-3">Kostenlose Bildung für alle</h3>
                 <p class="text-body-1 text-white text-medium-emphasis">
-                  Bildung sollte für jeden zugänglich sein. Deshalb ist Kontexto kostenlos verfügbar.
-                  Die Finanzierung erfolgt durch nutzerfreundliche Werbung, die das Spielerlebnis nicht
-                  beeinträchtigt.
+                  Bildung sollte für jeden zugänglich sein. Deshalb ist Kontexto kostenlos
+                  verfügbar. Die Finanzierung erfolgt durch nutzerfreundliche Werbung, die das
+                  Spielerlebnis nicht beeinträchtigt.
                 </p>
               </v-col>
             </v-row>
@@ -229,10 +232,10 @@
             <v-icon icon="mdi-code-tags" color="primary" size="48" class="mb-4" />
             <h3 class="text-h5 font-weight-bold mb-4">OneDevDiaries</h3>
             <p class="text-body-1 text-medium-emphasis mb-6">
-              Folge der Entwicklungsreise von Kontexto und erhalte Einblicke in moderne Web-Entwicklung, 
-              KI-Integration und Solo-Development-Prozesse.
+              Folge der Entwicklungsreise von Kontexto und erhalte Einblicke in moderne
+              Web-Entwicklung, KI-Integration und Solo-Development-Prozesse.
             </p>
-            
+
             <div class="d-flex justify-center flex-wrap ga-4">
               <v-btn
                 href="https://www.youtube.com/@OneDevDiaries"
@@ -271,22 +274,10 @@
               Entdecke die faszinierende Welt der deutschen Wortspiele mit KI-Power!
             </p>
             <div class="d-flex justify-center flex-wrap ga-4">
-              <v-btn
-                :to="{ name: 'home' }"
-                color="white"
-                variant="flat"
-                size="large"
-                rounded="lg"
-              >
+              <v-btn :to="{ name: 'home' }" color="white" variant="flat" size="large" rounded="lg">
                 Jetzt spielen
               </v-btn>
-              <v-btn
-                to="/spieltipps"
-                color="white"
-                variant="outlined"
-                size="large"
-                rounded="lg"
-              >
+              <v-btn to="/spieltipps" color="white" variant="outlined" size="large" rounded="lg">
                 Spieltipps lesen
               </v-btn>
             </div>

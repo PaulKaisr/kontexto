@@ -40,7 +40,8 @@
                 <v-icon icon="mdi-target" color="success" size="48" class="mb-3" />
                 <h3 class="text-h6 font-weight-bold mb-3">Täglich neue Herausforderung</h3>
                 <p class="text-body-2 text-medium-emphasis">
-                  Jeden Tag wartet ein neues Wortspiel auf dich. Perfekt für deine tägliche Denkpause!
+                  Jeden Tag wartet ein neues Wortspiel auf dich. Perfekt für deine tägliche
+                  Denkpause!
                 </p>
               </v-card-text>
             </v-card>
@@ -52,7 +53,8 @@
                 <v-icon icon="mdi-translate" color="info" size="48" class="mb-3" />
                 <h3 class="text-h6 font-weight-bold mb-3">Komplett auf Deutsch</h3>
                 <p class="text-body-2 text-medium-emphasis">
-                  Entwickelt speziell für deutsche Wörter und Begriffe. Verbessere spielerisch deinen Wortschatz!
+                  Entwickelt speziell für deutsche Wörter und Begriffe. Verbessere spielerisch
+                  deinen Wortschatz!
                 </p>
               </v-card-text>
             </v-card>
@@ -64,7 +66,8 @@
                 <v-icon icon="mdi-brain" color="warning" size="48" class="mb-3" />
                 <h3 class="text-h6 font-weight-bold mb-3">KI-gestützte Ähnlichkeit</h3>
                 <p class="text-body-2 text-medium-emphasis">
-                  Modernste Technologie bewertet die Ähnlichkeit zwischen Wörtern basierend auf Bedeutung und Kontext.
+                  Modernste Technologie bewertet die Ähnlichkeit zwischen Wörtern basierend auf
+                  Bedeutung und Kontext.
                 </p>
               </v-card-text>
             </v-card>
@@ -86,7 +89,9 @@
 
       <!-- How to Play Section -->
       <section class="mb-12">
-        <h2 class="text-h4 font-weight-bold text-primary mb-6">Spielanleitung - So einfach geht's</h2>
+        <h2 class="text-h4 font-weight-bold text-primary mb-6">
+          Spielanleitung - So einfach geht's
+        </h2>
 
         <v-card variant="outlined" rounded="lg">
           <v-card-text class="pa-8">
@@ -150,9 +155,7 @@
         <v-card variant="flat" color="primary" class="text-white">
           <v-card-text class="pa-8">
             <v-icon icon="mdi-lightbulb" size="48" class="mb-4" />
-            <h3 class="text-h5 font-weight-bold mb-4">
-              Von Buchstaben zu Bedeutungen
-            </h3>
+            <h3 class="text-h5 font-weight-bold mb-4">Von Buchstaben zu Bedeutungen</h3>
             <p class="text-h6 mb-4">
               Wenn dir <strong>Wordle</strong> gefällt, wirst du <strong>Kontexto</strong> lieben!
               Während Wordle auf Buchstabenpositionen basiert, verwendet Kontexto die semantische
@@ -215,7 +218,9 @@
             <v-expansion-panel-title>
               <div class="d-flex align-center">
                 <v-icon icon="mdi-book-alphabet" class="mr-3" color="secondary" />
-                <span class="text-h6 font-weight-medium">Welche deutschen Wörter sind erlaubt?</span>
+                <span class="text-h6 font-weight-medium"
+                  >Welche deutschen Wörter sind erlaubt?</span
+                >
               </div>
             </v-expansion-panel-title>
             <v-expansion-panel-text class="text-body-1">
@@ -230,8 +235,8 @@
       <div class="sr-only">
         <p>
           deutsches wortspiel online kostenlos, wordle deutsch alternative, tägliche wort rätsel,
-          kontexto spielen, wortähnlichkeit spiel, deutsche word games, browser spiel kostenlos, wort
-          erraten spiel, semantische ähnlichkeit, ki wortspiel, täglich neue rätsel deutsch
+          kontexto spielen, wortähnlichkeit spiel, deutsche word games, browser spiel kostenlos,
+          wort erraten spiel, semantische ähnlichkeit, ki wortspiel, täglich neue rätsel deutsch
         </p>
       </div>
     </v-container>
