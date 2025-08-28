@@ -217,6 +217,50 @@
         </v-row>
       </section>
 
+      <!-- Developer Section -->
+      <section class="mb-12">
+        <h2 class="text-h4 font-weight-bold text-primary mb-6">
+          <v-icon icon="mdi-account-heart" class="mr-3" color="primary" />
+          Über den Entwickler
+        </h2>
+
+        <v-card variant="outlined" rounded="lg">
+          <v-card-text class="pa-8 text-center">
+            <v-icon icon="mdi-code-tags" color="primary" size="48" class="mb-4" />
+            <h3 class="text-h5 font-weight-bold mb-4">OneDevDiaries</h3>
+            <p class="text-body-1 text-medium-emphasis mb-6">
+              Folge der Entwicklungsreise von Kontexto und erhalte Einblicke in moderne Web-Entwicklung, 
+              KI-Integration und Solo-Development-Prozesse.
+            </p>
+            
+            <div class="d-flex justify-center flex-wrap ga-4">
+              <v-btn
+                href="https://www.youtube.com/@OneDevDiaries"
+                target="_blank"
+                color="error"
+                variant="flat"
+                size="large"
+                rounded="lg"
+                prepend-icon="mdi-youtube"
+              >
+                YouTube
+              </v-btn>
+              <v-btn
+                href="https://www.tiktok.com/@onedevdiaries"
+                target="_blank"
+                color="black"
+                variant="flat"
+                size="large"
+                rounded="lg"
+                prepend-icon="mdi-music"
+              >
+                TikTok
+              </v-btn>
+            </div>
+          </v-card-text>
+        </v-card>
+      </section>
+
       <!-- Call to Action Section -->
       <section class="mb-12">
         <v-card variant="flat" color="secondary" class="text-white">
