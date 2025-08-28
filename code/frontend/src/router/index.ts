@@ -1,5 +1,6 @@
-import { createRouter, createWebHistory } from "vue-router";
 import { useAnalytics } from "@/composables/useAnalytics";
+import { nextTick } from "vue";
+import { createRouter, createWebHistory } from "vue-router";
 
 const Home = () => import("../views/Home.vue");
 const DataProtection = () => import("../views/DataProtection.vue");
@@ -142,12 +143,9 @@ router.beforeEach((to, from, next) => {
 
 // Track page views after route change
 router.afterEach((to) => {
-  // Use nextTick to ensure DOM is updated
-  import("vue").then(({ nextTick }) => {
-    nextTick(() => {
-      const { trackPageView } = useAnalytics();
-      trackPageView(to.path, to.meta?.title as string);
-    });
+  nextTick(() => {
+    const { trackPageView } = useAnalytics();
+    trackPageView(to.path, to.meta?.title as string);
   });
 });
 
