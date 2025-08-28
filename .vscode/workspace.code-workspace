@@ -133,6 +133,15 @@
         "options": {
           "cwd": "${workspaceFolder}/code/frontend"
         }
+      },
+      {
+        "label": "fe:test",
+        "type": "shell",
+        "command": "pnpm",
+        "args": ["test"],
+        "options": {
+          "cwd": "${workspaceFolder}/code/frontend"
+        }
       }
     ]
   }
