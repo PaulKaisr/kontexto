@@ -67,13 +67,7 @@
         <h2 class="text-h4 font-weight-bold text-primary mb-6">Aktuelle Artikel</h2>
 
         <v-row>
-          <v-col
-            v-for="article in recentArticles"
-            :key="article.id"
-            cols="12"
-            md="6"
-            lg="4"
-          >
+          <v-col v-for="article in recentArticles" :key="article.id" cols="12" md="6" lg="4">
             <v-card
               class="h-100"
               variant="outlined"
@@ -156,8 +150,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { getBlogPosts, getFeaturedPosts, getCategoryStats } from '@/services/blog';
+import { computed } from "vue";
+import { getBlogPosts, getFeaturedPosts, getCategoryStats } from "@/services/blog";
 
 // Get blog data from service
 const allPosts = getBlogPosts();
@@ -166,14 +160,14 @@ const categoryStats = getCategoryStats();
 
 // Use featured post if available, otherwise first post
 const featuredPost = computed(() => {
-  return featuredPosts.length > 0 ? featuredPosts[0] : (allPosts.length > 0 ? allPosts[0] : null);
+  return featuredPosts.length > 0 ? featuredPosts[0] : allPosts.length > 0 ? allPosts[0] : null;
 });
 
 // Get recent articles (excluding featured post)
 const recentArticles = computed(() => {
   const featuredId = featuredPost.value?.id;
   return allPosts
-    .filter(post => post.id !== featuredId)
+    .filter((post) => post.id !== featuredId)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 6);
 });
@@ -181,11 +175,11 @@ const recentArticles = computed(() => {
 // Helper function to get category colors
 const getCategoryColor = (slug: string) => {
   const colors: Record<string, string> = {
-    'strategien': 'success',
-    'technologie': 'info',
-    'updates': 'warning',
-    'community': 'secondary'
+    strategien: "success",
+    technologie: "info",
+    updates: "warning",
+    community: "secondary",
   };
-  return colors[slug] || 'primary';
+  return colors[slug] || "primary";
 };
 </script>

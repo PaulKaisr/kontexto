@@ -33,7 +33,7 @@ export const blogCategories: BlogCategory[] = [
   {
     id: 2,
     name: "Technologie",
-    slug: "technologie", 
+    slug: "technologie",
     description: "Wie KI und NLP Kontexto antreiben",
     icon: "🤖",
   },
@@ -41,7 +41,7 @@ export const blogCategories: BlogCategory[] = [
     id: 3,
     name: "Updates",
     slug: "updates",
-    description: "Neue Features und Verbesserungen", 
+    description: "Neue Features und Verbesserungen",
     icon: "📈",
   },
   {
