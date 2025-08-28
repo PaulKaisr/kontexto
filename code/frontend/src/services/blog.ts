@@ -185,7 +185,7 @@ FastText ist eine von Facebook's AI Research (FAIR) entwickelte Open-Source-Bibl
 
 ### Die Revolution der Wort-Embeddings
 
-**Traditionelle Ansätze** behandelten Wörter als isolierte Symbole - "Hund" und "Katze" hatten keine erkennbare Beziehung. **FastText hingegen** lernt, dass beide Tiere sind, Haustiere sein können, und ähnliche Eigenschaften teilen.
+**Traditionelle Ansätze** behandelten Wörter als isolierte Symbole - "Hund" und "Katze" hatten keine erkennbare Beziehung. FastText hingegen lernt, dass beide Tiere sind, Haustiere sein können, und ähnliche Eigenschaften teilen.
 
 ### Die Grundlagen der Technologie
 
@@ -284,10 +284,10 @@ Diese "Einschränkungen" sind für unser Wortspiel sogar vorteilhaft:
 
 Da die Berechnung von 55.000 Ähnlichkeitswerten rechenintensiv ist, werden alle Werte **vorberechnet und gespeichert**:
 
-1. **Offline-Berechnung**: Neue Spiele werden nachts generiert
-2. **Datenbank-Speicherung**: Fertige Rankings werden in PostgreSQL gespeichert
-3. **Schnelle Abfragen**: Ihr Guess wird in Millisekunden bewertet
-4. **Skalierbarkeit**: Tausende Spieler können gleichzeitig spielen
+- **Offline-Berechnung**: Neue Spiele werden nachts generiert
+- **Datenbank-Speicherung**: Fertige Rankings werden in PostgreSQL gespeichert
+- **Schnelle Abfragen**: Ihr Guess wird in Millisekunden bewertet
+- **Skalierbarkeit**: Tausende Spieler können gleichzeitig spielen
 
 ### Modell-Updates
 

@@ -183,10 +183,11 @@
 import { getBlogPost, getRecentPosts } from "@/services/blog";
 import type { BlogPost } from "@/types/blog";
 import { computed, onMounted, ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 const route = useRoute();
-const router = useRouter();
 
 const loading = ref(true);
 const post = ref<BlogPost | null>(null);
@@ -199,23 +200,52 @@ const relatedPosts = computed(() => {
     .slice(0, 3);
 });
 
+// Configure marked with basic options
+marked.setOptions({
+  gfm: true,
+  breaks: false,
+});
+
 const formattedContent = computed(() => {
   if (!post.value?.content) return "";
 
-  // Simple markdown-like formatting
-  return post.value.content
-    .replace(/^# (.*$)/gm, '<h1 class="text-h4 font-weight-bold text-primary mb-4 mt-8">$1</h1>')
-    .replace(/^## (.*$)/gm, '<h2 class="text-h5 font-weight-bold text-primary mb-3 mt-6">$1</h2>')
-    .replace(/^### (.*$)/gm, '<h3 class="text-h6 font-weight-bold text-primary mb-2 mt-4">$1</h3>')
-    .replace(/^\*\*(.*)\*\*/gm, "<strong>$1</strong>")
-    .replace(/^\* (.*$)/gm, '<li class="mb-1">$1</li>')
-    .replace(/^- (.*$)/gm, '<li class="mb-1">$1</li>')
-    .replace(/\n\n/g, '</p><p class="mb-4">')
-    .replace(/^(?!<[h|l])/gm, '<p class="mb-4">')
-    .replace(/<p class="mb-4">(<h[1-6])/g, "$1")
-    .replace(/(<\/h[1-6]>)<\/p>/g, "$1")
-    .replace(/<p class="mb-4">(<li)/g, '<ul class="mb-4">$1')
-    .replace(/(<\/li>)<\/p>/g, "$1</ul>");
+  try {
+    // Parse markdown content
+    const rawHtml = marked(post.value.content);
+    
+    // Add Vuetify classes to HTML elements
+    let styledHtml = rawHtml as string;
+    
+    // Add classes to headings
+    styledHtml = styledHtml
+      .replace(/<h1>/g, '<h1 class="text-h4 font-weight-bold text-primary mb-4 mt-8">')
+      .replace(/<h2>/g, '<h2 class="text-h5 font-weight-bold text-primary mb-3 mt-6">')
+      .replace(/<h3>/g, '<h3 class="text-h6 font-weight-bold text-primary mb-2 mt-4">')
+      .replace(/<h4>/g, '<h4 class="text-h6 font-weight-medium text-primary mb-2 mt-3">')
+      .replace(/<h5>/g, '<h5 class="text-subtitle-1 font-weight-medium text-primary mb-2 mt-2">')
+      .replace(/<h6>/g, '<h6 class="text-subtitle-2 font-weight-medium text-primary mb-1 mt-2">');
+    
+    // Add classes to paragraphs and lists
+    styledHtml = styledHtml
+      .replace(/<p>/g, '<p class="mb-4">')
+      .replace(/<ul>/g, '<ul class="mb-4">')
+      .replace(/<ol>/g, '<ol class="mb-4">')
+      .replace(/<li>/g, '<li class="mb-1">');
+    
+    // Sanitize HTML to prevent XSS
+    const sanitizedHtml = DOMPurify.sanitize(styledHtml, {
+      ALLOWED_TAGS: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol', 'li', 'strong', 'em', 'a', 'br'],
+      ALLOWED_ATTR: ['class', 'href', 'target', 'rel'],
+      ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+      ADD_ATTR: ['target'],
+      ADD_DATA_URI_TAGS: []
+    });
+    
+    return sanitizedHtml;
+  } catch (error) {
+    console.error('Error parsing markdown content:', error);
+    return '<p class="text-error">Fehler beim Laden des Inhalts</p>';
+  }
 });
 
 const loadPost = async () => {
