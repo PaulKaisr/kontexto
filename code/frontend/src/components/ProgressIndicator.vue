@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="progressStats.total > 0"
-    class="d-flex align-center"
-  >
+  <div v-if="progressStats.total > 0" class="d-flex align-center">
     <v-tooltip location="bottom">
       <template #activator="{ props }">
         <div
@@ -26,19 +23,14 @@
           </div>
 
           <!-- Progress text for larger screens -->
-          <span
-            v-if="$vuetify.display.smAndUp"
-            class="text-caption text-medium-emphasis"
-          >
+          <span v-if="$vuetify.display.smAndUp" class="text-caption text-medium-emphasis">
             {{ progressStats.completed }}/{{ progressStats.total }}
           </span>
         </div>
       </template>
       <span>
-        Fortschritt: {{ progressStats.completed }} von
-        {{ progressStats.total }} Spielen abgeschlossen ({{
-          progressStats.percentage
-        }}%)
+        Fortschritt: {{ progressStats.completed }} von {{ progressStats.total }} Spielen
+        abgeschlossen ({{ progressStats.percentage }}%)
       </span>
     </v-tooltip>
   </div>
@@ -54,9 +46,7 @@ defineEmits<{
 }>();
 
 const gameStore = useGameStore();
-const allAvailableGames = ref<Array<{ game_id: number; date: string | null }>>(
-  [],
-);
+const allAvailableGames = ref<Array<{ game_id: number; date: string | null }>>([]);
 
 const progressStats = computed(() => {
   if (allAvailableGames.value.length === 0) {
@@ -91,12 +81,11 @@ const progressStats = computed(() => {
   return {
     completed: completedGames,
     total: totalGames,
-    percentage:
-      totalGames > 0 ? Math.round((completedGames / totalGames) * 100) : 0,
+    percentage: totalGames > 0 ? Math.round((completedGames / totalGames) * 100) : 0,
   };
 });
 
-onMounted(async() => {
+onMounted(async () => {
   try {
     const games = await getAllGames();
     if (games) {

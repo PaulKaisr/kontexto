@@ -279,6 +279,12 @@ Words are color-coded based on their similarity ranking:
 - **German Localization**: All UI text in German with proper terminology
 - **Accessibility**: Proper ARIA labels and keyboard navigation
 - **Consistent Styling**: Exclusive use of Tailwind CSS and Vuetify components with established design patterns
+- **IMPORTANT**: ALWAYS use Tailwind CSS for styling when possible. Avoid inline styles and custom CSS unless absolutely necessary. Tailwind provides consistent spacing, colors, and responsive design utilities that should be preferred over manual styling.
+- **CRITICAL**: ALWAYS prioritize native Vuetify components over custom implementations. Use Vuetify's extensive component library (v-card, v-btn, v-dialog, v-list, v-chip, v-avatar, v-divider, etc.) for consistent Material Design styling and built-in functionality. Only create custom components when Vuetify doesn't provide the needed functionality.
+- **Component Priority Order**:
+  1. Native Vuetify components (v-card, v-btn, v-list, etc.)
+  2. Tailwind CSS classes for spacing, colors, and layout
+  3. Custom Vue components only when absolutely necessary
 - **Dialog System**: Comprehensive modal system with mobile optimization (fullscreen on xs, responsive sizing)
 - **Legal Compliance**: Integrated data protection and contact pages via Vue Router
 

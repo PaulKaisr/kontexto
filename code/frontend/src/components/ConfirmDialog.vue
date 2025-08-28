@@ -54,13 +54,7 @@ interface Props {
   confirmText?: string;
   cancelText?: string;
   confirmColor?: string;
-  confirmVariant?:
-    | "flat"
-    | "elevated"
-    | "tonal"
-    | "outlined"
-    | "text"
-    | "plain";
+  confirmVariant?: "flat" | "elevated" | "tonal" | "outlined" | "text" | "plain";
   loading?: boolean;
 }
 
@@ -81,5 +75,3 @@ function handleConfirm() {
   emit("confirm");
 }
 </script>
-
-

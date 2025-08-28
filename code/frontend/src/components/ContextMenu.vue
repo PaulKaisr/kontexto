@@ -1,8 +1,5 @@
 <template>
-  <v-menu
-    location="bottom start"
-    data-testid="context-menu"
-  >
+  <v-menu location="bottom start" data-testid="context-menu">
     <template #activator="{ props: activatorProps }">
       <v-btn
         icon="mdi-dots-vertical"
@@ -37,30 +34,21 @@
 
       <v-divider />
 
-      <v-list-item
-        data-testid="previous-games-button"
-        @click="showPreviousGames = true"
-      >
+      <v-list-item data-testid="previous-games-button" @click="showPreviousGames = true">
         <template #prepend>
           <v-icon icon="mdi-calendar" />
         </template>
         <v-list-item-title>Frühere Spiele</v-list-item-title>
       </v-list-item>
 
-      <v-list-item
-        data-testid="how-to-play-button"
-        @click="showHowToPlay = true"
-      >
+      <v-list-item data-testid="how-to-play-button" @click="showHowToPlay = true">
         <template #prepend>
           <v-icon icon="mdi-help-circle-outline" />
         </template>
         <v-list-item-title>Wie spielt man?</v-list-item-title>
       </v-list-item>
 
-      <v-list-item
-        data-testid="settings-button"
-        @click="showSettings = true"
-      >
+      <v-list-item data-testid="settings-button" @click="showSettings = true">
         <template #prepend>
           <v-icon icon="mdi-cog-outline" />
         </template>
@@ -176,5 +164,3 @@ watch(
   { immediate: true },
 );
 </script>
-
-

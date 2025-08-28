@@ -26,7 +26,7 @@ describe("ContextMenu.vue", () => {
 
   it("renders context menu trigger button", () => {
     const wrapper = mountComponent();
-    const trigger = wrapper.find("[data-testid=\"context-menu-trigger\"]");
+    const trigger = wrapper.find('[data-testid="context-menu-trigger"]');
     expect(trigger.exists()).toBe(true);
   });
 
@@ -36,13 +36,13 @@ describe("ContextMenu.vue", () => {
     expect(wrapper.props("gameOver")).toBe(true);
   });
 
-  it("emits getHint event when trigger method is called", async() => {
+  it("emits getHint event when trigger method is called", async () => {
     const wrapper = mountComponent();
     await wrapper.vm.$emit("getHint");
     expect(wrapper.emitted()).toHaveProperty("getHint");
   });
 
-  it("emits giveUp event when trigger method is called", async() => {
+  it("emits giveUp event when trigger method is called", async () => {
     const wrapper = mountComponent();
     await wrapper.vm.$emit("giveUp");
     expect(wrapper.emitted()).toHaveProperty("giveUp");

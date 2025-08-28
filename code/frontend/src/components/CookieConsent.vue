@@ -8,25 +8,17 @@
   >
     <v-card class="cookie-consent-card">
       <v-card-title class="d-flex align-center">
-        <v-icon
-          color="primary"
-          class="me-2"
-        >
-          mdi-cookie
-        </v-icon>
+        <v-icon color="primary" class="me-2"> mdi-cookie </v-icon>
         <span>Cookie-Einstellungen</span>
       </v-card-title>
 
       <v-card-text>
         <p class="mb-4">
-          Wir verwenden Cookies, um Ihre Erfahrung auf Kontexto zu verbessern.
-          Sie können Ihre Präferenzen anpassen oder alle Cookies akzeptieren.
+          Wir verwenden Cookies, um Ihre Erfahrung auf Kontexto zu verbessern. Sie können Ihre
+          Präferenzen anpassen oder alle Cookies akzeptieren.
         </p>
 
-        <v-expansion-panels
-          v-if="showDetails"
-          variant="accordion"
-        >
+        <v-expansion-panels v-if="showDetails" variant="accordion">
           <v-expansion-panel>
             <v-expansion-panel-title>
               <div class="d-flex align-center justify-space-between w-100 pe-4">
@@ -40,25 +32,14 @@
                 <div class="mb-4">
                   <div class="d-flex align-center justify-space-between mb-2">
                     <div class="d-flex align-center">
-                      <v-icon
-                        color="success"
-                        class="me-2"
-                      >
-                        mdi-shield-check
-                      </v-icon>
+                      <v-icon color="success" class="me-2"> mdi-shield-check </v-icon>
                       <span class="font-weight-medium">Notwendige Cookies</span>
                     </div>
-                    <v-switch
-                      :model-value="true"
-                      disabled
-                      color="success"
-                      hide-details
-                    />
+                    <v-switch :model-value="true" disabled color="success" hide-details />
                   </div>
                   <p class="text-caption text-grey">
-                    Diese Cookies sind für das Funktionieren der Website
-                    unerlässlich. Sie speichern Ihre Spielfortschritte und
-                    Einstellungen.
+                    Diese Cookies sind für das Funktionieren der Website unerlässlich. Sie speichern
+                    Ihre Spielfortschritte und Einstellungen.
                   </p>
                 </div>
 
@@ -66,23 +47,14 @@
                 <div class="mb-4">
                   <div class="d-flex align-center justify-space-between mb-2">
                     <div class="d-flex align-center">
-                      <v-icon
-                        color="info"
-                        class="me-2"
-                      >
-                        mdi-chart-line
-                      </v-icon>
+                      <v-icon color="info" class="me-2"> mdi-chart-line </v-icon>
                       <span class="font-weight-medium">Analyse-Cookies</span>
                     </div>
-                    <v-switch
-                      v-model="localPreferences.analytics"
-                      color="info"
-                      hide-details
-                    />
+                    <v-switch v-model="localPreferences.analytics" color="info" hide-details />
                   </div>
                   <p class="text-caption text-grey">
-                    Helfen uns zu verstehen, wie Besucher unsere Website nutzen.
-                    Alle Daten sind anonymisiert. (Google Analytics)
+                    Helfen uns zu verstehen, wie Besucher unsere Website nutzen. Alle Daten sind
+                    anonymisiert. (Google Analytics)
                   </p>
                 </div>
 
@@ -90,23 +62,14 @@
                 <div class="mb-4">
                   <div class="d-flex align-center justify-space-between mb-2">
                     <div class="d-flex align-center">
-                      <v-icon
-                        color="warning"
-                        class="me-2"
-                      >
-                        mdi-bullhorn
-                      </v-icon>
+                      <v-icon color="warning" class="me-2"> mdi-bullhorn </v-icon>
                       <span class="font-weight-medium">Marketing-Cookies</span>
                     </div>
-                    <v-switch
-                      v-model="localPreferences.marketing"
-                      color="warning"
-                      hide-details
-                    />
+                    <v-switch v-model="localPreferences.marketing" color="warning" hide-details />
                   </div>
                   <p class="text-caption text-grey">
-                    Werden für personalisierte Werbung verwendet, einschließlich
-                    Google AdSense. Helfen bei der Finanzierung des kostenlosen Spiels.
+                    Werden für personalisierte Werbung verwendet, einschließlich Google AdSense.
+                    Helfen bei der Finanzierung des kostenlosen Spiels.
                   </p>
                 </div>
               </div>
@@ -172,10 +135,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from "vue";
-import {
-  useCookiesStore,
-  type CookiePreferences,
-} from "@/stores/cookies.store";
+import { useCookiesStore, type CookiePreferences } from "@/stores/cookies.store";
 
 const cookiesStore = useCookiesStore();
 const showDetails = ref(false);

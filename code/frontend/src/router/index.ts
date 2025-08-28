@@ -1,5 +1,6 @@
-import { createRouter, createWebHistory } from "vue-router";
 import { useAnalytics } from "@/composables/useAnalytics";
+import { nextTick } from "vue";
+import { createRouter, createWebHistory } from "vue-router";
 
 const Home = () => import("../views/Home.vue");
 const DataProtection = () => import("../views/DataProtection.vue");
@@ -8,6 +9,8 @@ const GameTips = () => import("../views/GameTips.vue");
 const About = () => import("../views/About.vue");
 const TermsOfService = () => import("../views/TermsOfService.vue");
 const FAQ = () => import("../views/FAQ.vue");
+const Blog = () => import("../views/Blog.vue");
+const BlogPost = () => import("../views/BlogPost.vue");
 
 const routes = [
   {
@@ -46,8 +49,7 @@ const routes = [
     component: DataProtection,
     meta: {
       title: "Datenschutz | Kontexto",
-      description:
-        "Datenschutzerklärung für Kontexto - Wie wir deine Daten schützen",
+      description: "Datenschutzerklärung für Kontexto - Wie wir deine Daten schützen",
     },
   },
   {
@@ -56,8 +58,7 @@ const routes = [
     component: Contact,
     meta: {
       title: "Kontakt | Kontexto",
-      description:
-        "Kontaktiere das Kontexto Team - Feedback, Fragen und Anregungen",
+      description: "Kontaktiere das Kontexto Team - Feedback, Fragen und Anregungen",
     },
   },
   {
@@ -66,8 +67,7 @@ const routes = [
     component: TermsOfService,
     meta: {
       title: "Nutzungsbedingungen | Kontexto",
-      description:
-        "Nutzungsbedingungen für Kontexto - Rechtliche Hinweise zur Nutzung",
+      description: "Nutzungsbedingungen für Kontexto - Rechtliche Hinweise zur Nutzung",
     },
   },
   {
@@ -76,8 +76,24 @@ const routes = [
     component: FAQ,
     meta: {
       title: "FAQ - Häufig gestellte Fragen | Kontexto",
-      description:
-        "Antworten auf häufige Fragen zu Kontexto - Spielregeln, Strategien und mehr",
+      description: "Antworten auf häufige Fragen zu Kontexto - Spielregeln, Strategien und mehr",
+    },
+  },
+  {
+    path: "/blog",
+    name: "blog",
+    component: Blog,
+    meta: {
+      title: "Blog | Kontexto",
+      description: "Neueste Nachrichten und Updates zu Kontexto - Wortspiel-Trends und Insights",
+    },
+  },
+  {
+    path: "/blog/:slug",
+    name: "blog-post",
+    component: BlogPost,
+    meta: {
+      // Dynamic meta will be set in the component based on blog post data
     },
   },
   // Legacy routes for backwards compatibility
@@ -116,7 +132,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.meta?.description) {
-    const metaDescription = document.querySelector("meta[name=\"description\"]");
+    const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute("content", to.meta.description as string);
     }
@@ -127,12 +143,9 @@ router.beforeEach((to, from, next) => {
 
 // Track page views after route change
 router.afterEach((to) => {
-  // Use nextTick to ensure DOM is updated
-  import("vue").then(({ nextTick }) => {
-    nextTick(() => {
-      const { trackPageView } = useAnalytics();
-      trackPageView(to.path, to.meta?.title as string);
-    });
+  nextTick(() => {
+    const { trackPageView } = useAnalytics();
+    trackPageView(to.path, to.meta?.title as string);
   });
 });
 

@@ -11,25 +11,12 @@
       </div>
     </v-card-title>
 
-    <v-card-text
-      class="pa-0 flex-grow-1"
-      style="overflow-y: auto"
-    >
-      <div
-        v-if="loading"
-        class="text-center py-6 sm:py-8"
-      >
-        <v-skeleton-loader
-          type="heading, list-item@5"
-          class="mx-auto"
-          max-width="600"
-        />
+    <v-card-text class="pa-0 flex-grow-1" style="overflow-y: auto">
+      <div v-if="loading" class="text-center py-6 sm:py-8">
+        <v-skeleton-loader type="heading, list-item@5" class="mx-auto" max-width="600" />
       </div>
 
-      <div
-        v-else-if="error"
-        class="text-center py-6 sm:py-8 px-3"
-      >
+      <div v-else-if="error" class="text-center py-6 sm:py-8 px-3">
         <v-icon
           icon="mdi-alert-circle"
           color="error"
@@ -41,19 +28,14 @@
         </p>
       </div>
 
-      <div
-        v-else-if="games.length === 0"
-        class="text-center py-6 sm:py-8 px-3"
-      >
+      <div v-else-if="games.length === 0" class="text-center py-6 sm:py-8 px-3">
         <v-icon
           icon="mdi-calendar-blank"
           color="grey"
           :size="$vuetify.display.smAndUp ? '64' : '48'"
           class="mb-3 sm:mb-4"
         />
-        <p class="text-body-2 sm:text-body-1">
-          Keine früheren Spiele gefunden.
-        </p>
+        <p class="text-body-2 sm:text-body-1">Keine früheren Spiele gefunden.</p>
       </div>
 
       <div v-else>
@@ -63,14 +45,8 @@
           </p>
         </div>
 
-        <v-list
-          class="pa-0"
-          density="comfortable"
-        >
-          <template
-            v-for="(game, index) in gamesWithProgress"
-            :key="game.gameId"
-          >
+        <v-list class="pa-0" density="comfortable">
+          <template v-for="(game, index) in gamesWithProgress" :key="game.gameId">
             <v-list-item
               class="px-3 sm:px-4 py-2 sm:py-3"
               :class="{
@@ -82,11 +58,7 @@
             >
               <template #prepend>
                 <v-avatar
-                  :color="
-                    game.gameId === currentGameId
-                      ? 'primary'
-                      : getGameStateColor(game.state)
-                  "
+                  :color="game.gameId === currentGameId ? 'primary' : getGameStateColor(game.state)"
                   :size="$vuetify.display.smAndUp ? '40' : '32'"
                   class="mr-2 sm:mr-3"
                 >
@@ -99,9 +71,7 @@
               </template>
 
               <div class="d-flex flex-column align-start">
-                <v-list-item-title
-                  class="font-weight-medium text-body-2 sm:text-body-1"
-                >
+                <v-list-item-title class="font-weight-medium text-body-2 sm:text-body-1">
                   Spiel #{{ game.gameId }}
                 </v-list-item-title>
 
@@ -119,20 +89,14 @@
                     {{ game.state }}
                   </v-chip>
 
-                  <div
-                    v-if="game.guessCount > 0"
-                    class="text-caption text-grey-darken-1"
-                  >
+                  <div v-if="game.guessCount > 0" class="text-caption text-grey-darken-1">
                     {{ game.guessCount }} Versuche
                     <span v-if="game.hintsUsed > 0">• {{ game.hintsUsed }} Hinweise</span>
                   </div>
                 </div>
 
                 <!-- Show solution if available -->
-                <div
-                  v-if="game.solution"
-                  class="text-caption text-success mt-1 font-weight-bold"
-                >
+                <div v-if="game.solution" class="text-caption text-success mt-1 font-weight-bold">
                   Lösung: {{ game.solution }}
                 </div>
               </div>
@@ -161,10 +125,7 @@
               </template>
             </v-list-item>
 
-            <v-divider
-              v-if="index < gamesWithProgress.length - 1"
-              class="mx-3 sm:mx-4"
-            />
+            <v-divider v-if="index < gamesWithProgress.length - 1" class="mx-3 sm:mx-4" />
           </template>
         </v-list>
       </div>
@@ -278,31 +239,31 @@ function formatDate(dateString: string | null): string {
 
 function getGameStateColor(state: GameState): string {
   switch (state) {
-  case GameState.NOT_STARTED:
-    return "grey-lighten-1";
-  case GameState.IN_PROGRESS:
-    return "orange";
-  case GameState.SOLVED:
-    return "success";
-  case GameState.GIVEN_UP:
-    return "error";
-  default:
-    return "grey-lighten-1";
+    case GameState.NOT_STARTED:
+      return "grey-lighten-1";
+    case GameState.IN_PROGRESS:
+      return "orange";
+    case GameState.SOLVED:
+      return "success";
+    case GameState.GIVEN_UP:
+      return "error";
+    default:
+      return "grey-lighten-1";
   }
 }
 
 function getGameStateIcon(state: GameState): string {
   switch (state) {
-  case GameState.NOT_STARTED:
-    return "mdi-play-circle-outline";
-  case GameState.IN_PROGRESS:
-    return "mdi-progress-clock";
-  case GameState.SOLVED:
-    return "mdi-check-circle";
-  case GameState.GIVEN_UP:
-    return "mdi-close-circle";
-  default:
-    return "mdi-play-circle-outline";
+    case GameState.NOT_STARTED:
+      return "mdi-play-circle-outline";
+    case GameState.IN_PROGRESS:
+      return "mdi-progress-clock";
+    case GameState.SOLVED:
+      return "mdi-check-circle";
+    case GameState.GIVEN_UP:
+      return "mdi-close-circle";
+    default:
+      return "mdi-play-circle-outline";
   }
 }
 
@@ -337,7 +298,7 @@ async function selectGame(game: GameWithProgress) {
   }
 }
 
-onMounted(async() => {
+onMounted(async () => {
   try {
     loading.value = true;
     error.value = false;

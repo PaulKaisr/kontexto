@@ -1,424 +1,293 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <!-- Header -->
-    <header class="bg-white shadow-sm">
-      <div class="max-w-4xl mx-auto px-4 py-6">
-        <nav class="mb-4">
-          <router-link to="/" class="text-blue-600 hover:text-blue-800 text-sm">
-            ← Zurück zum Spiel
-          </router-link>
-        </nav>
-        <h1 class="text-3xl font-bold text-gray-900">
-          Über Kontexto
-        </h1>
-        <p class="text-lg text-gray-600 mt-2">
+  <v-container class="pa-0" fluid>
+    <!-- Header Section -->
+    <v-card class="mb-8" flat>
+      <v-card-text class="pa-8">
+        <v-btn
+          :to="{ name: 'home' }"
+          color="primary"
+          variant="text"
+          size="small"
+          prepend-icon="mdi-arrow-left"
+          class="mb-4"
+        >
+          Zurück zum Spiel
+        </v-btn>
+
+        <h1 class="text-h3 font-weight-bold text-primary mb-2">Über Kontexto</h1>
+        <p class="text-h6 text-medium-emphasis">
           Das innovative deutsche Wortspiel mit KI-basierter Ähnlichkeit
         </p>
-      </div>
-    </header>
+      </v-card-text>
+    </v-card>
 
-    <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4 py-8">
-      <!-- What is Kontexto -->
-      <section class="bg-white rounded-lg shadow-sm p-6 mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
-          Was ist Kontexto?
-        </h2>
-        <div class="prose prose-lg text-gray-700">
-          <p class="mb-4">
-            <strong>Kontexto</strong> ist ein innovatives deutsches Wortspiel,
-            das die Kraft der künstlichen Intelligenz nutzt, um ein völlig neues
-            Spielerlebnis zu schaffen. Anders als traditionelle Wortspiele
-            basiert Kontexto auf <em>semantischer Ähnlichkeit</em>
-            – das bedeutet, es bewertet nicht nur Buchstaben oder Wortlängen,
-            sondern die tatsächliche
-            <strong>Bedeutung</strong> und den <strong>Kontext</strong> der
-            Wörter.
-          </p>
+    <v-container class="max-w-6xl mx-auto">
+      <!-- What is Kontexto Section -->
+      <section class="mb-12">
+        <h2 class="text-h4 font-weight-bold text-primary mb-6">Was ist Kontexto?</h2>
 
-          <p class="mb-4">
-            Jeden Tag um Mitternacht erscheint ein neues Rätsel mit einem
-            versteckten Zielwort. Deine Aufgabe: Rate das Wort durch clevere
-            Hinweise und nutze dabei die KI-gestützte Ähnlichkeitsbewertung, um
-            dich Schritt für Schritt der Lösung zu nähern.
-          </p>
+        <v-card variant="outlined" rounded="lg">
+          <v-card-text class="pa-8">
+            <p class="text-h6 mb-4">
+              <strong>Kontexto</strong> ist ein innovatives deutsches Wortspiel, das die Kraft der
+              künstlichen Intelligenz nutzt, um ein völlig neues Spielerlebnis zu schaffen. Anders
+              als traditionelle Wortspiele basiert Kontexto auf <em>semantischer Ähnlichkeit</em> –
+              das bedeutet, es bewertet nicht nur Buchstaben oder Wortlängen, sondern die
+              tatsächliche <strong>Bedeutung</strong> und den <strong>Kontext</strong> der Wörter.
+            </p>
 
-          <p>
-            Das Besondere an Kontexto: Es ist
-            <strong>komplett kostenlos</strong>, funktioniert in jedem
-            Webbrowser und wurde speziell für die deutsche Sprache entwickelt.
-          </p>
-        </div>
+            <p class="text-body-1 text-medium-emphasis mb-4">
+              Jeden Tag um Mitternacht erscheint ein neues Rätsel mit einem versteckten Zielwort.
+              Deine Aufgabe: Rate das Wort durch clevere Hinweise und nutze dabei die KI-gestützte
+              Ähnlichkeitsbewertung, um dich Schritt für Schritt der Lösung zu nähern.
+            </p>
+
+            <p class="text-body-1 text-medium-emphasis">
+              Das Besondere an Kontexto: Es ist <strong>komplett kostenlos</strong>, funktioniert in
+              jedem Webbrowser und wurde speziell für die deutsche Sprache entwickelt.
+            </p>
+          </v-card-text>
+        </v-card>
       </section>
 
-      <!-- How it works -->
-      <section class="bg-white rounded-lg shadow-sm p-6 mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
-          🤖 Wie funktioniert die KI-Technologie?
+      <!-- AI Technology Section -->
+      <section class="mb-12">
+        <h2 class="text-h4 font-weight-bold text-primary mb-6">
+          <v-icon icon="mdi-brain" class="mr-3" color="primary" />
+          Wie funktioniert die KI-Technologie?
         </h2>
 
-        <div class="grid md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-lg font-semibold text-gray-800 mb-3">
-              Semantische Vektorräume
-            </h3>
-            <p class="text-gray-600 text-sm mb-4">
-              Kontexto verwendet moderne Machine Learning-Modelle, die Wörter
-              als Punkte in einem hochdimensionalen Raum darstellen. Wörter mit
-              ähnlicher Bedeutung liegen dabei näher beieinander.
-            </p>
+        <v-row>
+          <v-col cols="12" md="6">
+            <v-card class="h-100" variant="outlined" rounded="lg">
+              <v-card-text class="pa-6">
+                <v-icon icon="mdi-chart-scatter-plot" color="info" size="48" class="mb-3" />
+                <h3 class="text-h6 font-weight-bold mb-3">Semantische Vektorräume</h3>
+                <p class="text-body-2 text-medium-emphasis mb-4">
+                  Kontexto verwendet moderne Machine Learning-Modelle, die Wörter als Punkte in
+                  einem hochdimensionalen Raum darstellen. Wörter mit ähnlicher Bedeutung liegen
+                  dabei näher beieinander.
+                </p>
+                <v-alert type="info" variant="tonal" class="text-body-2">
+                  <strong>Beispiel:</strong> "Hund" und "Katze" haben eine hohe Ähnlichkeit, weil
+                  beide Haustiere sind.
+                </v-alert>
+              </v-card-text>
+            </v-card>
+          </v-col>
 
-            <div class="bg-blue-50 p-3 rounded-lg text-sm">
-              <strong class="text-blue-900">Beispiel:</strong>
-              <p class="text-blue-800 mt-1">
-                "Hund" und "Katze" haben eine hohe Ähnlichkeit, weil beide
-                Haustiere sind. "Hund" und "Automobil" haben eine niedrige
-                Ähnlichkeit, weil sie thematisch völlig verschiedene Bereiche
-                abdecken.
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <h3 class="text-lg font-semibold text-gray-800 mb-3">
-              Kontextuelle Bedeutung
-            </h3>
-            <p class="text-gray-600 text-sm mb-4">
-              Die KI versteht nicht nur einzelne Wörter, sondern auch deren
-              Verwendung in verschiedenen Kontexten. Dadurch entstehen
-              überraschende und intuitive Ähnlichkeitsverbindungen.
-            </p>
-
-            <div class="bg-green-50 p-3 rounded-lg text-sm">
-              <strong class="text-green-900">Beispiel:</strong>
-              <p class="text-green-800 mt-1">
-                "Schule" ist nicht nur ähnlich zu "lernen", sondern auch zu
-                "Kindheit", "Freunde" oder "Pausenhof" – weil diese Begriffe im
-                gleichen Lebenskontext stehen.
-              </p>
-            </div>
-          </div>
-        </div>
+          <v-col cols="12" md="6">
+            <v-card class="h-100" variant="outlined" rounded="lg">
+              <v-card-text class="pa-6">
+                <v-icon icon="mdi-layers" color="success" size="48" class="mb-3" />
+                <h3 class="text-h6 font-weight-bold mb-3">Kontextuelle Bedeutung</h3>
+                <p class="text-body-2 text-medium-emphasis mb-4">
+                  Die KI versteht nicht nur einzelne Wörter, sondern auch deren Verwendung in
+                  verschiedenen Kontexten. Dadurch entstehen überraschende und intuitive
+                  Ähnlichkeitsverbindungen.
+                </p>
+                <v-alert type="success" variant="tonal" class="text-body-2">
+                  <strong>Beispiel:</strong> "Schule" ist ähnlich zu "Kindheit", "Freunde" oder
+                  "Pausenhof".
+                </v-alert>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </section>
 
-      <!-- Why Kontexto -->
-      <section class="bg-white rounded-lg shadow-sm p-6 mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
-          🎯 Warum Kontexto anders ist
+      <!-- Why Different Section -->
+      <section class="mb-12">
+        <h2 class="text-h4 font-weight-bold text-primary mb-6">
+          <v-icon icon="mdi-star" class="mr-3" color="primary" />
+          Warum Kontexto anders ist
         </h2>
 
-        <div class="space-y-6">
-          <div class="flex items-start">
-            <div class="bg-blue-100 text-blue-600 rounded-full p-3 mr-4 mt-1">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                Innovatives Spielprinzip
-              </h3>
-              <p class="text-gray-600">
-                Während andere Wortspiele auf Buchstabenpositionen oder
-                Wortlängen setzen, revolutioniert Kontexto das Genre durch
-                bedeutungsbasierte Ähnlichkeit.
-              </p>
-            </div>
-          </div>
+        <v-row>
+          <v-col cols="12" md="4">
+            <v-card class="h-100 text-center" variant="outlined" rounded="lg">
+              <v-card-text class="pa-6">
+                <v-icon icon="mdi-lightbulb" color="warning" size="48" class="mb-3" />
+                <h3 class="text-h6 font-weight-bold mb-3">Innovatives Spielprinzip</h3>
+                <p class="text-body-2 text-medium-emphasis">
+                  Bedeutungsbasierte Ähnlichkeit statt Buchstabenpositionen revolutioniert das
+                  Wortspielgenre.
+                </p>
+              </v-card-text>
+            </v-card>
+          </v-col>
 
-          <div class="flex items-start">
-            <div class="bg-green-100 text-green-600 rounded-full p-3 mr-4 mt-1">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                Pädagogisch wertvoll
-              </h3>
-              <p class="text-gray-600">
-                Kontexto erweitert nicht nur den Wortschatz, sondern schärft
-                auch das Verständnis für Wortbeziehungen, Synonyme und
-                semantische Zusammenhänge in der deutschen Sprache.
-              </p>
-            </div>
-          </div>
+          <v-col cols="12" md="4">
+            <v-card class="h-100 text-center" variant="outlined" rounded="lg">
+              <v-card-text class="pa-6">
+                <v-icon icon="mdi-school" color="success" size="48" class="mb-3" />
+                <h3 class="text-h6 font-weight-bold mb-3">Pädagogisch wertvoll</h3>
+                <p class="text-body-2 text-medium-emphasis">
+                  Erweitert Wortschatz und schärft das Verständnis für Wortbeziehungen und Synonyme.
+                </p>
+              </v-card-text>
+            </v-card>
+          </v-col>
 
-          <div class="flex items-start">
-            <div class="bg-purple-100 text-purple-600 rounded-full p-3 mr-4 mt-1">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                Für alle zugänglich
-              </h3>
-              <p class="text-gray-600">
-                Keine App-Installation nötig, keine Registrierung erforderlich,
-                komplett kostenlos. Kontexto funktioniert auf jedem Gerät mit
-                Internetverbindung.
-              </p>
-            </div>
-          </div>
-        </div>
+          <v-col cols="12" md="4">
+            <v-card class="h-100 text-center" variant="outlined" rounded="lg">
+              <v-card-text class="pa-6">
+                <v-icon icon="mdi-earth" color="info" size="48" class="mb-3" />
+                <h3 class="text-h6 font-weight-bold mb-3">Für alle zugänglich</h3>
+                <p class="text-body-2 text-medium-emphasis">
+                  Keine App-Installation, keine Registrierung, komplett kostenlos auf jedem Gerät.
+                </p>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </section>
 
-      <!-- Comparison with other games -->
-      <section class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg p-6 mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
-          📊 Kontexto vs. andere Wortspiele
+      <!-- Mission Section -->
+      <section class="mb-12">
+        <v-card variant="flat" color="primary" class="text-white">
+          <v-card-text class="pa-8">
+            <div class="text-center mb-6">
+              <v-icon icon="mdi-rocket" size="48" class="mb-4" />
+              <h2 class="text-h4 font-weight-bold mb-4">Unsere Mission</h2>
+            </div>
+
+            <v-row>
+              <v-col cols="12" md="6">
+                <h3 class="text-h6 font-weight-bold mb-3">Sprache spielerisch erleben</h3>
+                <p class="text-body-1 text-white text-medium-emphasis">
+                  Wir möchten zeigen, wie schön und vielfältig die deutsche Sprache ist. Durch
+                  KI-gestützte Technologie machen wir Wortbeziehungen sichtbar und schaffen ein
+                  intuitives Spielerlebnis.
+                </p>
+              </v-col>
+              <v-col cols="12" md="6">
+                <h3 class="text-h6 font-weight-bold mb-3">Kostenlose Bildung für alle</h3>
+                <p class="text-body-1 text-white text-medium-emphasis">
+                  Bildung sollte für jeden zugänglich sein. Deshalb ist Kontexto kostenlos
+                  verfügbar. Die Finanzierung erfolgt durch nutzerfreundliche Werbung, die das
+                  Spielerlebnis nicht beeinträchtigt.
+                </p>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </section>
+
+      <!-- Future Features Section -->
+      <section class="mb-12">
+        <h2 class="text-h4 font-weight-bold text-primary mb-6">
+          <v-icon icon="mdi-rocket-launch" class="mr-3" color="primary" />
+          Geplante Features
         </h2>
 
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="border-b border-gray-200">
-                <th class="text-left py-2 font-semibold text-gray-800">
-                  Feature
-                </th>
-                <th class="text-center py-2 font-semibold text-blue-800">
-                  Kontexto
-                </th>
-                <th class="text-center py-2 font-semibold text-gray-600">
-                  Wordle
-                </th>
-                <th class="text-center py-2 font-semibold text-gray-600">
-                  Kreuzworträtsel
-                </th>
-              </tr>
-            </thead>
-            <tbody class="text-gray-700">
-              <tr class="border-b border-gray-100">
-                <td class="py-2">
-                  KI-basierte Ähnlichkeit
-                </td>
-                <td class="text-center py-2">
-                  ✅
-                </td>
-                <td class="text-center py-2">
-                  ❌
-                </td>
-                <td class="text-center py-2">
-                  ❌
-                </td>
-              </tr>
-              <tr class="border-b border-gray-100">
-                <td class="py-2">
-                  Auf Deutsch optimiert
-                </td>
-                <td class="text-center py-2">
-                  ✅
-                </td>
-                <td class="text-center py-2">
-                  ⚠️
-                </td>
-                <td class="text-center py-2">
-                  ✅
-                </td>
-              </tr>
-              <tr class="border-b border-gray-100">
-                <td class="py-2">
-                  Täglich neues Rätsel
-                </td>
-                <td class="text-center py-2">
-                  ✅
-                </td>
-                <td class="text-center py-2">
-                  ✅
-                </td>
-                <td class="text-center py-2">
-                  ⚠️
-                </td>
-              </tr>
-              <tr class="border-b border-gray-100">
-                <td class="py-2">
-                  Kostenlos verfügbar
-                </td>
-                <td class="text-center py-2">
-                  ✅
-                </td>
-                <td class="text-center py-2">
-                  ✅
-                </td>
-                <td class="text-center py-2">
-                  ⚠️
-                </td>
-              </tr>
-              <tr class="border-b border-gray-100">
-                <td class="py-2">
-                  Flexible Wortlängen
-                </td>
-                <td class="text-center py-2">
-                  ✅
-                </td>
-                <td class="text-center py-2">
-                  ❌
-                </td>
-                <td class="text-center py-2">
-                  ✅
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <v-row>
+          <v-col cols="12" md="4">
+            <v-card class="h-100" variant="outlined" rounded="lg">
+              <v-card-text class="pa-6 text-center">
+                <v-icon icon="mdi-chart-line" color="success" size="48" class="mb-3" />
+                <h3 class="text-h6 font-weight-bold mb-3">Statistiken & Erfolge</h3>
+                <p class="text-body-2 text-medium-emphasis">
+                  Detaillierte Spielstatistiken, Erfolgs-Badges und Fortschrittsverfolgung.
+                </p>
+              </v-card-text>
+            </v-card>
+          </v-col>
+
+          <v-col cols="12" md="4">
+            <v-card class="h-100" variant="outlined" rounded="lg">
+              <v-card-text class="pa-6 text-center">
+                <v-icon icon="mdi-tag-multiple" color="info" size="48" class="mb-3" />
+                <h3 class="text-h6 font-weight-bold mb-3">Thematische Modi</h3>
+                <p class="text-body-2 text-medium-emphasis">
+                  Spezielle Rätselmodi zu bestimmten Themen wie Sport, Musik oder Geschichte.
+                </p>
+              </v-card-text>
+            </v-card>
+          </v-col>
+
+          <v-col cols="12" md="4">
+            <v-card class="h-100" variant="outlined" rounded="lg">
+              <v-card-text class="pa-6 text-center">
+                <v-icon icon="mdi-account-group" color="secondary" size="48" class="mb-3" />
+                <h3 class="text-h6 font-weight-bold mb-3">Mehrspieler-Modus</h3>
+                <p class="text-body-2 text-medium-emphasis">
+                  Rate zusammen mit Freunden oder tritt in wöchentlichen Turnieren gegen andere an.
+                </p>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </section>
 
-      <!-- Mission & Vision -->
-      <section class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg p-6 mb-8">
-        <h2 class="text-2xl font-semibold mb-4">
-          🌟 Unsere Mission
-        </h2>
-        <div class="grid md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-lg font-semibold mb-3">
-              Sprache spielerisch erleben
-            </h3>
-            <p class="text-sm opacity-90">
-              Wir möchten zeigen, wie schön und vielfältig die deutsche Sprache
-              ist. Durch KI-gestützte Technologie machen wir Wortbeziehungen
-              sichtbar und schaffen ein intuitives Spielerlebnis.
-            </p>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold mb-3">
-              Kostenlose Bildung für alle
-            </h3>
-            <p class="text-sm opacity-90">
-              Bildung sollte für jeden zugänglich sein. Deshalb ist Kontexto
-              kostenlos verfügbar. Die Finanzierung erfolgt durch
-              nutzerfreundliche Werbung, die das Spielerlebnis nicht beeinträchtigt.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Future Plans -->
-      <section class="bg-white rounded-lg shadow-sm p-6 mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
-          🚀 Geplante Features
+      <!-- Developer Section -->
+      <section class="mb-12">
+        <h2 class="text-h4 font-weight-bold text-primary mb-6">
+          <v-icon icon="mdi-account-heart" class="mr-3" color="primary" />
+          Über den Entwickler
         </h2>
 
-        <div class="grid md:grid-cols-3 gap-4">
-          <div class="border border-gray-200 p-4 rounded-lg">
-            <h3 class="font-semibold text-gray-800 mb-2">
-              Statistiken & Erfolge
-            </h3>
-            <p class="text-sm text-gray-600">
-              Detaillierte Spielstatistiken, Erfolgs-Badges und
-              Fortschrittsverfolgung.
+        <v-card variant="outlined" rounded="lg">
+          <v-card-text class="pa-8 text-center">
+            <v-icon icon="mdi-code-tags" color="primary" size="48" class="mb-4" />
+            <h3 class="text-h5 font-weight-bold mb-4">OneDevDiaries</h3>
+            <p class="text-body-1 text-medium-emphasis mb-6">
+              Folge der Entwicklungsreise von Kontexto und erhalte Einblicke in moderne
+              Web-Entwicklung, KI-Integration und Solo-Development-Prozesse.
             </p>
-          </div>
 
-          <div class="border border-gray-200 p-4 rounded-lg">
-            <h3 class="font-semibold text-gray-800 mb-2">
-              Thematische Modi
-            </h3>
-            <p class="text-sm text-gray-600">
-              Spezielle Rätselmodi zu bestimmten Themen wie Sport, Musik oder
-              Geschichte.
-            </p>
-          </div>
-
-          <div class="border border-gray-200 p-4 rounded-lg">
-            <h3 class="font-semibold text-gray-800 mb-2">
-              Mehrspieler-Modus
-            </h3>
-            <p class="text-sm text-gray-600">
-              Rate zusammen mit Freunden oder tritt in wöchentlichen Turnieren
-              gegen andere an.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Call to Action -->
-      <section class="text-center py-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
-          Bereit für das Abenteuer?
-        </h2>
-        <p class="text-gray-600 mb-6">
-          Entdecke die faszinierende Welt der deutschen Wortspiele mit KI-Power!
-        </p>
-        <div class="space-x-4">
-          <router-link
-to="/"
-            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-block">
-            Jetzt spielen
-          </router-link>
-          <router-link
-to="/spieltipps"
-            class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors inline-block">
-            Spieltipps lesen
-          </router-link>
-        </div>
-      </section>
-    </main>
-
-    <!-- SEO Footer -->
-    <footer class="bg-gray-800 text-white py-8 mt-16">
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="grid md:grid-cols-3 gap-8">
-          <div>
-            <h3 class="font-semibold mb-3">
-              Kontexto
-            </h3>
-            <p class="text-sm text-gray-400">
-              Das innovative deutsche Wortspiel mit KI-basierter
-              Wortähnlichkeit. Täglich neue Rätsel, komplett kostenlos.
-            </p>
-          </div>
-          <div>
-            <h3 class="font-semibold mb-3">
-              Beliebte Suchbegriffe
-            </h3>
-            <div class="text-xs text-gray-400 space-y-1">
-              <p>deutsches wortspiel online</p>
-              <p>wordle deutsch alternative</p>
-              <p>ki wortspiel kostenlos</p>
-              <p>semantische ähnlichkeit spiel</p>
+            <div class="d-flex justify-center flex-wrap ga-4">
+              <v-btn
+                href="https://www.youtube.com/@OneDevDiaries"
+                target="_blank"
+                color="error"
+                variant="flat"
+                size="large"
+                rounded="lg"
+                prepend-icon="mdi-youtube"
+              >
+                YouTube
+              </v-btn>
+              <v-btn
+                href="https://www.tiktok.com/@onedevdiaries"
+                target="_blank"
+                color="black"
+                variant="flat"
+                size="large"
+                rounded="lg"
+                prepend-icon="mdi-music"
+              >
+                TikTok
+              </v-btn>
             </div>
-          </div>
-          <div>
-            <h3 class="font-semibold mb-3">
-              Technologie
-            </h3>
-            <div class="text-xs text-gray-400 space-y-1">
-              <p>Vue.js Progressive Web App</p>
-              <p>KI-basierte Ähnlichkeitsberechnung</p>
-              <p>Deutsche Sprachmodelle</p>
-              <p>Responsive Design</p>
+          </v-card-text>
+        </v-card>
+      </section>
+
+      <!-- Call to Action Section -->
+      <section class="mb-12">
+        <v-card variant="flat" color="secondary" class="text-white">
+          <v-card-text class="pa-8 text-center">
+            <v-icon icon="mdi-gamepad-variant" size="48" class="mb-4" />
+            <h2 class="text-h4 font-weight-bold mb-4">Bereit für das Abenteuer?</h2>
+            <p class="text-h6 mb-6">
+              Entdecke die faszinierende Welt der deutschen Wortspiele mit KI-Power!
+            </p>
+            <div class="d-flex justify-center flex-wrap ga-4">
+              <v-btn :to="{ name: 'home' }" color="white" variant="flat" size="large" rounded="lg">
+                Jetzt spielen
+              </v-btn>
+              <v-btn to="/spieltipps" color="white" variant="outlined" size="large" rounded="lg">
+                Spieltipps lesen
+              </v-btn>
             </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </div>
+          </v-card-text>
+        </v-card>
+      </section>
+    </v-container>
+  </v-container>
 </template>
 
 <script setup lang="ts">
-// Component logic can be added here if needed
+// About page component
 </script>
-
-<style scoped>
-.prose p {
-  margin-bottom: 1rem;
-  line-height: 1.7;
-}
-
-.prose strong {
-  font-weight: 600;
-  color: #374151;
-}
-
-.prose em {
-  font-style: italic;
-  color: #6366f1;
-}
-</style>

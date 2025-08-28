@@ -23,7 +23,7 @@
   <!-- About Page -->
   <url>
     <loc>https://kontexto.app/about</loc>
-    <lastmod>2025-08-18</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://kontexto.app/about" />
@@ -32,10 +32,52 @@
   <!-- FAQ Page -->
   <url>
     <loc>https://kontexto.app/faq</loc>
-    <lastmod>2025-08-21</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://kontexto.app/faq" />
+  </url>
+  
+  <!-- Blog Page -->
+  <url>
+    <loc>https://kontexto.app/blog</loc>
+    <lastmod>2025-08-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://kontexto.app/blog" />
+  </url>
+  
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://kontexto.app/blog/profi-strategien-kontexto-meister</loc>
+    <lastmod>2025-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://kontexto.app/blog/profi-strategien-kontexto-meister" />
+  </url>
+  
+  <url>
+    <loc>https://kontexto.app/blog/neue-features-statistiken-erfolge</loc>
+    <lastmod>2025-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://kontexto.app/blog/neue-features-statistiken-erfolge" />
+  </url>
+  
+  <url>
+    <loc>https://kontexto.app/blog/fasttext-deutsche-sprache</loc>
+    <lastmod>2025-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://kontexto.app/blog/fasttext-deutsche-sprache" />
+  </url>
+  
+  <url>
+    <loc>https://kontexto.app/blog/entwicklung-mit-ki-coding-assistenten</loc>
+    <lastmod>2025-08-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://kontexto.app/blog/entwicklung-mit-ki-coding-assistenten" />
   </url>
   
   <!-- Legal Pages -->

@@ -12,12 +12,7 @@ export function useAnalytics() {
    * Track game events with consent check
    */
   const trackGameEvent = (
-    event:
-      | "game_start"
-      | "game_complete"
-      | "game_quit"
-      | "hint_used"
-      | "give_up",
+    event: "game_start" | "game_complete" | "game_quit" | "hint_used" | "give_up",
     metadata?: Record<string, any>,
   ) => {
     if (cookiesStore.preferences.analytics && analytics.initialized) {
@@ -28,12 +23,7 @@ export function useAnalytics() {
   /**
    * Track custom events with consent check
    */
-  const trackEvent = (
-    eventName: string,
-    action: string,
-    category: string,
-    value?: number,
-  ) => {
+  const trackEvent = (eventName: string, action: string, category: string, value?: number) => {
     if (cookiesStore.preferences.analytics && analytics.initialized) {
       analytics.trackEvent(eventName, action, category, value);
     }

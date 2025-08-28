@@ -2,13 +2,21 @@
 
 /* Font display swap for better CLS */
 @font-face {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-display: swap;
 }
 
 /* Prevent invisible text during font loading */
 body {
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-family:
+    "Roboto",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    sans-serif;
   font-display: swap;
 }
 
@@ -42,20 +50,8 @@ body {
   top: 6px;
 }
 
-/* Prevent layout shifts by ensuring consistent sizing */
-.v-btn {
-  min-height: 36px;
-}
-
 .v-card {
   transition: all 0.2s ease-out;
-}
-
-/* Improve icon consistency */
-.mdi::before {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
 }
 
 /* Ensure smooth content loading */

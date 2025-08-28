@@ -1,0 +1,14 @@
+node_modules
+dist
+build
+coverage
+.git
+.vscode
+.idea
+*.log
+*.min.js
+*.min.css
+generated-sources/
+supabase/
+.pnpm-store
+pnpm-lock.yaml
