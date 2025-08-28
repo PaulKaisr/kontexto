@@ -9,6 +9,7 @@ const About = () => import("../views/About.vue");
 const TermsOfService = () => import("../views/TermsOfService.vue");
 const FAQ = () => import("../views/FAQ.vue");
 const Blog = () => import("../views/Blog.vue");
+const BlogPost = () => import("../views/BlogPost.vue");
 
 const routes = [
   {
@@ -84,6 +85,14 @@ const routes = [
     meta: {
       title: "Blog | Kontexto",
       description: "Neueste Nachrichten und Updates zu Kontexto - Wortspiel-Trends und Insights",
+    },
+  },
+  {
+    path: "/blog/:slug",
+    name: "blog-post",
+    component: BlogPost,
+    meta: {
+      // Dynamic meta will be set in the component based on blog post data
     },
   },
   // Legacy routes for backwards compatibility

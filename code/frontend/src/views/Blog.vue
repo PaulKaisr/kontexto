@@ -23,23 +23,31 @@
 
     <v-container class="max-w-6xl mx-auto">
       <!-- Featured Article -->
-      <v-card class="mb-8" color="primary" variant="flat" rounded="lg">
+      <v-card
+        v-if="featuredPost"
+        class="mb-8"
+        color="primary"
+        variant="flat"
+        rounded="lg"
+        :to="{ name: 'blog-post', params: { slug: featuredPost.slug } }"
+        hover
+      >
         <v-card-text class="pa-8 text-white">
           <div class="d-flex align-center mb-4">
             <v-chip color="white" text-color="primary" size="small" class="mr-3">
               Hauptartikel
             </v-chip>
-            <span class="text-body-2 text-white text-medium-emphasis"> 15. März 2024 </span>
+            <span class="text-body-2 text-white text-medium-emphasis">
+              {{ featuredPost.date }}
+            </span>
           </div>
 
           <h2 class="text-h4 font-weight-bold mb-4">
-            Die Psychologie des Wortratens: Wie KI unser Sprachverständnis revolutioniert
+            {{ featuredPost.title }}
           </h2>
 
           <p class="text-h6 text-white text-medium-emphasis mb-6 line-height-1-6">
-            Entdecken Sie, wie moderne KI-Technologie das Verständnis der deutschen Sprache
-            revolutioniert und wie Kontexto diese Fortschritte nutzt, um ein einzigartiges
-            Spielerlebnis zu schaffen.
+            {{ featuredPost.excerpt }}
           </p>
 
           <v-btn
@@ -59,12 +67,31 @@
         <h2 class="text-h4 font-weight-bold text-primary mb-6">Aktuelle Artikel</h2>
 
         <v-row>
-          <v-col v-for="article in recentArticles" :key="article.id" cols="12" md="6" lg="4">
-            <v-card class="h-100" variant="outlined" rounded="lg" hover>
+          <v-col
+            v-for="article in recentArticles"
+            :key="article.id"
+            cols="12"
+            md="6"
+            lg="4"
+          >
+            <v-card
+              class="h-100"
+              variant="outlined"
+              rounded="lg"
+              hover
+              :to="{ name: 'blog-post', params: { slug: article.slug } }"
+            >
               <div class="h-48 bg-gradient-to-br" :class="article.gradientClass"></div>
 
               <v-card-text class="pa-6">
                 <div class="d-flex align-center text-caption text-medium-emphasis mb-3">
+                  <v-chip
+                    :color="getCategoryColor(article.category.slug)"
+                    size="x-small"
+                    class="me-2"
+                  >
+                    {{ article.category.name }}
+                  </v-chip>
                   <span>{{ article.date }}</span>
                   <v-divider vertical class="mx-2" length="12"></v-divider>
                   <span>{{ article.readTime }}</span>
@@ -78,9 +105,12 @@
                   {{ article.excerpt }}
                 </p>
 
-                <v-btn color="primary" variant="text" size="small" append-icon="mdi-arrow-right">
-                  Artikel lesen
-                </v-btn>
+                <div class="d-flex align-center justify-space-between">
+                  <v-btn color="primary" variant="text" size="small" append-icon="mdi-arrow-right">
+                    Artikel lesen
+                  </v-btn>
+                  <span class="text-caption text-medium-emphasis">von {{ article.author }}</span>
+                </div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -92,20 +122,30 @@
         <h2 class="text-h4 font-weight-bold text-primary mb-6">Kategorien</h2>
 
         <v-row>
-          <v-col v-for="category in categories" :key="category.id" cols="12" sm="6" lg="3">
+          <v-col
+            v-for="categoryInfo in categoryStats"
+            :key="categoryInfo.category.id"
+            cols="12"
+            sm="6"
+            lg="3"
+          >
             <v-card class="text-center pa-6 h-100" variant="outlined" rounded="lg" hover>
-              <div class="text-h2 mb-3">{{ category.icon }}</div>
+              <div class="text-h2 mb-3">{{ categoryInfo.category.icon }}</div>
 
               <h3 class="text-h6 font-weight-bold mb-2">
-                {{ category.name }}
+                {{ categoryInfo.category.name }}
               </h3>
 
               <p class="text-body-2 text-medium-emphasis mb-3">
-                {{ category.description }}
+                {{ categoryInfo.category.description }}
               </p>
 
-              <v-chip color="primary" size="small" variant="text">
-                {{ category.articleCount }} Artikel
+              <v-chip
+                :color="getCategoryColor(categoryInfo.category.slug)"
+                size="small"
+                variant="text"
+              >
+                {{ categoryInfo.count }} Artikel
               </v-chip>
             </v-card>
           </v-col>
@@ -116,81 +156,36 @@
 </template>
 
 <script setup lang="ts">
-interface Article {
-  id: number;
-  title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  gradientClass: string;
-}
+import { computed } from 'vue';
+import { getBlogPosts, getFeaturedPosts, getCategoryStats } from '@/services/blog';
 
-interface Category {
-  id: number;
-  name: string;
-  description: string;
-  icon: string;
-  articleCount: number;
-}
+// Get blog data from service
+const allPosts = getBlogPosts();
+const featuredPosts = getFeaturedPosts();
+const categoryStats = getCategoryStats();
 
-const recentArticles: Article[] = [
-  {
-    id: 1,
-    title: "10 Profi-Strategien für Kontexto-Meister",
-    excerpt:
-      "Entdecken Sie bewährte Techniken und Strategien, um Ihre Kontexto-Fähigkeiten zu verbessern und schwierige Wörter schneller zu erraten.",
-    date: "12. März 2024",
-    readTime: "5 Min. Lesezeit",
-    gradientClass: "from-green-400 to-blue-500",
-  },
-  {
-    id: 2,
-    title: "Neue Features: Statistiken und Erfolge",
-    excerpt:
-      "Erfahren Sie mehr über die neuesten Funktionen in Kontexto, einschließlich detaillierter Spielstatistiken und Erfolgssystem.",
-    date: "8. März 2024",
-    readTime: "3 Min. Lesezeit",
-    gradientClass: "from-purple-400 to-pink-500",
-  },
-  {
-    id: 3,
-    title: "Wie FastText die deutsche Sprache versteht",
-    excerpt:
-      "Ein technischer Einblick in die KI-Technologie hinter Kontexto und wie semantische Ähnlichkeit berechnet wird.",
-    date: "5. März 2024",
-    readTime: "7 Min. Lesezeit",
-    gradientClass: "from-orange-400 to-red-500",
-  },
-];
+// Use featured post if available, otherwise first post
+const featuredPost = computed(() => {
+  return featuredPosts.length > 0 ? featuredPosts[0] : (allPosts.length > 0 ? allPosts[0] : null);
+});
 
-const categories: Category[] = [
-  {
-    id: 1,
-    name: "Strategien",
-    description: "Tips und Tricks für bessere Ergebnisse",
-    icon: "🎯",
-    articleCount: 12,
-  },
-  {
-    id: 2,
-    name: "Technologie",
-    description: "Wie KI und NLP Kontexto antreiben",
-    icon: "🤖",
-    articleCount: 8,
-  },
-  {
-    id: 3,
-    name: "Updates",
-    description: "Neue Features und Verbesserungen",
-    icon: "📈",
-    articleCount: 15,
-  },
-  {
-    id: 4,
-    name: "Community",
-    description: "Spieler-Geschichten und Highlights",
-    icon: "🌟",
-    articleCount: 6,
-  },
-];
+// Get recent articles (excluding featured post)
+const recentArticles = computed(() => {
+  const featuredId = featuredPost.value?.id;
+  return allPosts
+    .filter(post => post.id !== featuredId)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 6);
+});
+
+// Helper function to get category colors
+const getCategoryColor = (slug: string) => {
+  const colors: Record<string, string> = {
+    'strategien': 'success',
+    'technologie': 'info',
+    'updates': 'warning',
+    'community': 'secondary'
+  };
+  return colors[slug] || 'primary';
+};
 </script>
