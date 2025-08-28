@@ -110,7 +110,7 @@ Viel Erfolg bei Ihrem nächsten Kontexto-Rätsel! 🎯
     readTime: "8 Min. Lesezeit",
     gradientClass: "from-green-400 to-blue-500",
     category: blogCategories[0], // Strategien
-    author: "Kontexto Team",
+    author: "Entwicklerteam",
     tags: ["Strategien", "Tipps", "Fortgeschritten"],
     metaDescription:
       "Lernen Sie die 10 besten Profi-Strategien für Kontexto kennen. Von der Wortfeld-Strategie bis zur Systematik - so werden Sie zum Kontexto-Meister.",
@@ -162,7 +162,7 @@ Die neue Statistik-Seite zeigt Ihnen:
     readTime: "4 Min. Lesezeit",
     gradientClass: "from-purple-400 to-pink-500",
     category: blogCategories[2], // Updates
-    author: "Entwickler-Team",
+    author: "Entwicklerteam",
     tags: ["Updates", "Features", "Statistiken"],
     metaDescription:
       "Entdecken Sie die neuesten Kontexto-Features: Erfolgssystem, erweiterte Statistiken und visuelle Verbesserungen.",
@@ -588,7 +588,7 @@ Wenn du eine App-Idee hast, aber denkst, sie sei zu komplex für eine Person –
     readTime: "15 Min. Lesezeit",
     gradientClass: "from-blue-500 to-purple-600",
     category: blogCategories[2], // Updates
-    author: "Paul Kaiser",
+    author: "Entwicklerteam",
     tags: ["Entwicklung", "KI", "Claude Code", "GitHub Copilot", "Solo Development"],
     metaDescription:
       "Erfahren Sie, wie Kontexto mit Hilfe von Claude Code und GitHub Copilot von einem Solo-Entwickler erstellt wurde. Ein ehrlicher Einblick in moderne KI-gestützte Entwicklung.",
