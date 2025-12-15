@@ -1,6 +1,7 @@
 import argparse
 import random
 from collections import OrderedDict
+from datetime import datetime
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -73,6 +74,9 @@ def main(args):
     
     if args.solution and args.number != 1:
         raise SystemExit("Cannot use --solution with --number > 1. Solution can only be specified for a single game.")
+
+    if args.start_date and args.replace:
+        raise SystemExit("Cannot use --start-date with --replace.")
     
     game_service = GameService()
     similarity_service: ISimilarityService = SimilarityServiceFactory.create_similarity_service(args.similarity_service)
@@ -137,7 +141,11 @@ def main(args):
         print(f"\nCreating game {i + 1}/{num_games}:")
         
         # Create a new game & choose solution
-        game = game_service.new_game()
+        if args.start_date and i == 0:
+            start_date = datetime.strptime(args.start_date, '%Y-%m-%d').date()
+            game = game_service.new_game_with_date(start_date)
+        else:
+            game = game_service.new_game()
         solution = get_solution_word(args.solution, SOLUTIONS_FILE)
         if not solution:
             raise SystemExit("No solution word could be selected.")
@@ -175,5 +183,6 @@ if __name__ == "__main__":
     parser.add_argument('--replace', type=int, help='Replace similarities for an existing game_id with newly calculated ones (preserves game ID and date)')
     parser.add_argument('--similarity-service', choices=SimilarityServiceFactory.get_available_services(), default='spacy', help='Similarity service to use (default: spacy)')
     parser.add_argument('--solution', type=str, help='Specify a custom solution word instead of selecting randomly from file')
+    parser.add_argument('--start-date', type=str, help='Start date for first game (format: YYYY-MM-DD). Only works with --reset or when no games exist.')
     args = parser.parse_args()
     main(args)
