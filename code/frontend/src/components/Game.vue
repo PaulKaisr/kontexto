@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="d-flex flex-column justify-start align-center min-h-screen mt-16 md:mt-0 pt-16 md:pt-0"
-  >
+  <div class="d-flex flex-column justify-start align-center min-h-screen">
     <div class="max-w-full px-4 w-lg">
       <header class="flex flex-row w-full justify-between items-center my-2">
         <ProgressIndicator @open-progress="openPreviousGames" />
