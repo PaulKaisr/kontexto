@@ -1,6 +1,46 @@
 <template>
   <div class="d-flex flex-column justify-start align-center min-h-screen">
     <div class="max-w-full px-4 w-lg">
+      <!-- Promo Banner for new game -->
+      <v-banner
+        v-if="!promoBannerDismissed"
+        class="mb-2 mt-2 rounded-lg promo-banner"
+        color="secondary"
+        lines="two"
+        stacked
+      >
+        <template #prepend>
+          <v-avatar size="40" rounded="0">
+            <v-img src="/fakeout-logo.png" alt="Fakeout Logo" />
+          </v-avatar>
+        </template>
+
+        <v-banner-text class="font-medium">
+          <span class="font-bold">Mein neuestes Spiel:</span> Fakeout - KI oder Echt? Erkenne,
+          welches Bild von einer KI erstellt wurde und schule dein Auge!
+        </v-banner-text>
+
+        <template #actions>
+          <v-btn
+            color="white"
+            variant="flat"
+            size="small"
+            href="https://fakeout.dev"
+            target="_blank"
+            rel="noopener"
+          >
+            Jetzt spielen
+          </v-btn>
+          <v-btn
+            variant="text"
+            size="small"
+            color="white"
+            icon="mdi-close"
+            @click="dismissPromoBanner"
+          />
+        </template>
+      </v-banner>
+
       <header class="flex flex-row w-full justify-between items-center my-2">
         <ProgressIndicator @open-progress="openPreviousGames" />
         <div class="flex items-center">
@@ -117,6 +157,15 @@ const { logoSrc } = useTheme();
 const loading = ref(false);
 const errorMessage = ref("");
 const contextMenuRef = ref<InstanceType<typeof ContextMenu> | null>(null);
+
+// Promo banner state - persisted in localStorage
+const PROMO_BANNER_KEY = "kontexto_promo_banner_dismissed";
+const promoBannerDismissed = ref(localStorage.getItem(PROMO_BANNER_KEY) === "true");
+
+function dismissPromoBanner() {
+  promoBannerDismissed.value = true;
+  localStorage.setItem(PROMO_BANNER_KEY, "true");
+}
 
 function openPreviousGames() {
   // Call the exposed method from ContextMenu to open the previous games dialog
