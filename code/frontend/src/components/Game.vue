@@ -16,8 +16,8 @@
         </template>
 
         <v-banner-text class="font-medium">
-          <span class="font-bold">Neues Spiel:</span> Fakeout - KI oder Echt? Erkenne, welches Bild von einer KI
-          erstellt wurde und schule dein Auge!
+          <span class="font-bold">Neues Spiel:</span> Fakeout - KI oder Echt? Erkenne, welches Bild
+          von einer KI erstellt wurde und schule dein Auge!
         </v-banner-text>
 
         <template #actions>
